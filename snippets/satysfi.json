@@ -103,5 +103,61 @@
                 "@import: ${1}"
             ]
         }
+    ],
+    "requirements": [
+        {
+            "prefix": "stdjabook",
+            "body": ["stdja"]
+        },
+        {
+            "prefix": "stdja",
+            "body": ["stdja"]
+        },
+        {
+            "prefix": "hdecoset",
+            "body": ["hdecoset"]
+        },
+        {
+            "prefix": "vdecoset",
+            "body": ["vdecoset"]
+        },
+        {
+            "prefix": "code",
+            "body": ["code"]
+        },
+        {
+            "prefix": "pervasives",
+            "body": ["pervasives"]
+        },
+        {
+            "prefix": "gr",
+            "body": ["gr"]
+        }
+    ],
+    "module": [
+        {
+            "prefix": "StdJaBook",
+            "body": ["StdJaBook"]
+        },
+        {
+            "prefix": "StdJa",
+            "body": ["StdJa"]
+        },
+        {
+            "prefix": "HDecoSet",
+            "body": ["HDecoSet"]
+        },
+        {
+            "prefix": "VDecoSet",
+            "body": ["VDecoSet"]
+        },
+        {
+            "prefix": "Code",
+            "body": ["Code"]
+        },
+        {
+            "prefix": "Color",
+            "body": ["Color"]
+        }
     ]
 }
