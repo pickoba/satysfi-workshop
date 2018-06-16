@@ -49,14 +49,14 @@
 		"keywords": {
 			"patterns": [{
 				"name": "keyword.control.satysfi",
-				"match": "(?<![\\-\\w])(end|type|in|match|with|fun|of)(?![\\-\\w])"
+				"match": "(?<![\\-\\w])(end|in|match|with|fun|of)(?![\\-\\w])"
 			}]
 		},
 		"storage": {
 			"patterns": [
 				{
 					"name": "storage.type",
-					"match": "\\b(struct|module|let(\\-(inline|math|rec|block))?|val|direct)\\b"
+					"match": "\\b(struct|module|let(\\-(inline|math|rec|block))?|val|direct|type)\\b"
 				}
 			]
 		},
@@ -94,20 +94,20 @@
 		"propaty": {
 			"patterns": [
 				{
-					"name": "support.type.property-name.satysfi",
+					"name": "support.type.property-name",
 					"match": "(?=\\W[A-Z][a-zA-Z0-9]\\.)[a-z][a-zA-Z0-9\\-]*\\W"
 				}
 			]
 		},
 		"inline": {
 			"patterns": [{
-				"name": "support.function.satysfi",
+				"name": "entity.name.function.satysfi",
 				"match": "\\\\\\w+\\-?\\w*(?=\\W)"
 			}]
 		},
 		"block": {
 			"patterns": [{
-				"name": "support.class.satysfi",
+				"name": "entity.name.function.satysfi",
 				"match": "\\+\\w+\\-?\\w*(?=\\W)"
 			}]
 		},

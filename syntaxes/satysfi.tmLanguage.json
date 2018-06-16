@@ -6,6 +6,9 @@
 			"include": "#keywords"
 		},
 		{
+			"include": "#storage"
+		},
+		{
 			"include": "#type"
 		},
 		{
@@ -43,8 +46,16 @@
 		"keywords": {
 			"patterns": [{
 				"name": "keyword.control.satysfi",
-				"match": "(?<![\\-\\w])(let(\\-[A-Za-z]+)?|document\\W*(?=\\(\\s*)|module|struct|end|val|direct|type|in|match|with|fun|of)(?![\\-\\w])"
+				"match": "(?<![\\-\\w])(document\\W*(?=\\(\\s*)|end|in|match|with|fun|of)(?![\\-\\w])"
 			}]
+		},
+		"storage": {
+			"patterns": [
+				{
+					"name": "storage.type",
+					"match": "\\b(struct|module|let(\\-(inline|math|rec|block))?|val|direct|type)\\b"
+				}
+			]
 		},
 		"type": {
 			"patterns": [
@@ -84,7 +95,7 @@
 		},
 		"block": {
 			"patterns": [{
-				"name": "support.class.satysfi",
+				"name": "support.function.satysfi",
 				"match": "\\+\\w+\\-?\\w*\\s?(?=[\\(\\<\\[\\{])"
 			}]
 		},
