@@ -1,0 +1,36 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "SATySFi Header",
+	"patterns": [
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#comments"
+		},
+		{
+			"include": "#operator"
+		}
+	],
+	"repository": {
+		"keywords": {
+			"patterns": [{
+				"name": "keyword.control",
+				"match": "\\b(let-[A-Za-z]+|let|in|match|with|fun|(require|import))\\b"
+			}]
+		},
+		"comments": {
+			"patterns": [{
+				"name": "comment.line.percentage",
+				"match": "%.*"
+			}]
+		},
+		"operator": {
+			"patterns": [{
+				"name": "keyword.operator",
+				"match": "(=|\\|>)\\s*([\\w.*+!-]+)"
+			}]
+		}
+	},
+	"scopeName": "text.satyh"
+}

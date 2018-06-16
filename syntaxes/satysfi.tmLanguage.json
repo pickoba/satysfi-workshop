@@ -1,0 +1,35 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "SATySFi",
+	"patterns": [
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#comments"
+		},
+		{
+			"include": "#string"
+		}
+	],
+	"repository": {
+		"keywords": {
+			"patterns": [{
+				"name": "keyword.control.satysfi",
+				"match": "\\b(document|\\+\\b(section|subsection|p|math)\\b)\\b"
+			}]
+		},
+		"comments": {
+			"patterns": [{
+				"name": "comment.line.satysfi",
+				"match": "%.*"
+			}]
+		},
+		"string": {
+			"patterns": [{
+
+			}]
+		}
+	},
+	"scopeName": "text.saty"
+}

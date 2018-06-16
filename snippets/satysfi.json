@@ -1,0 +1,53 @@
+{
+    "document": {
+        "prefix": "document",
+        "body": [
+            "document (|",
+            "  title = {${1}};",
+            "  author = {${2}};",
+            "  show-title = ${3:true};",
+            "  show-toc = ${4:true};",
+            "|) '<",
+            "  ${5}",
+            ">"
+        ]
+    },
+    "section": {
+        "prefix": "section",
+        "body": [
+            "+section{${1}} <",
+            "  ${2}",
+            ">"
+        ]
+    },
+    "subsection": {
+        "prefix": "subsection",
+        "body": [
+            "+subsection{${1}} <",
+            "  ${2}",
+            ">"
+        ]
+    },
+    "paragraph": {
+        "prefix": "p",
+        "body": [
+            "+p (",
+            "  ${1}",
+            "  {",
+            "    ${2}",
+            "  }",
+            ");"
+        ]
+    },
+    "math": {
+        "prefix": "math",
+        "body": [
+            "+math (",
+            "  ${1}",
+            "  \\${",
+            "    ${2}",
+            "  }",
+            ");"
+        ]
+    }
+}

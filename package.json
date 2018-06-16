@@ -1,0 +1,53 @@
+{
+    "name": "wraikny-vscode.satysfi",
+    "displayName": "wraikny-vscode.satysfi",
+    "description": "Launguage support for SATySFi",
+    "version": "0.0.1",
+    "publisher": "wraikny",
+    "engines": {
+        "vscode": "^1.24.0"
+    },
+    "categories": [
+        "Programming Languages", "Snippets"
+    ],
+    "contributes": {
+        "languages": [
+            {
+                "id": "satysfi",
+                "aliases": ["SATySFi", "satysfi"],
+                "extensions": [".saty"],
+                "configuration": "./language-configuration.json"
+            },
+            {
+                "id": "satysfih",
+                "aliases": ["SATySFi Header", "satysfiheader"],
+                "extensions": [".satyh"],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "satysfi",
+                "scopeName": "text.saty",
+                "path": "./syntaxes/satysfi.tmLanguage.json"
+            },
+            {
+                "language": "satysfih",
+                "scopeName": "text.satyh",
+                "path": "./syntaxes/satysfih.tmLanguage.json"
+            }
+        ],
+        "snippets": [
+            {
+                "language": "satysfi",
+                "scopeName": "text.saty",
+                "path": "./snippets/satysfi.json"
+            },
+            {
+                "language": "satysfih",
+                "scopeName": "text.satyh",
+                "path": "./snippets/satysfih.json"
+            }
+        ]
+    }
+}
