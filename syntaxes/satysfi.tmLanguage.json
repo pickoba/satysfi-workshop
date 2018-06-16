@@ -10,13 +10,16 @@
 		},
 		{
 			"include": "#string"
+		},
+		{
+			"include": "markup"
 		}
 	],
 	"repository": {
 		"keywords": {
 			"patterns": [{
 				"name": "keyword.control.satysfi",
-				"match": "\\b(document|\\+\\b(section|subsection|p|math)\\b)\\b"
+				"match": "(?<!\\\\\\\\)\\b(document|[\\+\\\\]\\w+\\-?\\w*\\s?(?=[\\{\\(\\[;]))\\b"
 			}]
 		},
 		"comments": {
@@ -26,9 +29,20 @@
 			}]
 		},
 		"string": {
-			"patterns": [{
-
-			}]
+			"patterns": [
+				{
+					"name": "string.quoted.single",
+					"match": "(?<!``)`[^`]+`(?!``)"
+				}
+			]
+		},
+		"markup": {
+			"patterns": [
+				{
+					"name": "markup.raw",
+					"match": "(?<=\\()```[.]+```(?=\\);)"
+				}
+			]
 		}
 	},
 	"scopeName": "text.saty"
