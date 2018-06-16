@@ -22,13 +22,16 @@
 		},
 		{
 			"include": "#operator"
+		},
+		{
+			"include": "math"
 		}
 	],
 	"repository": {
 		"keywords": {
 			"patterns": [{
 				"name": "keyword.control.satysfi",
-				"match": "\\b(let-[A-Za-z]+|module|end|type|val|let|in|match|with|fun|ctx)\\b"
+				"match": "\\b(let-[A-Za-z]+|module|end|type|val|let|in|match|with|fun|None|Some)\\b"
 			}]
 		},
 		"module": {
@@ -40,13 +43,13 @@
 		"inline": {
 			"patterns": [{
 				"name": "entity.name.function.satysfi",
-				"match": "(?<=\\W\\\\)\\w+\\-?\\w*(?=\\W)"
+				"match": "\\\\\\w+\\-?\\w*(?=\\W)"
 			}]
 		},
 		"block": {
 			"patterns": [{
-				"name": "entity.name.function.satysfi",
-				"match": "(?<=\\W\\+)\\w+\\-?\\w*(?=\\W)"
+				"name": "entity.name.class.satysfi",
+				"match": "\\+\\w+\\-?\\w*(?=\\W)"
 			}]
 		},
 		"meta": {
@@ -64,8 +67,18 @@
 		"operator": {
 			"patterns": [{
 				"name": "keyword.operator.satysfi",
-				"match": "\\b(\\=)\\b"
+				"match": "\\b(\\+\\+)\\b",
+				"description": "it doesn't go well......"
 			}]
+		},
+		"math": {
+			"patterns": [
+				{
+					"name": "entity.other.satysfi",
+					"match": "(?<=\\W)$(?=\\{[.\\s]*\\})",
+					"description": "it doesn't go well......"
+				}
+			]
 		}
 	},
 	"scopeName": "text.satyh"

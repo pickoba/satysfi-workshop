@@ -45,13 +45,13 @@
 		},
 		"inline": {
 			"patterns": [{
-				"name": "entity.name.function.satysfi",
+				"name": "entity.name.function",
 				"match": "\\\\\\w+\\-?\\w*(?=\\W)"
 			}]
 		},
 		"block": {
 			"patterns": [{
-				"name": "entity.name.function.satysfi",
+				"name": "entity.name.class.satysfi",
 				"match": "\\+\\w+\\-?\\w*\\s?(?=[\\(\\<\\[\\{])"
 			}]
 		},
