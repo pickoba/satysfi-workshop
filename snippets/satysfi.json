@@ -37,10 +37,11 @@
                 "+p {",
                 "  ${1}",
                 "}"
-            ]
+            ],
+            "description": "+p {}"
         },
         {
-            "prefix": "+p(",
+            "prefix": "+p",
             "body": [
                 "+p (",
                 "  ${1}",
@@ -48,7 +49,8 @@
                 "    ${2}",
                 "  }",
                 ");"
-            ]
+            ],
+            "description": "+p ({});"
         }
     ],
     "math": [
@@ -58,10 +60,11 @@
                 "+math (\\${",
                 "  ${2}",
                 "});"
-            ]
+            ],
+            "description": "+math (\\n{}\\n);"
         },
         {
-            "prefix": "+math(",
+            "prefix": "+math",
             "body": [
                 "+math (",
                 "  ${1}",
@@ -69,31 +72,36 @@
                 "    ${2}",
                 "  }",
                 ");"
+            ],
+            "description": "+math (\\n{}\\n);"
+        }
+    ],
+    "let": [
+        {
+            "prefix": "let",
+            "body": [
+                "let ${1} = ${2} in"
+            ]
+        },
+        {
+            "prefix": "let-",
+            "body": [
+                "let-${1} ${2} = ${3} in"
             ]
         }
     ],
-    "let": {
-        "prefix": "let",
-        "body": [
-            "let ${1} = ${2} in"
-        ]
-    },
-    "let-": {
-        "prefix": "let-",
-        "body": [
-            "let-${1} ${2} = ${3} in"
-        ]
-    },
-    "require": {
-        "prefix": "@require",
-        "body": [
-            "@require: ${1}"
-        ]
-    },
-    "import": {
-        "prefix": "@import",
-        "body": [
-            "@import: ${1}"
-        ]
-    }
+    "meta": [
+        {
+            "prefix": "@require",
+            "body": [
+                "@require: ${1}"
+            ]
+        },
+        {
+            "prefix": "@import",
+            "body": [
+                "@import: ${1}"
+            ]
+        }
+    ]
 }

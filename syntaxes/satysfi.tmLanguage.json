@@ -52,7 +52,7 @@
 		"block": {
 			"patterns": [{
 				"name": "entity.name.function.satysfi",
-				"match": "\\+\\w+\\-?\\w*(?=[\\(\\<\\[\\{])"
+				"match": "\\+\\w+\\-?\\w*\\s?(?=[\\(\\<\\[\\{])"
 			}]
 		},
 		"meta": {

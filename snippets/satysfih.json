@@ -1,17 +1,30 @@
 {
-    "let": {
-        
-    },
-    "require": {
-        "prefix": "@require",
-        "body": [
-            "@require: ${1}"
-        ]
-    },
-    "import": {
-        "prefix": "@import",
-        "body": [
-            "@import: ${1}"
-        ]
-    }
+    "let": [
+        {
+            "prefix": "let",
+            "body": [
+                "let ${1} = ${2}"
+            ]
+        },
+        {
+            "prefix": "let-",
+            "body": [
+                "let-${1} ${2} = ${3}"
+            ]
+        }
+    ],
+    "meta": [
+        {
+            "prefix": "@require",
+            "body": [
+                "@require: ${1}"
+            ]
+        },
+        {
+            "prefix": "@import",
+            "body": [
+                "@import: ${1}"
+            ]
+        }
+    ]
 }
