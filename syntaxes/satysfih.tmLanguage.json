@@ -6,7 +6,13 @@
 			"include": "#keywords"
 		},
 		{
+			"include": "#type"
+		},
+		{
 			"include": "#module"
+		},
+		{
+			"include": "#propaty"
 		},
 		{
 			"include": "#inline"
@@ -31,14 +37,30 @@
 		"keywords": {
 			"patterns": [{
 				"name": "keyword.control.satysfi",
-				"match": "\\b(let-[A-Za-z]+|module|end|type|val|let|in|match|with|fun|None|Some)\\b"
+				"match": "(?<![\\-\\w])(let(\\-[A-Za-z]+)?|module|end|val|direct|type|in|match|with|fun|of)(?![\\-\\w])"
 			}]
+		},
+		"type": {
+			"patterns": [
+				{
+					"name": "entity.name.type.satysfi",
+					"match": "(?<![\\-\\w])(unit|int|bool|float|length|string|inline-text|inline-boxes|block-text|block-boxes|paddings|deco|deco-set|context|graphics|document|script|image|point|pre-path|path|color|font|language|math-class|math-kern-func|math-char-style|paren|math-char-class|Option|Some|None|Object|type-syntax|list|true|false)(?![\\-\\w])"
+				}
+			]
 		},
 		"module": {
 			"patterns": [{
 				"name": "entity.name.class.satysfi",
-				"match": "[A-Z][a-zA-Z0-9]*(?=\\.[a-z][a-zA-Z0-9]*)"
+				"match": "[A-Z][a-zA-Z0-9\\-]*(?=\\.[a-z][a-zA-Z0-9\\-]*\\W)"
 			}]
+		},
+		"propaty": {
+			"patterns": [
+				{
+					"name": "support.type.property-name",
+					"match": "(?=\\W[A-Z][a-zA-Z0-9]\\.)[a-z][a-zA-Z0-9\\-]*\\W"
+				}
+			]
 		},
 		"inline": {
 			"patterns": [{

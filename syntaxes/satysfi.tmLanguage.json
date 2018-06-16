@@ -6,6 +6,9 @@
 			"include": "#keywords"
 		},
 		{
+			"include": "#type"
+		},
+		{
 			"include": "module"
 		},
 		{
@@ -27,15 +30,23 @@
 			"include": "#string"
 		},
 		{
-			"include": "raw"
+			"include": "#raw"
 		}
 	],
 	"repository": {
 		"keywords": {
 			"patterns": [{
-				"name": "keyword.other.satysfi",
-				"match": "\\b(document|let\\-?[a-zA-Z]*|in|match|with|fun)\\b"
+				"name": "keyword.control.satysfi",
+				"match": "(?<![\\-\\w])(let(\\-[A-Za-z]+)?|document\\W*(?=\\(\\s*)|module|end|val|direct|type|in|match|with|fun|of)(?![\\-\\w])"
 			}]
+		},
+		"type": {
+			"patterns": [
+				{
+					"name": "entity.name.type.satysfi",
+					"match": "(?<![\\-\\w])(unit|int|bool|float|length|string|inline-text|inline-boxes|block-text|block-boxes|paddings|deco|deco-set|context|graphics|document|script|image|point|pre-path|path|color|font|language|math-class|math-kern-func|math-char-style|paren|math-char-class|Option|Some|None|Object|type-syntax|list|true|false)(?![\\-\\w])"
+				}
+			]
 		},
 		"module": {
 			"patterns": [{
@@ -45,7 +56,7 @@
 		},
 		"inline": {
 			"patterns": [{
-				"name": "entity.name.function",
+				"name": "entity.name.function.satysfi",
 				"match": "\\\\\\w+\\-?\\w*(?=\\W)"
 			}]
 		},
@@ -63,7 +74,7 @@
 		},
 		"variable": {
 			"patterns": [{
-				"name": "variable.other",
+				"name": "variable.other.satysfi",
 				"match": "(?<=let\\-?[a-zA-Z]*\\s+)[a-zA-Z0-9]+(?=\\=)"
 			}]
 		},
@@ -77,16 +88,15 @@
 			"patterns": [
 				{
 					"name": "string.quoted.single.satysfi",
-					"match": "(?<!``)`[^`]+`(?!``)"
+					"match": "(?<!`)`[^`]*`(?!`)"
 				}
 			]
 		},
 		"raw": {
 			"patterns": [
 				{
-					"name": "markup.raw.satysfi",
-					"begin": "(?<=\\()```",
-					"end": "```(?=\\);"
+					"name": "string.quoted.satysfi",
+					"match": "(?<=\\()```.+```(?=\\);)"
 				}
 			]
 		}
