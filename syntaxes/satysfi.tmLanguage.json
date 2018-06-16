@@ -6,20 +6,65 @@
 			"include": "#keywords"
 		},
 		{
+			"include": "module"
+		},
+		{
+			"include": "#inline"
+		},
+		{
+			"include": "#block"
+		},
+		{
+			"include": "#meta"
+		},
+		{
+			"include": "variable"
+		},
+		{
 			"include": "#comments"
 		},
 		{
 			"include": "#string"
 		},
 		{
-			"include": "markup"
+			"include": "raw"
 		}
 	],
 	"repository": {
 		"keywords": {
 			"patterns": [{
-				"name": "keyword.control.satysfi",
-				"match": "(?<!\\\\\\\\)\\b(document|[\\+\\\\]\\w+\\-?\\w*\\s?(?=[\\{\\(\\[;]))\\b"
+				"name": "keyword.other.satysfi",
+				"match": "\\b(document|let\\-?[a-zA-Z]*|in|match|with|fun)\\b"
+			}]
+		},
+		"module": {
+			"patterns": [{
+				"name": "entity.name.class.satysfi",
+				"match": "[A-Z][a-zA-Z0-9]*(?=\\.[a-z][a-zA-Z0-9]*)"
+			}]
+		},
+		"inline": {
+			"patterns": [{
+				"name": "entity.name.function.satysfi",
+				"match": "\\\\\\w+\\-?\\w*(?=\\W)"
+			}]
+		},
+		"block": {
+			"patterns": [{
+				"name": "entity.name.function.satysfi",
+				"match": "\\+\\w+\\-?\\w*(?=[\\(\\<\\[\\{])"
+			}]
+		},
+		"meta": {
+			"patterns": [{
+				"name": "meta.preprocessor.satysfi",
+				"match": "\\@\\b(require|import)\\b"
+			}]
+		},
+		"variable": {
+			"patterns": [{
+				"name": "variable.other",
+				"match": "(?<=let\\-?[a-zA-Z]*\\s+)[a-zA-Z0-9]+(?=\\=)"
 			}]
 		},
 		"comments": {
@@ -31,16 +76,17 @@
 		"string": {
 			"patterns": [
 				{
-					"name": "string.quoted.single",
+					"name": "string.quoted.single.satysfi",
 					"match": "(?<!``)`[^`]+`(?!``)"
 				}
 			]
 		},
-		"markup": {
+		"raw": {
 			"patterns": [
 				{
-					"name": "markup.raw",
-					"match": "(?<=\\()```[.]+```(?=\\);)"
+					"name": "markup.raw.satysfi",
+					"begin": "(?<=\\()```",
+					"end": "```(?=\\);"
 				}
 			]
 		}

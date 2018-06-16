@@ -6,7 +6,19 @@
 			"include": "#keywords"
 		},
 		{
+			"include": "#module"
+		},
+		{
+			"include": "#inline"
+		},
+		{
+			"include": "#block"
+		},
+		{
 			"include": "#comments"
+		},
+		{
+			"include": "#meta"
 		},
 		{
 			"include": "#operator"
@@ -15,20 +27,44 @@
 	"repository": {
 		"keywords": {
 			"patterns": [{
-				"name": "keyword.control",
-				"match": "\\b(let-[A-Za-z]+|let|in|match|with|fun|(require|import))\\b"
+				"name": "keyword.control.satysfi",
+				"match": "\\b(let-[A-Za-z]+|module|end|type|val|let|in|match|with|fun|ctx)\\b"
+			}]
+		},
+		"module": {
+			"patterns": [{
+				"name": "entity.name.class.satysfi",
+				"match": "[A-Z][a-zA-Z0-9]*(?=\\.[a-z][a-zA-Z0-9]*)"
+			}]
+		},
+		"inline": {
+			"patterns": [{
+				"name": "entity.name.function.satysfi",
+				"match": "(?<=\\W\\\\)\\w+\\-?\\w*(?=\\W)"
+			}]
+		},
+		"block": {
+			"patterns": [{
+				"name": "entity.name.function.satysfi",
+				"match": "(?<=\\W\\+)\\w+\\-?\\w*(?=\\W)"
+			}]
+		},
+		"meta": {
+			"patterns": [{
+				"name": "meta.preprocessor.satysfi",
+				"match": "\\@\\b(require|import)\\b"
 			}]
 		},
 		"comments": {
 			"patterns": [{
-				"name": "comment.line.percentage",
+				"name": "comment.line.percentage.satysfi",
 				"match": "%.*"
 			}]
 		},
 		"operator": {
 			"patterns": [{
-				"name": "keyword.operator",
-				"match": "(=|\\|>)\\s*([\\w.*+!-]+)"
+				"name": "keyword.operator.satysfi",
+				"match": "\\b(\\=)\\b"
 			}]
 		}
 	},
