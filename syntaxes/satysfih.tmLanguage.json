@@ -21,7 +21,7 @@
 			"include": "#module"
 		},
 		{
-			"include": "#propaty"
+			"include": "#property"
 		},
 		{
 			"include": "#inline"
@@ -43,6 +43,9 @@
 		},
 		{
 			"include": "#math"
+		},
+		{
+			"include": "#numeric"
 		}
 	],
 	"repository": {
@@ -56,7 +59,7 @@
 			"patterns": [
 				{
 					"name": "storage.type",
-					"match": "\\b(struct|module|let(\\-(inline|math|rec|block))?|val|direct|type)\\b"
+					"match": "\\b(struct|module|let(\\-(inline|math|rec|block|mutable))?|val|direct|type)\\b"
 				}
 			]
 		},
@@ -72,7 +75,7 @@
 			"patterns": [
 				{
 					"name": "constant.language.satysfi",
-					"match": "\\b(true|false|Some|None)\\b"
+					"match": "\\b(true|false|Some|None|RGB)\\b"
 				}
 			]
 		},
@@ -91,23 +94,23 @@
 				"match": "[A-Z][a-zA-Z0-9\\-]*(?=\\.[a-z][a-zA-Z0-9\\-]*\\W)"
 			}]
 		},
-		"propaty": {
+		"property": {
 			"patterns": [
 				{
-					"name": "support.type.property-name",
-					"match": "(?=\\W[A-Z][a-zA-Z0-9]\\.)[a-z][a-zA-Z0-9\\-]*\\W"
+					"name": "support.type.property-name.satysfi",
+					"match": "(?<=\\.)[a-z][a-zA-Z0-9\\-]*(?=\\W)"
 				}
 			]
 		},
 		"inline": {
 			"patterns": [{
-				"name": "entity.name.function.satysfi",
+				"name": "entity.name.section.satysfi",
 				"match": "\\\\\\w+\\-?\\w*(?=\\W)"
 			}]
 		},
 		"block": {
 			"patterns": [{
-				"name": "entity.name.function.satysfi",
+				"name": "entity.name.section.satysfi",
 				"match": "\\+\\w+\\-?\\w*(?=\\W)"
 			}]
 		},
@@ -142,6 +145,14 @@
 					"name": "entity.other.satysfi",
 					"match": "(?<=\\W)\\$(?=\\{[.\\s]*\\})",
 					"description": "it doesn't go well......"
+				}
+			]
+		},
+		"numeric": {
+			"patterns": [
+				{
+					"name": "constant.numeric.satysfi",
+					"match": "(?<![\\w])[0-9]+(\\.[0-9]*)?[a-zA-Z]*"
 				}
 			]
 		}

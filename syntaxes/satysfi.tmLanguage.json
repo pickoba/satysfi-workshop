@@ -21,6 +21,9 @@
 			"include": "#module"
 		},
 		{
+			"include": "#property"
+		},
+		{
 			"include": "#inline"
 		},
 		{
@@ -31,6 +34,9 @@
 		},
 		{
 			"include": "#variable"
+		},
+		{
+			"include": "#numeric"
 		},
 		{
 			"include": "#comments"
@@ -53,7 +59,7 @@
 			"patterns": [
 				{
 					"name": "storage.type",
-					"match": "\\b(struct|module|let(\\-(inline|math|rec|block))?|val|direct|type)\\b"
+					"match": "\\b(struct|module|let(\\-(inline|math|rec|block|mutable))?|val|direct|type)\\b"
 				}
 			]
 		},
@@ -69,7 +75,7 @@
 			"patterns": [
 				{
 					"name": "constant.language.satysfi",
-					"match": "(?<![\\-\\w])(true|false|Some|None)(?![\\-\\w])"
+					"match": "(?<![\\-\\w])(true|false|Some|None|RGB)(?![\\-\\w])"
 				}
 			]
 		},
@@ -87,16 +93,24 @@
 				"match": "[A-Z][a-zA-Z0-9]*(?=\\.[a-z][a-zA-Z0-9]*)"
 			}]
 		},
+		"property": {
+			"patterns": [
+				{
+					"name": "support.type.property-name.satysfi",
+					"match": "(?<=\\.)[a-z][a-zA-Z0-9\\-]*(?=\\W)"
+				}
+			]
+		},
 		"inline": {
 			"patterns": [{
-				"name": "support.function.satysfi",
+				"name": "entity.name.section.satysfi",
 				"match": "\\\\\\w+\\-?\\w*(?=\\W)"
 			}]
 		},
 		"block": {
 			"patterns": [{
-				"name": "support.function.satysfi",
-				"match": "\\+\\w+\\-?\\w*\\s?(?=[\\(\\<\\[\\{])"
+				"name": "entity.name.section.satysfi",
+				"match": "\\+\\w+\\-?\\w*\\s?(?=\\W)"
 			}]
 		},
 		"meta": {
@@ -110,6 +124,14 @@
 				"name": "variable.paramater.satysfi",
 				"match": "\\#[a-zA-Z0-9]+"
 			}]
+		},
+		"numeric": {
+			"patterns": [
+				{
+					"name": "constant.numeric.satysfi",
+					"match": "(?<![0-9a-zA-Zあ-ん一-龠々、。，．])[0-9]+(\\.[0-9]*)?[a-zA-Zあ-ん一-龠々、。，．]*"
+				}
+			]
 		},
 		"comments": {
 			"patterns": [{
