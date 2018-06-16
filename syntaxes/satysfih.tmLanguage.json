@@ -6,7 +6,16 @@
 			"include": "#keywords"
 		},
 		{
+			"include": "#storage"
+		},
+		{
 			"include": "#type"
+		},
+		{
+			"include": "#constant"
+		},
+		{
+			"include": "function"
 		},
 		{
 			"include": "#module"
@@ -27,50 +36,78 @@
 			"include": "#meta"
 		},
 		{
+			"include": "#variable"
+		},
+		{
 			"include": "#operator"
 		},
 		{
-			"include": "math"
+			"include": "#math"
 		}
 	],
 	"repository": {
 		"keywords": {
 			"patterns": [{
 				"name": "keyword.control.satysfi",
-				"match": "(?<![\\-\\w])(let(\\-[A-Za-z]+)?|module|end|val|direct|type|in|match|with|fun|of)(?![\\-\\w])"
+				"match": "(?<![\\-\\w])(end|type|in|match|with|fun|of)(?![\\-\\w])"
 			}]
+		},
+		"storage": {
+			"patterns": [
+				{
+					"name": "storage.type",
+					"match": "\\b(struct|module|let(\\-(inline|math|rec|block))?|val|direct)\\b"
+				}
+			]
 		},
 		"type": {
 			"patterns": [
 				{
-					"name": "entity.name.type.satysfi",
-					"match": "(?<![\\-\\w])(unit|int|bool|float|length|string|inline-text|inline-boxes|block-text|block-boxes|paddings|deco|deco-set|context|graphics|document|script|image|point|pre-path|path|color|font|language|math-class|math-kern-func|math-char-style|paren|math-char-class|Option|Some|None|Object|type-syntax|list|true|false)(?![\\-\\w])"
+					"name": "support.type.satysfi",
+					"match": "(?<![\\-\\w])(unit|int|bool|float|length|string|inline-text|inline-boxes|block-text|block-boxes|paddings|deco|deco-set|context|graphics|document|script|image|point|pre-path|path|color|font|language|math|obj|math-class|math-kern-func|math-char-style|paren|math-char-class|Option|type-syntax|list)(?![\\-\\w])"
+				}
+			]
+		},
+		"constant": {
+			"patterns": [
+				{
+					"name": "constant.language.satysfi",
+					"match": "\\b(true|false|Some|None)\\b"
+				}
+			]
+		},
+		"function": {
+			"patterns": [
+				{
+					"name": "support.function.satysfi",
+					"match": "(arabic|string\\-(unexplode|same|sub|length)|read\\-inline|inline\\-(skip|glue|fil|nil)|\\+\\+|embed\\-(string|math)|discretionary|script\\-guard|get\\-natural\\-width|inline\\-(graphics|frame\\-(outer|inner|breakable))|embed\\-block\\-(top|bottom)|line\\-stack\\-(top|bottom)|read-block|line-break|\\+\\+\\+|block\\-(nil|frame\\-breakable)|set\\-space\\-ratio|(set|get)\\-font\\-size|set\\-font|(set|get)\\-language|set\\-math\\-font|(set|get)\\-dominant\\-(wide|narrow)\\-script|set\\-(text\\-color|leading|manual\\-rising)|get\\-text\\-width|math\\-((|big\\-)char(|\\-with\\-kern)|sup|sub|lower|upper|frac|radical|paren|variant\\-char|color|char\\-glass)|text\\-in\\-math|load\\-(|pdf\\-)image|use\\-image\\-by\\-width|start\\-path|line\\-to|bezier\\-to|close\\-with\\-(line|bezier)|(terminate|unite)\\-path|fill|stroke|draw\\-text)",
+					"comment": "something problem. what's???"
 				}
 			]
 		},
 		"module": {
 			"patterns": [{
-				"name": "entity.name.class.satysfi",
+				"name": "support.class.satysfi",
 				"match": "[A-Z][a-zA-Z0-9\\-]*(?=\\.[a-z][a-zA-Z0-9\\-]*\\W)"
 			}]
 		},
 		"propaty": {
 			"patterns": [
 				{
-					"name": "support.type.property-name",
+					"name": "support.type.property-name.satysfi",
 					"match": "(?=\\W[A-Z][a-zA-Z0-9]\\.)[a-z][a-zA-Z0-9\\-]*\\W"
 				}
 			]
 		},
 		"inline": {
 			"patterns": [{
-				"name": "entity.name.function.satysfi",
+				"name": "support.function.satysfi",
 				"match": "\\\\\\w+\\-?\\w*(?=\\W)"
 			}]
 		},
 		"block": {
 			"patterns": [{
-				"name": "entity.name.class.satysfi",
+				"name": "support.class.satysfi",
 				"match": "\\+\\w+\\-?\\w*(?=\\W)"
 			}]
 		},
@@ -78,6 +115,12 @@
 			"patterns": [{
 				"name": "meta.preprocessor.satysfi",
 				"match": "\\@\\b(require|import)\\b"
+			}]
+		},
+		"variable": {
+			"patterns": [{
+				"name": "variable.paramater.satysfi",
+				"match": "\\#[a-zA-Z0-9]+"
 			}]
 		},
 		"comments": {
@@ -89,7 +132,7 @@
 		"operator": {
 			"patterns": [{
 				"name": "keyword.operator.satysfi",
-				"match": "\\b(\\+\\+)\\b",
+				"match": "\\b(\\=)\\b",
 				"description": "it doesn't go well......"
 			}]
 		},
@@ -97,7 +140,7 @@
 			"patterns": [
 				{
 					"name": "entity.other.satysfi",
-					"match": "(?<=\\W)$(?=\\{[.\\s]*\\})",
+					"match": "(?<=\\W)\\$(?=\\{[.\\s]*\\})",
 					"description": "it doesn't go well......"
 				}
 			]

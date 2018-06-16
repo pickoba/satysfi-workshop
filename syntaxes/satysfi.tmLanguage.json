@@ -9,7 +9,13 @@
 			"include": "#type"
 		},
 		{
-			"include": "module"
+			"include": "#constant"
+		},
+		{
+			"include": "#function"
+		},
+		{
+			"include": "#module"
 		},
 		{
 			"include": "#inline"
@@ -21,7 +27,7 @@
 			"include": "#meta"
 		},
 		{
-			"include": "variable"
+			"include": "#variable"
 		},
 		{
 			"include": "#comments"
@@ -37,32 +43,48 @@
 		"keywords": {
 			"patterns": [{
 				"name": "keyword.control.satysfi",
-				"match": "(?<![\\-\\w])(let(\\-[A-Za-z]+)?|document\\W*(?=\\(\\s*)|module|end|val|direct|type|in|match|with|fun|of)(?![\\-\\w])"
+				"match": "(?<![\\-\\w])(let(\\-[A-Za-z]+)?|document\\W*(?=\\(\\s*)|module|struct|end|val|direct|type|in|match|with|fun|of)(?![\\-\\w])"
 			}]
 		},
 		"type": {
 			"patterns": [
 				{
-					"name": "entity.name.type.satysfi",
-					"match": "(?<![\\-\\w])(unit|int|bool|float|length|string|inline-text|inline-boxes|block-text|block-boxes|paddings|deco|deco-set|context|graphics|document|script|image|point|pre-path|path|color|font|language|math-class|math-kern-func|math-char-style|paren|math-char-class|Option|Some|None|Object|type-syntax|list|true|false)(?![\\-\\w])"
+					"name": "support.type.satysfi",
+					"match": "(?<![\\-\\w])(unit|int|bool|float|length|string|inline-text|inline-boxes|block-text|block-boxes|paddings|deco|deco-set|context|graphics|document|script|image|point|pre-path|path|color|font|language|math|obj|math-class|math-kern-func|math-char-style|paren|math-char-class|Option|type-syntax|list)(?![\\-\\w])"
+				}
+			]
+		},
+		"constant": {
+			"patterns": [
+				{
+					"name": "constant.language.satysfi",
+					"match": "(?<![\\-\\w])(true|false|Some|None)(?![\\-\\w])"
+				}
+			]
+		},
+		"function": {
+			"patterns": [
+				{
+					"name": "support.function.satysfi",
+					"match": "(?<![\\-\\w])(arabic|string\\-(unexplode|same|sub|length)|read\\-inline|inline\\-(skip|glue|fil|nil)\\+\\+|embed\\-(string|math)|discretionary|script\\-guard|get\\-natural\\-width|inline\\-(graphics|frame\\-(outer|inner|breakable))|embed\\-block\\-(top|bottom)|line\\-stack\\-(top|bottom)|read-block|line-break|\\+\\+\\+|block\\-(nil|frame\\-breakable)|set\\-space\\-ratio|(set|get)\\-font\\-size|set\\-font|(set|get)\\-language|set\\-math\\-font|(set|get)\\-dominant\\-(wide|narrow)\\-script|set\\-(text\\-color|leading|manual\\-rising)|get\\-text\\-width|math\\-((|big\\-)char(|\\-with\\-kern)|sup|sub|lower|upper|frac|radical|paren|variant\\-char|color|char\\-glass)|text\\-in\\-math|load\\-(|pdf\\-)image|use\\-image\\-by\\-width|start\\-path|line\\-to|bezier\\-to|close\\-with\\-(line|bezier)|(terminate|unite)\\-path|fill|stroke|draw\\-text)(?![\\-\\w])"
 				}
 			]
 		},
 		"module": {
 			"patterns": [{
-				"name": "entity.name.class.satysfi",
+				"name": "support.class.satysfi",
 				"match": "[A-Z][a-zA-Z0-9]*(?=\\.[a-z][a-zA-Z0-9]*)"
 			}]
 		},
 		"inline": {
 			"patterns": [{
-				"name": "entity.name.function.satysfi",
+				"name": "support.function.satysfi",
 				"match": "\\\\\\w+\\-?\\w*(?=\\W)"
 			}]
 		},
 		"block": {
 			"patterns": [{
-				"name": "entity.name.class.satysfi",
+				"name": "support.class.satysfi",
 				"match": "\\+\\w+\\-?\\w*\\s?(?=[\\(\\<\\[\\{])"
 			}]
 		},
@@ -74,8 +96,8 @@
 		},
 		"variable": {
 			"patterns": [{
-				"name": "variable.other.satysfi",
-				"match": "(?<=let\\-?[a-zA-Z]*\\s+)[a-zA-Z0-9]+(?=\\=)"
+				"name": "variable.paramater.satysfi",
+				"match": "\\#[a-zA-Z0-9]+"
 			}]
 		},
 		"comments": {
