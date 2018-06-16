@@ -8,12 +8,12 @@
             "  show-title = ${3:true};",
             "  show-toc = ${4:true};",
             "|) '<",
-            "  ${5}",
+            "  ${5",
             ">"
         ]
     },
     "section": {
-        "prefix": "section",
+        "prefix": "+section",
         "body": [
             "+section{${1}} <",
             "  ${2}",
@@ -21,7 +21,7 @@
         ]
     },
     "subsection": {
-        "prefix": "subsection",
+        "prefix": "+subsection",
         "body": [
             "+subsection{${1}} <",
             "  ${2}",
@@ -29,7 +29,7 @@
         ]
     },
     "paragraph": {
-        "prefix": "p",
+        "prefix": "+p",
         "body": [
             "+p (",
             "  ${1}",
@@ -40,7 +40,7 @@
         ]
     },
     "math": {
-        "prefix": "math",
+        "prefix": "+math",
         "body": [
             "+math (",
             "  ${1}",
@@ -48,6 +48,30 @@
             "    ${2}",
             "  }",
             ");"
+        ]
+    },
+    "let": {
+        "prefix": "let",
+        "body": [
+            "let ${1} = ${2} in"
+        ]
+    },
+    "let-": {
+        "prefix": "let-",
+        "body": [
+            "let-${1} ${2} = ${3} in"
+        ]
+    },
+    "require": {
+        "prefix": "@require",
+        "body": [
+            "@require: ${1}"
+        ]
+    },
+    "import": {
+        "prefix": "@import",
+        "body": [
+            "@import: ${1}"
         ]
     }
 }

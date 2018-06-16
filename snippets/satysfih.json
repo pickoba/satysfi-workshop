@@ -1,1 +1,17 @@
-{}
+{
+    "let": {
+        
+    },
+    "require": {
+        "prefix": "@require",
+        "body": [
+            "@require: ${1}"
+        ]
+    },
+    "import": {
+        "prefix": "@import",
+        "body": [
+            "@import: ${1}"
+        ]
+    }
+}
