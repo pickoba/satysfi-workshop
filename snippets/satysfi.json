@@ -8,18 +8,20 @@
             "  show-title = ${3:true};",
             "  show-toc = ${4:true};",
             "|) '<",
-            "  ${5",
+            "  ${5}",
             ">"
         ]
     },
-    "section": {
-        "prefix": "+section",
-        "body": [
-            "+section{${1}} <",
-            "  ${2}",
-            ">"
-        ]
-    },
+    "section": [
+        {
+            "prefix": "+section",
+            "body": [
+                "+section{${1}} <",
+                "  ${2}",
+                ">"
+            ]
+        }
+    ],
     "subsection": {
         "prefix": "+subsection",
         "body": [
@@ -28,28 +30,48 @@
             ">"
         ]
     },
-    "paragraph": {
-        "prefix": "+p",
-        "body": [
-            "+p (",
-            "  ${1}",
-            "  {",
-            "    ${2}",
-            "  }",
-            ");"
-        ]
-    },
-    "math": {
-        "prefix": "+math",
-        "body": [
-            "+math (",
-            "  ${1}",
-            "  \\${",
-            "    ${2}",
-            "  }",
-            ");"
-        ]
-    },
+    "paragraph": [
+        {
+            "prefix": "+p",
+            "body": [
+                "+p {",
+                "  ${1}",
+                "}"
+            ]
+        },
+        {
+            "prefix": "+p(",
+            "body": [
+                "+p (",
+                "  ${1}",
+                "  {",
+                "    ${2}",
+                "  }",
+                ");"
+            ]
+        }
+    ],
+    "math": [
+        {
+            "prefix": "+math",
+            "body": [
+                "+math (\\${",
+                "  ${2}",
+                "});"
+            ]
+        },
+        {
+            "prefix": "+math(",
+            "body": [
+                "+math (",
+                "  ${1}",
+                "  \\${",
+                "    ${2}",
+                "  }",
+                ");"
+            ]
+        }
+    ],
     "let": {
         "prefix": "let",
         "body": [
