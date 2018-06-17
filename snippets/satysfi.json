@@ -19,17 +19,45 @@
                 "+section{${1}} <",
                 "  ${2}",
                 ">"
-            ]
+            ],
+            "description": "+section{} <>"
+        },
+        {
+            "prefix": "+section",
+            "body": [
+                "+section{${1}} (",
+                "  ${2}",
+                "  '<",
+                "    ${3}",
+                "  >",
+                ");"
+            ],
+            "description": "+section{} ('<>);"
         }
     ],
-    "subsection": {
-        "prefix": "+subsection",
-        "body": [
-            "+subsection{${1}} <",
-            "  ${2}",
-            ">"
-        ]
-    },
+    "subsection": [
+        {
+            "prefix": "+subsection",
+            "body": [
+                "+subsection{${1}} <",
+                "  ${2}",
+                ">"
+            ],
+            "description": "+subsection{} <>"
+        },
+        {
+            "prefix": "+subsection",
+            "body": [
+                "+subsection{${1}} (",
+                "  ${2}",
+                "  '<",
+                "    ${3}",
+                "  >",
+                ");"
+            ],
+            "description": "+subsection{} ('<>);"
+        }
+    ],
     "paragraph": [
         {
             "prefix": "+p",
