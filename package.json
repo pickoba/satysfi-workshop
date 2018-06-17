@@ -1,9 +1,12 @@
 {
-    "name": "wraikny-vscode-satysfi",
-    "displayName": "wraikny-vscode-satysfi",
+    "name": "wraikny-satysfi-extension",
+    "displayName": "SATySFi",
     "description": "Launguage support for SATySFi",
     "version": "0.0.1",
     "publisher": "wraikny",
+    "repository": {
+        "url": "https://github.com/wraikny/vscode-satysfi"
+    },
     "icon": "vscode-satysfi.png",
     "galleryBanner": {
         "color": "#241435",
