@@ -70,7 +70,6 @@
 		{
 			"begin": "'\\<",
 			"end": "\\>",
-			"name": "comment.block",
 			"patterns": [
 				{
 					"include": "#block-name"
