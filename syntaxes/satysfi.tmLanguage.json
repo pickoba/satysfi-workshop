@@ -247,9 +247,6 @@
 							"include": "#inline-block"
 						},
 						{
-							"include": "#math-calc"
-						},
-						{
 							"include": "#inline"
 						},
 						{
@@ -280,7 +277,7 @@
 							"include": "#variable"
 						},
 						{
-							"include": "inline"
+							"include": "#inline"
 						},
 						{
 							"include": "#comments"
@@ -329,13 +326,25 @@
 							"include": "#math-operator"
 						}
 					]
+				},
+				{
+					"begin": "\\[",
+					"end": "\\]",
+					"patterns": [
+						{
+							"include": "#math"
+						},
+						{
+							"include": "#comments"
+						}
+					]
 				}
 			]
 		},
 		"inline": {
 			"patterns": [{
 				"name": "entity.name.function.satysfi",
-				"match": "\\\\\\w+\\-?\\w*!?(?=[;\\W])"
+				"match": "\\\\\\w+\\-?[a-zA-Z][a-zA-Z0-9]*!?(?=[;\\W])"
 			}]
 		},
 		"inline-block": {
@@ -358,6 +367,28 @@
 						},
 						{
 							"include": "#math"
+						}
+					]
+				},
+				{
+					"begin": "\\[",
+					"end": "\\]",
+					"name": "comment.block",
+					"patterns": [
+						{
+							"include": "#inline-block"
+						},
+						{
+							"include": "#inline"
+						},
+						{
+							"include": "#string"
+						},
+						{
+							"include": "#math"
+						},
+						{
+							"include": "#comments"
 						}
 					]
 				}
