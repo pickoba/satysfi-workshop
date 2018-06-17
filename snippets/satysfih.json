@@ -3,13 +3,37 @@
         {
             "prefix": "let",
             "body": [
-                "let ${1} = ${2}"
+                "let ${1} = ${2} in"
             ]
         },
         {
-            "prefix": "let-",
+            "prefix": "let-mutable",
             "body": [
-                "let-${1} ${2} = ${3}"
+                "let-mutable ${1} = ${2} in"
+            ]
+        },
+        {
+            "prefix": "let-inline",
+            "body": [
+                "let-inline ${1} = ${2} in"
+            ]
+        },
+        {
+            "prefix": "let-block",
+            "body": [
+                "let-clock ${1} = ${2} in"
+            ]
+        },
+        {
+            "prefix": "let-math",
+            "body": [
+                "let-math ${1} = ${2} in"
+            ]
+        },
+        {
+            "prefix": "let-rec",
+            "body": [
+                "let-rec ${1} = ${2} in"
             ]
         }
     ],
