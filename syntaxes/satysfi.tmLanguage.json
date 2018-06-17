@@ -7,7 +7,7 @@
 		},
 		{
 			"name": "satysfi.header",
-			"begin": "\\A",
+			"begin": "(?<=\\A)",
 			"end": "(?=document\\W*\\(\\|)",
 			"patterns": [
 				{
@@ -24,6 +24,9 @@
 				},
 				{
 					"include": "#type"
+				},
+				{
+					"include": "#math"
 				},
 				{
 					"include": "#meta"
@@ -62,6 +65,9 @@
 			"include": "#block-horizontal"
 		},
 		{
+			"include": "#string"
+		},
+		{
 			"include": "#raw"
 		}
 	],
@@ -69,7 +75,7 @@
 		"block-vertical": {
 			"patterns": [
 				{
-					"begin": "(\\+\\w+\\-?\\w*)\\s*(\\s+\\?.+)?(\\{.*\\})?(?=\\<)",
+					"begin": "(\\+\\w+\\-?\\w*)\\s*(\\s+\\?.+)?\\s*(\\{.*\\})?\\s*(?=\\<)",
 					"beginCaptures": {
 						"1": {
 							"name": "entity.name.section.satysfi"
@@ -82,6 +88,9 @@
 						},
 						{
 							"include": "#raw"
+						},
+						{
+							"include": "#block-vertical"
 						},
 						{
 							"include": "#block-horizontal"
@@ -102,6 +111,9 @@
 						},
 						{
 							"include": "#raw"
+						},
+						{
+							"include": "#block-vertical"
 						},
 						{
 							"include": "#block-horizontal"
@@ -200,9 +212,6 @@
 					"patterns": [
 						{
 							"include": "#inline-block"
-						},
-						{
-							"include": "#math-calc"
 						},
 						{
 							"include": "#inline"
@@ -338,8 +347,8 @@
 		"storage": {
 			"patterns": [
 				{
-					"name": "storage.type",
-					"match": "\\b(?<![\\-\\w])(struct|module|let(\\-(inline|math|rec|block|mutable))?|val|direct|type)(?![\\-\\w])\\b"
+					"name": "storage.type.satysfi",
+					"match": "(?<![\\-\\w])(struct|module|let(\\-(inline|math|rec|block|mutable))?|val|direct|type)(?![\\-\\w])"
 				}
 			]
 		},
@@ -392,7 +401,7 @@
 		"inline": {
 			"patterns": [{
 				"name": "entity.name.function.satysfi",
-				"match": "\\\\\\w+\\-?\\w*(?=\\W)"
+				"match": "\\\\\\w+\\-?\\w*(?=\\W^\\{)"
 			}]
 		},
 		"inline-block": {
@@ -422,9 +431,8 @@
 		"inline-block-noname": {
 			"patterns": [
 				{
-					"begin": "(?<=\\})\\{",
+					"begin": "(?<![a-zA-Z])\\{",
 					"end": "\\}",
-					"name": "comment.block",
 					"patterns": [
 						{
 							"include": "#variable"
