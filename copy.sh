@@ -1,5 +1,5 @@
 #!/bin/bash
-VSCODE_SATYSFI=~/.vscode/extensions/wraikny-vscode.satysfi
+VSCODE_SATYSFI=~/.vscode/extensions/wraikny-vscode-satysfi
 cp -rf snippets $VSCODE_SATYSFI/.
 cp -rf syntaxes $VSCODE_SATYSFI/.
 cp -rf snippets $VSCODE_SATYSFI/.

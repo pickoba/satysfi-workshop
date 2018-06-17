@@ -1,9 +1,14 @@
 {
-    "name": "wraikny-vscode.satysfi",
-    "displayName": "wraikny-vscode.satysfi",
+    "name": "wraikny-vscode-satysfi",
+    "displayName": "wraikny-vscode-satysfi",
     "description": "Launguage support for SATySFi",
     "version": "0.0.1",
     "publisher": "wraikny",
+    "icon": "vscode-satysfi.png",
+    "galleryBanner": {
+        "color": "#241435",
+        "theme": "dark"
+    },
     "engines": {
         "vscode": "^1.24.0"
     },
