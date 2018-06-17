@@ -103,7 +103,7 @@
 		},
 		"inline": {
 			"patterns": [{
-				"name": "entity.name.section.satysfi",
+				"name": "entity.name.function.satysfi",
 				"match": "\\\\\\w+\\-?\\w*(?=\\W)"
 			}]
 		},
@@ -115,7 +115,7 @@
 		},
 		"meta": {
 			"patterns": [{
-				"name": "meta.preprocessor.satysfi",
+				"name": "keyword.control.satysfi",
 				"match": "\\@\\b(require|import)\\b"
 			}]
 		},
