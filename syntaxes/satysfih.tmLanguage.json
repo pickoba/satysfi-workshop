@@ -52,7 +52,7 @@
 		"keywords": {
 			"patterns": [{
 				"name": "keyword.control.satysfi",
-				"match": "(?<![\\-\\w])(end|in|match|with|fun|of)(?![\\-\\w])"
+				"match": "(?<![\\-\\w])(\\$|end|in|match|with|fun|of)(?![\\-\\w])"
 			}]
 		},
 		"storage": {
