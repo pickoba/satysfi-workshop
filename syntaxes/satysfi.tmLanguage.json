@@ -131,7 +131,6 @@
 				{
 					"begin": "\\(",
 					"end": "\\)",
-					
 					"patterns": [
 						{
 							"include": "#block-vertical"
@@ -144,24 +143,23 @@
 							"end": "\\)"
 						},
 						{
+							"include": "#math"
+						},
+						{
 							"include": "#inline-block"
 						},
 						{
 							"include": "#keywords"
-						}
-						,
+						},
 						{
 							"include": "#storage"
-						}
-						,
+						},
 						{
 							"include": "#type"
-						}
-						,
+						},
 						{
 							"include": "#constant"
-						}
-						,
+						},
 						{
 							"include": "#bool"
 						},
@@ -204,37 +202,7 @@
 							"include": "#inline-block"
 						},
 						{
-							"include": "#keywords"
-						},
-						{
-							"include": "#storage"
-						},
-						{
-							"include": "#type"
-						},
-						{
-							"include": "#constant"
-						},
-						{
-							"include": "#bool"
-						},
-						{
-							"include": "#function"
-						},
-						{
-							"include": "#module"
-						},
-						{
-							"include": "#property"
-						},
-						{
 							"include": "#inline"
-						},
-						{
-							"include": "#variable"
-						},
-						{
-							"include": "#numeric"
 						},
 						{
 							"include": "#string"
@@ -247,24 +215,6 @@
 						},
 						{
 							"include": "#math"
-						},
-						{
-							"begin": "(?<!\\$)\\{",
-							"end": "\\}",
-							"patterns": [
-								{
-									"include": "#inline"
-								},
-								{
-									"include": "#string"
-								},
-								{
-									"include": "#math"
-								},
-								{
-									"include": "#comments"
-								}
-							]
 						}
 					]
 				},
@@ -330,27 +280,100 @@
 							"include": "#variable"
 						},
 						{
-							"include": "#inline"
+							"include": "inline"
 						},
 						{
 							"include": "#comments"
 						},
 						{
-							"include": "#inline-block"
+							"include": "#math-inline-block"
 						},
 						{
-							"include": "#inline-block-noname"
+							"include": "#math-operator"
 						}
 						
 					]
 				}
 			]
 		},
-		"keywords": {
+		"math-operator": {
+			"patterns": [
+				{
+					"name": "entity.name.function.satysfi",
+					"match": "(?<!\\\\)(\\_|\\^)"
+				}
+			]
+		},
+		"math-inline-block": {
+			"patterns": [
+				{
+					"begin": "\\{",
+					"end": "\\}",
+					"patterns": [
+						{
+							"include": "#math-inline-block"
+						},
+						{
+							"include": "#inline"
+						},
+						{
+							"include": "#comments"
+						},
+						{
+							"include": "#variable"
+						},
+						{
+							"include": "#math"
+						},
+						{
+							"include": "#math-operator"
+						}
+					]
+				}
+			]
+		},
+		"inline": {
 			"patterns": [{
-				"name": "keyword.control.satysfi",
-				"match": "(?<![\\-\\w])(end|in|match|with|fun|of)(?![\\-\\w])"
+				"name": "entity.name.function.satysfi",
+				"match": "\\\\\\w+\\-?\\w*!?(?=[;\\W])"
 			}]
+		},
+		"inline-block": {
+			"patterns": [
+				{
+					"begin": "\\{",
+					"end": "\\}",
+					"patterns": [
+						{
+							"include": "#inline-block"
+						},
+						{
+							"include": "#inline"
+						},
+						{
+							"include": "#comments"
+						},
+						{
+							"include": "#variable"
+						},
+						{
+							"include": "#math"
+						}
+					]
+				}
+			]
+		},
+		"keywords": {
+			"patterns": [
+				{
+					"name": "keyword.control.satysfi",
+					"match": "(?<![\\-\\w])(end|in|match|with|fun|of|\\-\\>)(?![\\-\\w])"
+				},
+				{
+					"name": "keyword.control.satysfi",
+					"match": "(?<![\\-\\w])(\\=)(?![\\-\\w])"
+				}
+		]
 		},
 		"storage": {
 			"patterns": [
@@ -406,64 +429,6 @@
 				}
 			]
 		},
-		"inline": {
-			"patterns": [{
-				"name": "entity.name.function.satysfi",
-				"match": "\\\\\\w+\\-?\\w*(?![\\{\\-])(?=\\W)"
-			}]
-		},
-		"inline-block": {
-			"patterns": [
-				{
-					"begin": "(\\\\\\w+\\-?\\w*)(?=\\{)",
-					"beginCaptures": {
-						"0": {
-							"name": "entity.name.function.satysfi"
-						}
-					},
-					"end": "\\}",
-					"patterns": [
-						{
-							"include": "#inline-block"
-						},
-						{
-							"include": "#inline"
-						},
-						{
-							"include": "#comments"
-						},
-						{
-							"include": "#math"
-						}
-					]
-				}
-			]
-		},
-		"inline-block-noname": {
-			"patterns": [
-				{
-					"begin": "(?<![a-zA-Z])\\{",
-					"end": "\\}",
-					"patterns": [
-						{
-							"include": "#variable"
-						},
-						{
-							"include": "#inline"
-						},
-						{
-							"include": "#inline-block"
-						},
-						{
-							"include": "#inline-block-noname"
-						},
-						{
-							"include": "#comments"
-						}
-					]
-				}
-			]
-		},
 		"meta": {
 			"patterns": [{
 				"name": "keyword.control.satysfi",
@@ -488,7 +453,7 @@
 			"patterns": [
 				{
 					"name": "comment.line.satysfi",
-					"match": "%.*"
+					"match": "(?<!\\\\)%.*"
 				}
 			]
 		},
