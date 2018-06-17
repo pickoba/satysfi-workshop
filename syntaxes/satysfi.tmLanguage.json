@@ -129,8 +129,8 @@
 		"block-expr": {
 			"patterns": [
 				{
-					"begin": "\\(",
-					"end": "\\)",
+					"begin": "\\((?!`)",
+					"end": "(?<!`)\\)",
 					"patterns": [
 						{
 							"include": "#block-vertical"
@@ -139,8 +139,7 @@
 							"include": "#block-horizontal"
 						},
 						{
-							"begin": "\\(",
-							"end": "\\)"
+							"include": "#block-expr-child"
 						},
 						{
 							"include": "#math"
@@ -186,6 +185,131 @@
 						},
 						{
 							"include": "#string"
+						},
+						{
+							"include": "#raw"
+						}
+					]
+				}
+			]
+		},
+		"block-expr-child": {
+			"patterns": [
+				{
+					"begin": "\\((?!`)",
+					"end": "(?<!`)\\)",
+					"patterns": [
+						{
+							"include": "#block-expr-child"
+						},
+						{
+							"include": "#math"
+						},
+						{
+							"include": "#inline-block"
+						},
+						{
+							"include": "#keywords"
+						},
+						{
+							"include": "#storage"
+						},
+						{
+							"include": "#type"
+						},
+						{
+							"include": "#constant"
+						},
+						{
+							"include": "#bool"
+						},
+						{
+							"include": "#function"
+						},
+						{
+							"include": "#module"
+						},
+						{
+							"include": "#property"
+						},
+						{
+							"include": "#inline"
+						},
+						{
+							"include": "#variable"
+						},
+						{
+							"include": "#numeric"
+						},
+						{
+							"include": "#comments"
+						},
+						{
+							"include": "#string"
+						},
+						{
+							"include": "#raw"
+						}
+					]
+				}
+			]
+		},
+		"block-expr-in-horizontal": {
+			"patterns": [
+				{
+					"begin": "(?<=(\\)|[a-zA-Z0-9]))\\s*\\((?!`)",
+					"end": "(?<!`)\\)(?=\\s*[\\(;])",
+					"patterns": [
+						{
+							"include": "#block-expr-child"
+						},
+						{
+							"include": "#math"
+						},
+						{
+							"include": "#inline-block"
+						},
+						{
+							"include": "#keywords"
+						},
+						{
+							"include": "#storage"
+						},
+						{
+							"include": "#type"
+						},
+						{
+							"include": "#constant"
+						},
+						{
+							"include": "#bool"
+						},
+						{
+							"include": "#function"
+						},
+						{
+							"include": "#module"
+						},
+						{
+							"include": "#property"
+						},
+						{
+							"include": "#inline"
+						},
+						{
+							"include": "#variable"
+						},
+						{
+							"include": "#numeric"
+						},
+						{
+							"include": "#comments"
+						},
+						{
+							"include": "#string"
+						},
+						{
+							"include": "#raw"
 						}
 					]
 				}
@@ -215,6 +339,9 @@
 						},
 						{
 							"include": "#math"
+						},
+						{
+							"include": "#block-expr-in-horizontal"
 						}
 					]
 				},
@@ -373,7 +500,6 @@
 				{
 					"begin": "\\[",
 					"end": "\\]",
-					"name": "comment.block",
 					"patterns": [
 						{
 							"include": "#inline-block"
