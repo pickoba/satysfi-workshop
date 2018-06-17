@@ -117,6 +117,9 @@
 							"include": "#block-horizontal"
 						},
 						{
+							"include": "#block-expr"
+						},
+						{
 							"include": "#block-name"
 						}
 					]
@@ -128,13 +131,17 @@
 				{
 					"begin": "\\(",
 					"end": "\\)",
-					"name": "comment.block",
+					
 					"patterns": [
 						{
 							"include": "#block-vertical"
 						},
 						{
 							"include": "#block-horizontal"
+						},
+						{
+							"begin": "\\(",
+							"end": "\\)"
 						},
 						{
 							"include": "#inline-block"
@@ -178,6 +185,9 @@
 						},
 						{
 							"include": "#comments"
+						},
+						{
+							"include": "#string"
 						}
 					]
 				}
@@ -288,27 +298,6 @@
 						},
 						{
 							"include": "#math-calc"
-						},
-						{
-							"include": "#inline"
-						},
-						{
-							"include": "#string"
-						},
-						{
-							"include": "#math"
-						},
-						{
-							"include": "#comments"
-						}
-					]
-				},
-				{
-					"begin": "\\(",
-					"end": "\\)(?!\\s*;)",
-					"patterns": [
-						{
-							"include": "#inline-block"
 						},
 						{
 							"include": "#inline"
