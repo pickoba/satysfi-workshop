@@ -134,10 +134,12 @@
 			]
 		},
 		"comments": {
-			"patterns": [{
-				"name": "comment.line.satysfi",
-				"match": "%.*"
-			}]
+			"patterns": [
+				{
+					"name": "comment.line.satysfi",
+					"match": "%.*"
+				}
+			]
 		},
 		"string": {
 			"patterns": [
@@ -150,8 +152,9 @@
 		"raw": {
 			"patterns": [
 				{
-					"name": "string.quoted.satysfi",
-					"match": "(?<=\\()```.+```(?=\\);)"
+					"name": "markup.raw.satysfi",
+					"begin": "```",
+					"end": "```"
 				}
 			]
 		}
