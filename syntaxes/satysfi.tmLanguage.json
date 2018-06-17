@@ -59,6 +59,9 @@
 			"include": "#block-vertical"
 		},
 		{
+			"include": "#block-horizontal"
+		},
+		{
 			"include": "#raw"
 		}
 	],
