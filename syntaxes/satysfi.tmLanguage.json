@@ -7,7 +7,7 @@
 		},
 		{
 			"name": "satysfi.header",
-			"begin": "(?=@)",
+			"begin": "(?<=\\A)",
 			"end": "(?=document\\W*\\(\\|)",
 			"patterns": [
 				{
