@@ -11,6 +11,9 @@
 			"end": "(?=document\\W*\\(\\|)",
 			"patterns": [
 				{
+					"include": "#main"
+				},
+				{
 					"include": "#keywords"
 				},
 				{
@@ -96,28 +99,35 @@
 			]
 		},
 		{
-			"begin": "'\\<",
-			"end": "\\>",
-			"patterns": [
-				{
-					"include": "#block-name"
-				},
-				{
-					"include": "#block-vertical"
-				},
-				{
-					"include": "#block-horizontal"
-				},
-				{
-					"include": "#block-expr"
-				},
-				{
-					"include": "#variable"
-				}
-			]
+			"include": "#main"
 		}
 	],
 	"repository": {
+		"main": {
+			"patterns": [
+				{
+					"begin": "'\\<",
+					"end": "\\>",
+					"patterns": [
+						{
+							"include": "#block-name"
+						},
+						{
+							"include": "#block-vertical"
+						},
+						{
+							"include": "#block-horizontal"
+						},
+						{
+							"include": "#block-expr"
+						},
+						{
+							"include": "#variable"
+						}
+					]
+				}
+			]
+		},
 		"block-name": {
 			"patterns": [
 				{
@@ -152,6 +162,9 @@
 						},
 						{
 							"include": "#block-name"
+						},
+						{
+							"include": "#variable"
 						}
 					]
 				}
