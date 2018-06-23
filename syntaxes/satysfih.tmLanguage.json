@@ -15,7 +15,7 @@
 			"include": "#constant"
 		},
 		{
-			"include": "function"
+			"include": "#function"
 		},
 		{
 			"include": "#module"

@@ -33,6 +33,34 @@
 				},
 				{
 					"include": "#comments"
+				},
+				{
+					"include": "#variable"
+				},
+				
+				{
+					"include": "#constant"
+				},
+				{
+					"include": "#function"
+				},
+				{
+					"include": "#module"
+				},
+				{
+					"include": "#property"
+				},
+				{
+					"include": "#inline"
+				},
+				{
+					"include": "#block"
+				},
+				{
+					"include": "#operator"
+				},
+				{
+					"include": "#numeric"
 				}
 			]
 			
