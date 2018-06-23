@@ -28,18 +28,7 @@
                     "satysfi"
                 ],
                 "extensions": [
-                    ".saty"
-                ],
-                "configuration": "./language-configuration.json"
-            },
-            {
-                "id": "satysfih",
-                "aliases": [
-                    "SATySFi Header",
-                    "satysfiheader"
-                ],
-                "extensions": [
-                    ".satyh"
+                    ".saty", ".satyh"
                 ],
                 "configuration": "./language-configuration.json"
             }
@@ -47,25 +36,15 @@
         "grammars": [
             {
                 "language": "satysfi",
-                "scopeName": "text.saty",
+                "scopeName": "text.saty.satyh",
                 "path": "./syntaxes/satysfi.tmLanguage.json"
-            },
-            {
-                "language": "satysfih",
-                "scopeName": "text.satyh",
-                "path": "./syntaxes/satysfih.tmLanguage.json"
             }
         ],
         "snippets": [
             {
                 "language": "satysfi",
-                "scopeName": "text.saty",
+                "scopeName": "text.saty.satyh",
                 "path": "./snippets/satysfi.json"
-            },
-            {
-                "language": "satysfih",
-                "scopeName": "text.satyh",
-                "path": "./snippets/satysfih.json"
             }
         ]
     }

@@ -110,6 +110,9 @@
 				},
 				{
 					"include": "#block-expr"
+				},
+				{
+					"include": "#variable"
 				}
 			]
 		}
@@ -660,5 +663,5 @@
 			]
 		}
 	},
-	"scopeName": "text.saty"
+	"scopeName": "text.saty.satyh"
 }
