@@ -2,7 +2,7 @@
     "name": "wraikny-satysfi-extension",
     "displayName": "SATySFi",
     "description": "Launguage support for SATySFi",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "publisher": "wraikny",
     "repository": {
         "url": "https://github.com/wraikny/vscode-satysfi"
@@ -16,20 +16,31 @@
         "vscode": "^1.24.0"
     },
     "categories": [
-        "Programming Languages", "Snippets"
+        "Programming Languages",
+        "Snippets"
     ],
     "contributes": {
         "languages": [
             {
                 "id": "satysfi",
-                "aliases": ["SATySFi", "satysfi"],
-                "extensions": [".saty"],
+                "aliases": [
+                    "SATySFi",
+                    "satysfi"
+                ],
+                "extensions": [
+                    ".saty"
+                ],
                 "configuration": "./language-configuration.json"
             },
             {
                 "id": "satysfih",
-                "aliases": ["SATySFi Header", "satysfiheader"],
-                "extensions": [".satyh"],
+                "aliases": [
+                    "SATySFi Header",
+                    "satysfiheader"
+                ],
+                "extensions": [
+                    ".satyh"
+                ],
                 "configuration": "./language-configuration.json"
             }
         ],
