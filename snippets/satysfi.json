@@ -159,7 +159,7 @@
     "requirements": [
         {
             "prefix": "stdjabook",
-            "body": ["stdja"]
+            "body": ["stdjabook"]
         },
         {
             "prefix": "stdja",
