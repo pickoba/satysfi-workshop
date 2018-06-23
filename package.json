@@ -2,7 +2,7 @@
     "name": "wraikny-satysfi-extension",
     "displayName": "SATySFi",
     "description": "Launguage support for SATySFi",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "publisher": "wraikny",
     "repository": {
         "url": "https://github.com/wraikny/vscode-satysfi"
@@ -28,7 +28,8 @@
                     "satysfi"
                 ],
                 "extensions": [
-                    ".saty", ".satyh"
+                    ".saty",
+                    ".satyh"
                 ],
                 "configuration": "./language-configuration.json"
             }
