@@ -90,6 +90,9 @@
 						},
 						{
 							"include": "#inline-block"
+						},
+						{
+							"include": "#comments"
 						}
 					]
 				},
@@ -123,6 +126,9 @@
 						},
 						{
 							"include": "#variable"
+						},
+						{
+							"include": "#comments"
 						}
 					]
 				}
