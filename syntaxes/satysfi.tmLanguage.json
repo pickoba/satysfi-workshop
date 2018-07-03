@@ -7,7 +7,7 @@
 		},
 		{
 			"name": "satysfi.header",
-			"begin": "(?<=\\A)",
+			"begin": "(?=(\\%|\\@))",
 			"end": "(?=document\\W*\\(\\|)",
 			"patterns": [
 				{
@@ -70,7 +70,7 @@
 		},
 		{
 			"name": "satysfi.document.definition",
-			"begin": "(document)(?=\\s*\\(\\|)",
+			"begin": "(document)(\\s*\\(\\|)",
 			"beginCaptures": {
 				"1": {
 					"name": "keyword.control.satysfi"
