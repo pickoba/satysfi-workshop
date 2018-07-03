@@ -6,69 +6,6 @@
 			"include": "#comments"
 		},
 		{
-			"name": "satysfi.header",
-			"begin": "(?=(\\%|\\@))",
-			"end": "(?=document\\W*\\(\\|)",
-			"patterns": [
-				{
-					"include": "#main"
-				},
-				{
-					"include": "#keywords"
-				},
-				{
-					"include": "#storage"
-				},
-				{
-					"include": "#module"
-				},
-				{
-					"include": "#property"
-				},
-				{
-					"include": "#type"
-				},
-				{
-					"include": "#math"
-				},
-				{
-					"include": "#meta"
-				},
-				{
-					"include": "#comments"
-				},
-				{
-					"include": "#variable"
-				},
-				
-				{
-					"include": "#constant"
-				},
-				{
-					"include": "#function"
-				},
-				{
-					"include": "#module"
-				},
-				{
-					"include": "#property"
-				},
-				{
-					"include": "#inline"
-				},
-				{
-					"include": "#block"
-				},
-				{
-					"include": "#operator"
-				},
-				{
-					"include": "#numeric"
-				}
-			]
-			
-		},
-		{
 			"name": "satysfi.document.definition",
 			"begin": "(document)(\\s*\\(\\|)",
 			"beginCaptures": {
@@ -103,6 +40,58 @@
 		},
 		{
 			"include": "#main"
+		},
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#storage"
+		},
+		{
+			"include": "#module"
+		},
+		{
+			"include": "#property"
+		},
+		{
+			"include": "#type"
+		},
+		{
+			"include": "#math"
+		},
+		{
+			"include": "#meta"
+		},
+		{
+			"include": "#comments"
+		},
+		{
+			"include": "#variable"
+		},
+		
+		{
+			"include": "#constant"
+		},
+		{
+			"include": "#function"
+		},
+		{
+			"include": "#module"
+		},
+		{
+			"include": "#property"
+		},
+		{
+			"include": "#inline"
+		},
+		{
+			"include": "#block"
+		},
+		{
+			"include": "#operator"
+		},
+		{
+			"include": "#numeric"
 		}
 	],
 	"repository": {
@@ -182,8 +171,8 @@
 		"block-expr": {
 			"patterns": [
 				{
-					"begin": "\\((?!`)",
-					"end": "(?<!`)\\)",
+					"begin": "\\(",
+					"end": "\\)",
 					"patterns": [
 						{
 							"include": "#block-vertical"
