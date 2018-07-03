@@ -129,6 +129,9 @@
 						},
 						{
 							"include": "#comments"
+						},
+						{
+							"include": "#raw"
 						}
 					]
 				}
@@ -392,27 +395,6 @@
 						},
 						{
 							"include": "#block-expr-in-horizontal"
-						}
-					]
-				},
-				{
-					"begin": "\\{",
-					"end": "\\}",
-					"patterns": [
-						{
-							"include": "#inline-block"
-						},
-						{
-							"include": "#inline"
-						},
-						{
-							"include": "#string"
-						},
-						{
-							"include": "#math"
-						},
-						{
-							"include": "#comments"
 						}
 					]
 				},
