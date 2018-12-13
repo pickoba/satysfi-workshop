@@ -30,6 +30,12 @@
             "markdownDescription": "A path to the `satysfi` executable",
             "title": "SATySFi Executable",
             "default": "satysfi"
+          },
+          "satysfi.diagnostics.onChange": {
+            "type": "boolean",
+            "title": "Check on Change",
+            "default": false,
+            "description": "Check on Change"
           }
         }
       }
