@@ -1,7 +1,6 @@
 "use strict";
 
 import * as proc from "child_process";
-import * as util from "util";
 
 import {
   DiagnosticCollection,
@@ -17,34 +16,51 @@ import {
 import * as fp from "path";
 import * as fs from "fs";
 
-const EXEC_CONF_KEY = "satysfi.executable";
-const CHECK_ON_CHANGE_CONF_KEY = "satysfi.diagnostics.onChange";
+const SATySFi_SCOPE = "satysfi";
+const EXEC_CONF_KEY = "executable";
+const CHECK_ON_CHANGE_CONF_KEY = "diagnostics.onChange";
+const ENABLE_DIAG_KEY = "diagnostics.enabled";
 
 export default class SATySFiProvider implements Disposable {
   private collection: DiagnosticCollection;
   private satysfi: string;
   private disposables: Disposable[];
   private checkOnChange: boolean;
+  private enabled: boolean;
 
   constructor() {
-    const conf = workspace.getConfiguration();
+    const conf = workspace.getConfiguration(SATySFi_SCOPE);
     this.satysfi = conf.get(EXEC_CONF_KEY, "satysfi");
+    this.enabled = conf.get(ENABLE_DIAG_KEY, true);
     this.disposables = [];
     this.collection = languages.createDiagnosticCollection();
     this.checkOnChange = conf.get(CHECK_ON_CHANGE_CONF_KEY, false);
     workspace.onDidChangeConfiguration(async evt => {
-      if (evt.affectsConfiguration(EXEC_CONF_KEY)) {
+      if (evt.affectsConfiguration(SATySFi_SCOPE + "." + EXEC_CONF_KEY)) {
         this.satysfi = workspace
-          .getConfiguration()
+          .getConfiguration(SATySFi_SCOPE)
           .get(EXEC_CONF_KEY, this.satysfi);
-      } else if (evt.affectsConfiguration(CHECK_ON_CHANGE_CONF_KEY)) {
+      } else if (
+        evt.affectsConfiguration(SATySFi_SCOPE + "." + CHECK_ON_CHANGE_CONF_KEY)
+      ) {
         this.checkOnChange = workspace
-          .getConfiguration()
+          .getConfiguration(SATySFi_SCOPE)
           .get(CHECK_ON_CHANGE_CONF_KEY, this.checkOnChange);
+      } else if (
+        evt.affectsConfiguration(SATySFi_SCOPE + "." + ENABLE_DIAG_KEY)
+      ) {
+        this.enabled = workspace
+          .getConfiguration(SATySFi_SCOPE)
+          .get(ENABLE_DIAG_KEY, true);
+        if (this.enabled) {
+          workspace.textDocuments.forEach(i => this.checkSATySFi(i));
+        } else {
+          this.collection.clear();
+        }
       }
     });
     workspace.onDidChangeTextDocument(async evt => {
-      if (this.checkOnChange) {
+      if (this.checkOnChange && this.enabled) {
         const src = evt.document.getText();
         let tmpPath: string;
         const origPath = evt.document.uri.fsPath;
@@ -65,8 +81,16 @@ export default class SATySFiProvider implements Disposable {
         }
       }
     }, this);
-    workspace.onDidSaveTextDocument(this.checkSATySFi, this);
-    workspace.textDocuments.forEach(i => this.checkSATySFi(i), this);
+    workspace.onDidSaveTextDocument(i => {
+      if (this.enabled) {
+        this.checkSATySFi(i);
+      }
+    }, this);
+    workspace.textDocuments.forEach(i => {
+      if (this.enabled) {
+        this.checkSATySFi(i);
+      }
+    }, this);
   }
 
   private async checkSATySFi(
@@ -97,7 +121,6 @@ export default class SATySFiProvider implements Disposable {
     let pos: RegExpExecArray | null;
     let rawTarget: string | undefined;
     while ((pos = regex.exec(output))) {
-      unp = false;
       if (pos[1]) {
         // Parsing or Reading file
         target = canonic(pos[2]);

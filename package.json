@@ -31,6 +31,12 @@
             "title": "SATySFi Executable",
             "default": "satysfi"
           },
+          "satysfi.diagnostics.enabled": {
+            "type": "boolean",
+            "title": "Enable Diagnostics",
+            "default": true,
+            "description": "Enables Diagnostics"
+          },
           "satysfi.diagnostics.onChange": {
             "type": "boolean",
             "title": "Check on Change",
