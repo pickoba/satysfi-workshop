@@ -52,10 +52,11 @@ export default class SATySFiProvider implements Disposable {
       satysfi.on("close", (code, _sig) => {
         const diagnostics: Map<string, Diagnostic[]> = new Map();
         // Do Something
-        let regex = /^(?:(  (?:reading|parsing) '(.+?)' ...)|(! \[(.+?)\] at "(.+)", line (\d+), characters (\d+)-(\d+):))$/gm;
+        let regex = /^(?:(  (?:reading|parsing) '(.+?)' ...)|(! \[(.+?)\] at "(.+)", (line (\d+), characters (\d+)-(\d+)|line (\d+), character (\d+) to line (\d+), character (\d+)):))$/gm;
         let pos: RegExpExecArray | null;
 
         while ((pos = regex.exec(output))) {
+          console.log(`${JSON.stringify(pos)}`);
           if (pos[1]) {
             // Parsing or Reading file
             target = pos[2];
@@ -66,32 +67,38 @@ export default class SATySFiProvider implements Disposable {
             if (!target || fp.basename(target) !== pos[5]) {
               path = pos[5];
             }
-            let startLine = Number(pos[6]);
-            let startCol = Number(pos[7]);
-            let endCol = Number(pos[8]);
+            let startLine;
+            let endLine;
+            let startCol;
+            let endCol;
+            if (pos[7]) {
+              startLine = endLine = Number(pos[7]);
+              startCol = Number(pos[8]);
+              endCol = Number(pos[9]);
+            } else {
+              startLine = Number(pos[10]);
+              startCol = Number(pos[11]);
+              endLine = Number(pos[12]);
+              endCol = Number(pos[13]);
+            }
             let severity = DiagnosticSeverity.Error;
-            let title = pos[1];
+            let title = pos[4];
             let warnCase;
             if ((warnCase = /^Warning(?: about)? (.+)$/.exec(pos[4]))) {
               title = warnCase[1];
             }
-            let range = new Range(
-              startLine - 1,
-              startCol,
-              startLine - 1,
-              endCol
-            );
+            let range = new Range(startLine - 1, startCol, endLine - 1, endCol);
 
             let msg: RegExpExecArray | null;
-            let lines = "Unknown Notice";
+            let lines = title + "\n";
             const rest = output.slice(regex.lastIndex + 1);
 
             if ((msg = /(^\s{4,}(.*?)\n)+/gm.exec(rest))) {
-              lines = msg[0];
+              lines += msg[0];
             }
             let d = new Diagnostic(
               range,
-              title + "\n" + lines.replace(/^\s{4}/gm, ""),
+              lines.replace(/^\s{4}/gm, ""),
               severity
             );
 
