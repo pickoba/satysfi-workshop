@@ -23,12 +23,9 @@ export default class SATySFiProvider implements Disposable {
   constructor() {
     const conf = workspace.getConfiguration();
     this.satysfi = conf.get("satysfi.executable", "satysfi");
-    const onChange = conf.get("satysfi.diagnostics.onChange", false);
     this.disposables = [];
     this.collection = languages.createDiagnosticCollection();
-    if (onChange) {
-      workspace.onDidOpenTextDocument(this.checkSATySFi, this);
-    }
+
     workspace.onDidSaveTextDocument(this.checkSATySFi, this);
     workspace.textDocuments.forEach(this.checkSATySFi, this);
   }

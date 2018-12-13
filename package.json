@@ -30,20 +30,8 @@
             "markdownDescription": "A path to the `satysfi` executable",
             "title": "SATySFi Executable",
             "default": "satysfi"
-          },
-          "satysfi.diagnostics.onChange": {
-            "type": "boolean",
-            "title": "Check on Change",
-            "default": false,
-            "description": "If type-check on change"
           }
         }
-      }
-    ],
-    "commands": [
-      {
-        "title": "Typecheck in SATySFi",
-        "command": "extension.satysfi.check"
       }
     ],
     "languages": [
