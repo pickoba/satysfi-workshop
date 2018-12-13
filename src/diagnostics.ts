@@ -85,6 +85,7 @@ export default class SATySFiProvider implements Disposable {
             let warnCase;
             if ((warnCase = /^Warning(?: about)? (.+)$/.exec(pos[4]))) {
               title = warnCase[1];
+              severity = DiagnosticSeverity.Warning;
             }
             let range = new Range(startLine - 1, startCol, endLine - 1, endCol);
 
