@@ -52,11 +52,10 @@ export default class SATySFiProvider implements Disposable {
       satysfi.on("close", (code, _sig) => {
         const diagnostics: Map<string, Diagnostic[]> = new Map();
         // Do Something
-        let regex = /^(?:(  (?:reading|parsing) '(.+?)' ...)|(! \[(.+?)\] at "(.+)", (line (\d+), characters (\d+)-(\d+)|line (\d+), character (\d+) to line (\d+), character (\d+)):))$/gm;
+        let regex = /^(?:(  (?:reading|parsing) '(.+?)' ...)|(! \[(.+?)\] at "(.+)", (line (\d+), characters (\d+)-(\d+)|line (\d+), character (\d+) to line (\d+), character (\d+)):?\s*))$/gm;
         let pos: RegExpExecArray | null;
 
         while ((pos = regex.exec(output))) {
-          console.log(`${JSON.stringify(pos)}`);
           if (pos[1]) {
             // Parsing or Reading file
             target = pos[2];
