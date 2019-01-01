@@ -1,52 +1,96 @@
 {
-    "name": "wraikny-satysfi-extension",
-    "displayName": "SATySFi",
-    "description": "Launguage support for SATySFi",
-    "version": "0.0.9",
-    "publisher": "wraikny",
-    "repository": {
-        "url": "https://github.com/wraikny/vscode-satysfi"
-    },
-    "icon": "vscode-satysfi.png",
-    "galleryBanner": {
-        "color": "#241435",
-        "theme": "dark"
-    },
-    "engines": {
-        "vscode": "^1.24.0"
-    },
-    "categories": [
-        "Programming Languages",
-        "Snippets"
+  "name": "wraikny-satysfi-extension",
+  "displayName": "SATySFi",
+  "description": "Launguage support for SATySFi",
+  "version": "0.0.9",
+  "publisher": "wraikny",
+  "repository": {
+    "url": "https://github.com/wraikny/vscode-satysfi"
+  },
+  "icon": "vscode-satysfi.png",
+  "galleryBanner": {
+    "color": "#241435",
+    "theme": "dark"
+  },
+  "engines": {
+    "vscode": "^1.24.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Snippets",
+    "Debuggers"
+  ],
+  "contributes": {
+    "configuration": [
+      {
+        "title": "SATySFi",
+        "properties": {
+          "satysfi.executable": {
+            "type": "string",
+            "markdownDescription": "A path to the `satysfi` executable",
+            "title": "SATySFi Executable",
+            "default": "satysfi"
+          },
+          "satysfi.diagnostics.enabled": {
+            "type": "boolean",
+            "title": "Enable Diagnostics",
+            "default": true,
+            "description": "Enables Diagnostics"
+          },
+          "satysfi.diagnostics.onChange": {
+            "type": "boolean",
+            "title": "Check on Change",
+            "default": false,
+            "description": "Check on Change"
+          }
+        }
+      }
     ],
-    "contributes": {
-        "languages": [
-            {
-                "id": "satysfi",
-                "aliases": [
-                    "SATySFi",
-                    "satysfi"
-                ],
-                "extensions": [
-                    ".saty",
-                    ".satyh"
-                ],
-                "configuration": "./language-configuration.json"
-            }
+    "languages": [
+      {
+        "id": "satysfi",
+        "aliases": [
+          "SATySFi",
+          "satysfi"
         ],
-        "grammars": [
-            {
-                "language": "satysfi",
-                "scopeName": "text.saty.satyh",
-                "path": "./syntaxes/satysfi.tmLanguage.json"
-            }
+        "extensions": [
+          ".saty",
+          ".satyh"
         ],
-        "snippets": [
-            {
-                "language": "satysfi",
-                "scopeName": "text.saty.satyh",
-                "path": "./snippets/satysfi.json"
-            }
-        ]
-    }
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "satysfi",
+        "scopeName": "text.saty.satyh",
+        "path": "./syntaxes/satysfi.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "satysfi",
+        "scopeName": "text.saty.satyh",
+        "path": "./snippets/satysfi.json"
+      }
+    ]
+  },
+  "activationEvents": [
+    "onLanguage:satysfi"
+  ],
+  "main": "./out/extension",
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "test": "npm run compile && node ./node_modules/vscode/bin/test"
+  },
+  "devDependencies": {
+    "typescript": "^2.6.1",
+    "vscode": "^1.1.21",
+    "tslint": "^5.8.0",
+    "@types/node": "^8.10.25",
+    "@types/mocha": "^2.2.42"
+  }
 }
