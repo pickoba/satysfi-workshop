@@ -55,7 +55,8 @@
         ],
         "extensions": [
           ".saty",
-          ".satyh"
+          ".satyh",
+          ".satyg"
         ],
         "configuration": "./language-configuration.json"
       }
