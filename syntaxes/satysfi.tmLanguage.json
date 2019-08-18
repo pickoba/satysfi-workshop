@@ -545,7 +545,7 @@
 			"patterns": [
 				{
 					"name": "keyword.control.satysfi",
-					"match": "(?<![\\-\\w])(end|in|match|with|fun|of|\\-\\>)(?![\\-\\w])"
+					"match": "(?<![\\-\\w])(end|in|match|with|when|as|fun|of|if|then|else|while|do|before|\\-\\>)(?![\\-\\w])"
 				},
 				{
 					"name": "keyword.control.satysfi",
@@ -557,7 +557,7 @@
 			"patterns": [
 				{
 					"name": "storage.type.satysfi",
-					"match": "(?<![\\-\\w])(struct|module|let(\\-(inline|math|rec|block|mutable))?|val|direct|type)(?![\\-\\w])"
+					"match": "(?<![\\-\\w])(struct|module|let(\\-(inline|math|rec|block|mutable))?|and|val|direct|type)(?![\\-\\w])"
 				}
 			]
 		},
@@ -610,7 +610,7 @@
 		"meta": {
 			"patterns": [{
 				"name": "keyword.control.satysfi",
-				"match": "\\@\\b(require|import)\\b"
+				"match": "\\@\\b(require|import|stage)\\b"
 			}]
 		},
 		"variable": {
