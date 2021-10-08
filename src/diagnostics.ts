@@ -11,11 +11,12 @@ import {
   workspace,
   DiagnosticSeverity,
   Range,
-  Uri
+  Uri,
 } from "vscode";
 import * as fp from "path";
 import * as fs from "fs";
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 const SATySFi_SCOPE = "satysfi";
 const EXEC_CONF_KEY = "executable";
 const CHECK_ON_CHANGE_CONF_KEY = "diagnostics.onChange";
@@ -35,31 +36,23 @@ export default class SATySFiProvider implements Disposable {
     this.disposables = [];
     this.collection = languages.createDiagnosticCollection();
     this.checkOnChange = conf.get(CHECK_ON_CHANGE_CONF_KEY, false);
-    workspace.onDidChangeConfiguration(async evt => {
+    workspace.onDidChangeConfiguration(async (evt) => {
       if (evt.affectsConfiguration(SATySFi_SCOPE + "." + EXEC_CONF_KEY)) {
-        this.satysfi = workspace
-          .getConfiguration(SATySFi_SCOPE)
-          .get(EXEC_CONF_KEY, this.satysfi);
-      } else if (
-        evt.affectsConfiguration(SATySFi_SCOPE + "." + CHECK_ON_CHANGE_CONF_KEY)
-      ) {
+        this.satysfi = workspace.getConfiguration(SATySFi_SCOPE).get(EXEC_CONF_KEY, this.satysfi);
+      } else if (evt.affectsConfiguration(SATySFi_SCOPE + "." + CHECK_ON_CHANGE_CONF_KEY)) {
         this.checkOnChange = workspace
           .getConfiguration(SATySFi_SCOPE)
           .get(CHECK_ON_CHANGE_CONF_KEY, this.checkOnChange);
-      } else if (
-        evt.affectsConfiguration(SATySFi_SCOPE + "." + ENABLE_DIAG_KEY)
-      ) {
-        this.enabled = workspace
-          .getConfiguration(SATySFi_SCOPE)
-          .get(ENABLE_DIAG_KEY, true);
+      } else if (evt.affectsConfiguration(SATySFi_SCOPE + "." + ENABLE_DIAG_KEY)) {
+        this.enabled = workspace.getConfiguration(SATySFi_SCOPE).get(ENABLE_DIAG_KEY, true);
         if (this.enabled) {
-          workspace.textDocuments.forEach(i => this.checkSATySFi(i));
+          workspace.textDocuments.forEach((i) => this.checkSATySFi(i));
         } else {
           this.collection.clear();
         }
       }
     });
-    workspace.onDidChangeTextDocument(async evt => {
+    workspace.onDidChangeTextDocument(async (evt) => {
       if (this.checkOnChange && this.enabled) {
         const src = evt.document.getText();
         let tmpPath: string;
@@ -67,9 +60,7 @@ export default class SATySFiProvider implements Disposable {
         const ext = fp.extname(origPath);
         const namebase = fp.basename(origPath, ext);
         do {
-          const nonce = Math.random()
-            .toString(36)
-            .slice(-8);
+          const nonce = Math.random().toString(36).slice(-8);
           const name = `${namebase}.check-${nonce}${ext}`;
           tmpPath = fp.join(fp.dirname(origPath), name);
         } while (fs.existsSync(tmpPath));
@@ -81,28 +72,24 @@ export default class SATySFiProvider implements Disposable {
         }
       }
     }, this);
-    workspace.onDidSaveTextDocument(i => {
+    workspace.onDidSaveTextDocument((i) => {
       if (this.enabled) {
         this.checkSATySFi(i);
       }
     }, this);
-    workspace.textDocuments.forEach(i => {
+    workspace.textDocuments.forEach((i) => {
       if (this.enabled) {
         this.checkSATySFi(i);
       }
     }, this);
   }
 
-  private async checkSATySFi(
-    document: TextDocument | string,
-    originalPath?: string
-  ) {
+  private async checkSATySFi(document: TextDocument | string, originalPath?: string) {
     if (typeof document !== "string" && document.languageId !== "satysfi") {
       return;
     }
     let origin: string;
-    let canonic = (p: string) =>
-      p === origin && originalPath ? originalPath : p;
+    let canonic = (p: string) => (p === origin && originalPath ? originalPath : p);
     if (typeof document === "string") {
       origin = document;
     } else {
@@ -112,12 +99,13 @@ export default class SATySFiProvider implements Disposable {
     let { stdout, stderr } = proc.spawnSync(
       this.satysfi,
       ["--full-path", "--type-check-only", "--bytecomp", origin],
-      options
+      options,
     );
     const output = String(stdout) + "\n" + String(stderr);
     let target: string | undefined;
     const diagnostics: Map<string, Diagnostic[]> = new Map();
-    let regex = /^(?:(  (?:reading|parsing) '(.+?)' ...)|(! \[(.+?)\] at "(.+)", (line (\d+), characters (\d+)-(\d+)|line (\d+), character (\d+) to line (\d+), character (\d+)):?\s*))$/gm;
+    let regex =
+      /^(?:(  (?:reading|parsing) '(.+?)' ...)|(! \[(.+?)\] at "(.+)", (line (\d+), characters (\d+)-(\d+)|line (\d+), character (\d+) to line (\d+), character (\d+)):?\s*))$/gm;
     let pos: RegExpExecArray | null;
     let rawTarget: string | undefined;
     while ((pos = regex.exec(output))) {
@@ -172,7 +160,7 @@ export default class SATySFiProvider implements Disposable {
       }
     }
 
-    if (diagnostics.size == 0) {
+    if (diagnostics.size === 0) {
       this.collection.clear();
       return;
     }
@@ -187,6 +175,6 @@ export default class SATySFiProvider implements Disposable {
   public dispose() {
     this.collection.clear();
     this.collection.dispose();
-    this.disposables.forEach(i => i.dispose());
+    this.disposables.forEach((i) => i.dispose());
   }
 }
