@@ -1,20 +1,19 @@
 "use strict";
 
 import * as proc from "child_process";
-
+import * as fs from "fs";
+import * as fp from "path";
 import {
+  Diagnostic,
   DiagnosticCollection,
+  DiagnosticSeverity,
   Disposable,
   languages,
-  TextDocument,
-  Diagnostic,
-  workspace,
-  DiagnosticSeverity,
   Range,
+  TextDocument,
   Uri,
+  workspace,
 } from "vscode";
-import * as fp from "path";
-import * as fs from "fs";
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const SATySFi_SCOPE = "satysfi";
