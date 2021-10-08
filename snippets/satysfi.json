@@ -1,215 +1,155 @@
 {
-    "document": {
-        "prefix": "document",
-        "body": [
-            "document (|",
-            "  title = {${1}};",
-            "  author = {${2}};",
-            "  show-title = ${3:true};",
-            "  show-toc = ${4:true};",
-            "|) '<",
-            "  ${5}",
-            ">"
-        ]
-    },
-    "section": [
-        {
-            "prefix": "+section",
-            "body": [
-                "+section{${1}} <",
-                "  ${2}",
-                ">"
-            ],
-            "description": "+section{} <>"
-        },
-        {
-            "prefix": "+section",
-            "body": [
-                "+section{${1}} (",
-                "  ${2}",
-                "  '<",
-                "    ${3}",
-                "  >",
-                ");"
-            ],
-            "description": "+section{} ('<>);"
-        }
-    ],
-    "subsection": [
-        {
-            "prefix": "+subsection",
-            "body": [
-                "+subsection{${1}} <",
-                "  ${2}",
-                ">"
-            ],
-            "description": "+subsection{} <>"
-        },
-        {
-            "prefix": "+subsection",
-            "body": [
-                "+subsection{${1}} (",
-                "  ${2}",
-                "  '<",
-                "    ${3}",
-                "  >",
-                ");"
-            ],
-            "description": "+subsection{} ('<>);"
-        }
-    ],
-    "paragraph": [
-        {
-            "prefix": "+p",
-            "body": [
-                "+p {",
-                "  ${1}",
-                "}"
-            ],
-            "description": "+p {}"
-        },
-        {
-            "prefix": "+p",
-            "body": [
-                "+p (",
-                "  ${1}",
-                "  {",
-                "    ${2}",
-                "  }",
-                ");"
-            ],
-            "description": "+p ({});"
-        }
-    ],
-    "math": [
-        {
-            "prefix": "+math",
-            "body": [
-                "+math (\\${",
-                "  ${2}",
-                "});"
-            ],
-            "description": "+math (\\n{}\\n);"
-        },
-        {
-            "prefix": "+math",
-            "body": [
-                "+math (",
-                "  ${1}",
-                "  \\${",
-                "    ${2}",
-                "  }",
-                ");"
-            ],
-            "description": "+math (\\n{}\\n);"
-        }
-    ],
-    "let": [
-        {
-            "prefix": "let",
-            "body": [
-                "let ${1} = ${2} in"
-            ]
-        },
-        {
-            "prefix": "let-mutable",
-            "body": [
-                "let-mutable ${1} = ${2} in"
-            ]
-        },
-        {
-            "prefix": "let-inline",
-            "body": [
-                "let-inline ${1} = ${2} in"
-            ]
-        },
-        {
-            "prefix": "let-block",
-            "body": [
-                "let-clock ${1} = ${2} in"
-            ]
-        },
-        {
-            "prefix": "let-math",
-            "body": [
-                "let-math ${1} = ${2} in"
-            ]
-        },
-        {
-            "prefix": "let-rec",
-            "body": [
-                "let-rec ${1} = ${2} in"
-            ]
-        }
-    ],
-    "meta": [
-        {
-            "prefix": "@require",
-            "body": [
-                "@require: ${1}"
-            ]
-        },
-        {
-            "prefix": "@import",
-            "body": [
-                "@import: ${1}"
-            ]
-        }
-    ],
-    "requirements": [
-        {
-            "prefix": "stdjabook",
-            "body": ["stdjabook"]
-        },
-        {
-            "prefix": "stdja",
-            "body": ["stdja"]
-        },
-        {
-            "prefix": "hdecoset",
-            "body": ["hdecoset"]
-        },
-        {
-            "prefix": "vdecoset",
-            "body": ["vdecoset"]
-        },
-        {
-            "prefix": "code",
-            "body": ["code"]
-        },
-        {
-            "prefix": "pervasives",
-            "body": ["pervasives"]
-        },
-        {
-            "prefix": "gr",
-            "body": ["gr"]
-        }
-    ],
-    "module": [
-        {
-            "prefix": "StdJaBook",
-            "body": ["StdJaBook"]
-        },
-        {
-            "prefix": "StdJa",
-            "body": ["StdJa"]
-        },
-        {
-            "prefix": "HDecoSet",
-            "body": ["HDecoSet"]
-        },
-        {
-            "prefix": "VDecoSet",
-            "body": ["VDecoSet"]
-        },
-        {
-            "prefix": "Code",
-            "body": ["Code"]
-        },
-        {
-            "prefix": "Color",
-            "body": ["Color"]
-        }
+  "document": {
+    "prefix": "document",
+    "body": [
+      "document (|",
+      "  title = {${1}};",
+      "  author = {${2}};",
+      "  show-title = ${3:true};",
+      "  show-toc = ${4:true};",
+      "|) '<",
+      "  ${5}",
+      ">"
     ]
+  },
+  "section": [
+    {
+      "prefix": "+section",
+      "body": ["+section{${1}} <", "  ${2}", ">"],
+      "description": "+section{} <>"
+    },
+    {
+      "prefix": "+section",
+      "body": ["+section{${1}} (", "  ${2}", "  '<", "    ${3}", "  >", ");"],
+      "description": "+section{} ('<>);"
+    }
+  ],
+  "subsection": [
+    {
+      "prefix": "+subsection",
+      "body": ["+subsection{${1}} <", "  ${2}", ">"],
+      "description": "+subsection{} <>"
+    },
+    {
+      "prefix": "+subsection",
+      "body": ["+subsection{${1}} (", "  ${2}", "  '<", "    ${3}", "  >", ");"],
+      "description": "+subsection{} ('<>);"
+    }
+  ],
+  "paragraph": [
+    {
+      "prefix": "+p",
+      "body": ["+p {", "  ${1}", "}"],
+      "description": "+p {}"
+    },
+    {
+      "prefix": "+p",
+      "body": ["+p (", "  ${1}", "  {", "    ${2}", "  }", ");"],
+      "description": "+p ({});"
+    }
+  ],
+  "math": [
+    {
+      "prefix": "+math",
+      "body": ["+math (\\${", "  ${2}", "});"],
+      "description": "+math (\\n{}\\n);"
+    },
+    {
+      "prefix": "+math",
+      "body": ["+math (", "  ${1}", "  \\${", "    ${2}", "  }", ");"],
+      "description": "+math (\\n{}\\n);"
+    }
+  ],
+  "let": [
+    {
+      "prefix": "let",
+      "body": ["let ${1} = ${2} in"]
+    },
+    {
+      "prefix": "let-mutable",
+      "body": ["let-mutable ${1} = ${2} in"]
+    },
+    {
+      "prefix": "let-inline",
+      "body": ["let-inline ${1} = ${2} in"]
+    },
+    {
+      "prefix": "let-block",
+      "body": ["let-clock ${1} = ${2} in"]
+    },
+    {
+      "prefix": "let-math",
+      "body": ["let-math ${1} = ${2} in"]
+    },
+    {
+      "prefix": "let-rec",
+      "body": ["let-rec ${1} = ${2} in"]
+    }
+  ],
+  "meta": [
+    {
+      "prefix": "@require",
+      "body": ["@require: ${1}"]
+    },
+    {
+      "prefix": "@import",
+      "body": ["@import: ${1}"]
+    }
+  ],
+  "requirements": [
+    {
+      "prefix": "stdjabook",
+      "body": ["stdjabook"]
+    },
+    {
+      "prefix": "stdja",
+      "body": ["stdja"]
+    },
+    {
+      "prefix": "hdecoset",
+      "body": ["hdecoset"]
+    },
+    {
+      "prefix": "vdecoset",
+      "body": ["vdecoset"]
+    },
+    {
+      "prefix": "code",
+      "body": ["code"]
+    },
+    {
+      "prefix": "pervasives",
+      "body": ["pervasives"]
+    },
+    {
+      "prefix": "gr",
+      "body": ["gr"]
+    }
+  ],
+  "module": [
+    {
+      "prefix": "StdJaBook",
+      "body": ["StdJaBook"]
+    },
+    {
+      "prefix": "StdJa",
+      "body": ["StdJa"]
+    },
+    {
+      "prefix": "HDecoSet",
+      "body": ["HDecoSet"]
+    },
+    {
+      "prefix": "VDecoSet",
+      "body": ["VDecoSet"]
+    },
+    {
+      "prefix": "Code",
+      "body": ["Code"]
+    },
+    {
+      "prefix": "Color",
+      "body": ["Color"]
+    }
+  ]
 }
