@@ -12,6 +12,7 @@ import {
   Range,
   TextDocument,
   Uri,
+  window,
   workspace,
 } from "vscode";
 
@@ -95,11 +96,15 @@ export default class SATySFiProvider implements Disposable {
       origin = document.fileName;
     }
     let options = workspace.rootPath ? { cwd: workspace.rootPath } : undefined;
-    let { stdout, stderr } = proc.spawnSync(
+    let { stdout, stderr, error } = proc.spawnSync(
       this.satysfi,
       ["--full-path", "--type-check-only", "--bytecomp", origin],
       options,
     );
+    if (error) {
+      window.showErrorMessage(error.message);
+      return;
+    }
     const output = String(stdout) + "\n" + String(stderr);
     let target: string | undefined;
     const diagnostics: Map<string, Diagnostic[]> = new Map();
