@@ -3,542 +3,179 @@
   "name": "SATySFi",
   "patterns": [
     {
-      "include": "#comments"
+      "include": "#meta"
     },
     {
-      "name": "satysfi.document.definition",
-      "begin": "(document)(\\s*\\(\\|)",
-      "beginCaptures": {
-        "1": {
-          "name": "keyword.control.satysfi"
-        }
-      },
-      "end": "\\|\\)",
+      "include": "#program-mode"
+    }
+  ],
+  "repository": {
+    "meta": {
       "patterns": [
+        {
+          "name": "keyword.control.satysfi",
+          "match": "\\@\\b(require|import|stage)\\b"
+        }
+      ]
+    },
+
+    "program-mode": {
+      "patterns": [
+        {
+          "include": "#comments"
+        },
+        {
+          "include": "#block-bracket-in-program"
+        },
+        {
+          "$comment": "order matters. it must come before #inline-brace.",
+          "include": "#math-brace"
+        },
+        {
+          "include": "#inline-brace"
+        },
+        {
+          "include": "#paren-like-in-program"
+        },
+        {
+          "include": "#numeric"
+        },
+        {
+          "include": "#keywords"
+        },
+        {
+          "include": "#punctuation"
+        },
+        {
+          "include": "#storage"
+        },
+        {
+          "include": "#type"
+        },
+        {
+          "include": "#constant"
+        },
         {
           "include": "#bool"
         },
         {
-          "begin": "\\{",
-          "end": "\\};",
-          "patterns": [
-            {
-              "include": "#inline"
-            },
-            {
-              "include": "#inline-block"
-            },
-            {
-              "include": "#comments"
-            }
-          ]
+          "include": "#function"
+        },
+        {
+          "include": "#module"
+        },
+        {
+          "include": "#property"
+        },
+        {
+          "include": "#variable"
+        },
+        {
+          "include": "#string"
+        },
+        {
+          "include": "#raw"
+        },
+        {
+          "include": "#command-name-in-program"
+        }
+      ]
+    },
+    "block-mode": {
+      "patterns": [
+        {
+          "include": "#comments"
+        },
+        {
+          "include": "#variable"
+        },
+        {
+          "include": "#block-command"
+        },
+        {
+          "include": "#block-bracket-in-text"
+        },
+        {
+          "include": "#inline-brace"
+        }
+      ]
+    },
+    "inline-mode": {
+      "patterns": [
+        {
+          "include": "#escape"
         },
         {
           "include": "#comments"
+        },
+        {
+          "include": "#variable"
+        },
+        {
+          "$comment": "order matters. it must come before #inline-brace.",
+          "include": "#math-brace"
+        },
+        {
+          "include": "#inline-command"
+        },
+        {
+          "include": "#inline-brace"
+        },
+        {
+          "include": "#block-bracket-in-text"
+        },
+        {
+          "include": "#itemize"
         }
       ]
     },
-    {
-      "include": "#main"
-    },
-    {
-      "include": "#keywords"
-    },
-    {
-      "include": "#storage"
-    },
-    {
-      "include": "#module"
-    },
-    {
-      "include": "#property"
-    },
-    {
-      "include": "#type"
-    },
-    {
-      "include": "#math"
-    },
-    {
-      "include": "#meta"
-    },
-    {
-      "include": "#comments"
-    },
-    {
-      "include": "#variable"
+    "math-mode": {
+      "patterns": [
+        {
+          "include": "#comments"
+        },
+        {
+          "include": "#math-command"
+        },
+        {
+          "include": "#math-operator"
+        },
+        {
+          "include": "#brace-in-math"
+        },
+        {
+          "include": "#program-in-math"
+        },
+        {
+          "include": "#block-in-math"
+        },
+        {
+          "include": "#inline-in-math"
+        }
+      ]
     },
 
-    {
-      "include": "#constant"
-    },
-    {
-      "include": "#function"
-    },
-    {
-      "include": "#module"
-    },
-    {
-      "include": "#property"
-    },
-    {
-      "include": "#inline"
-    },
-    {
-      "include": "#block"
-    },
-    {
-      "include": "#operator"
-    },
-    {
-      "include": "#numeric"
-    }
-  ],
-  "repository": {
-    "main": {
+    "numeric": {
       "patterns": [
         {
-          "begin": "'\\<",
-          "end": "\\>",
-          "patterns": [
-            {
-              "include": "#block-name"
-            },
-            {
-              "include": "#block-vertical"
-            },
-            {
-              "include": "#block-horizontal"
-            },
-            {
-              "include": "#block-expr"
-            },
-            {
-              "include": "#variable"
-            },
-            {
-              "include": "#comments"
-            },
-            {
-              "include": "#raw"
-            }
-          ]
-        }
-      ]
-    },
-    "block-name": {
-      "patterns": [
-        {
-          "match": "\\+\\w+(\\-\\w+)*",
-          "name": "entity.name.section.satysfi"
-        }
-      ]
-    },
-    "block-vertical": {
-      "patterns": [
-        {
-          "begin": "\\<",
-          "end": "\\>",
-          "patterns": [
-            {
-              "include": "#comments"
-            },
-            {
-              "include": "#string"
-            },
-            {
-              "include": "#raw"
-            },
-            {
-              "include": "#block-vertical"
-            },
-            {
-              "include": "#block-horizontal"
-            },
-            {
-              "include": "#block-expr"
-            },
-            {
-              "include": "#block-name"
-            },
-            {
-              "include": "#variable"
-            }
-          ]
-        }
-      ]
-    },
-    "block-expr": {
-      "patterns": [
-        {
-          "begin": "\\(",
-          "end": "\\)",
-          "patterns": [
-            {
-              "include": "#block-vertical"
-            },
-            {
-              "include": "#block-horizontal"
-            },
-            {
-              "include": "#block-expr-child"
-            },
-            {
-              "include": "#math"
-            },
-            {
-              "include": "#inline-block"
-            },
-            {
-              "include": "#keywords"
-            },
-            {
-              "include": "#storage"
-            },
-            {
-              "include": "#type"
-            },
-            {
-              "include": "#constant"
-            },
-            {
-              "include": "#bool"
-            },
-            {
-              "include": "#function"
-            },
-            {
-              "include": "#module"
-            },
-            {
-              "include": "#property"
-            },
-            {
-              "include": "#inline"
-            },
-            {
-              "include": "#variable"
-            },
-            {
-              "include": "#numeric"
-            },
-            {
-              "include": "#comments"
-            },
-            {
-              "include": "#string"
-            },
-            {
-              "include": "#raw"
-            }
-          ]
-        }
-      ]
-    },
-    "block-expr-child": {
-      "patterns": [
-        {
-          "begin": "\\((?!`)",
-          "end": "(?<!`)\\)",
-          "patterns": [
-            {
-              "include": "#block-expr-child"
-            },
-            {
-              "include": "#math"
-            },
-            {
-              "include": "#inline-block"
-            },
-            {
-              "include": "#keywords"
-            },
-            {
-              "include": "#storage"
-            },
-            {
-              "include": "#type"
-            },
-            {
-              "include": "#constant"
-            },
-            {
-              "include": "#bool"
-            },
-            {
-              "include": "#function"
-            },
-            {
-              "include": "#module"
-            },
-            {
-              "include": "#property"
-            },
-            {
-              "include": "#inline"
-            },
-            {
-              "include": "#variable"
-            },
-            {
-              "include": "#numeric"
-            },
-            {
-              "include": "#comments"
-            },
-            {
-              "include": "#string"
-            },
-            {
-              "include": "#raw"
-            }
-          ]
-        }
-      ]
-    },
-    "block-expr-in-horizontal": {
-      "patterns": [
-        {
-          "begin": "(?<=(\\)|[a-zA-Z0-9]))\\s*\\((?!`)",
-          "end": "(?<!`)\\)(?=\\s*[\\(;])",
-          "patterns": [
-            {
-              "include": "#block-expr-child"
-            },
-            {
-              "include": "#math"
-            },
-            {
-              "include": "#inline-block"
-            },
-            {
-              "include": "#keywords"
-            },
-            {
-              "include": "#storage"
-            },
-            {
-              "include": "#type"
-            },
-            {
-              "include": "#constant"
-            },
-            {
-              "include": "#bool"
-            },
-            {
-              "include": "#function"
-            },
-            {
-              "include": "#module"
-            },
-            {
-              "include": "#property"
-            },
-            {
-              "include": "#inline"
-            },
-            {
-              "include": "#variable"
-            },
-            {
-              "include": "#numeric"
-            },
-            {
-              "include": "#comments"
-            },
-            {
-              "include": "#string"
-            },
-            {
-              "include": "#raw"
-            }
-          ]
-        }
-      ]
-    },
-    "block-horizontal": {
-      "patterns": [
-        {
-          "begin": "\\{",
-          "end": "\\}",
-
-          "patterns": [
-            {
-              "include": "#inline-block"
-            },
-            {
-              "include": "#inline"
-            },
-            {
-              "include": "#string"
-            },
-            {
-              "include": "#raw"
-            },
-            {
-              "include": "#comments"
-            },
-            {
-              "include": "#math"
-            },
-            {
-              "include": "#block-expr-in-horizontal"
-            }
-          ]
+          "name": "constant.numeric.hexadecimal.integer.satysfi",
+          "match": "(?<![0-9a-zA-Zあ-ん一-龠々、。，．@\\w])(0x|0X)[0-9A-F]+"
         },
         {
-          "begin": "\\[",
-          "end": "\\]",
-          "patterns": [
-            {
-              "include": "#inline-block"
-            },
-            {
-              "include": "#inline"
-            },
-            {
-              "include": "#string"
-            },
-            {
-              "include": "#math"
-            },
-            {
-              "include": "#comments"
-            }
-          ]
-        }
-      ]
-    },
-    "math": {
-      "patterns": [
-        {
-          "begin": "(?<!\\\\)(\\$)\\{",
-          "beginCaptures": {
-            "1": {
-              "name": "keyword.control.satysfi"
-            }
-          },
-          "end": "\\}",
-          "patterns": [
-            {
-              "include": "#variable"
-            },
-            {
-              "include": "#inline"
-            },
-            {
-              "include": "#comments"
-            },
-            {
-              "include": "#math-inline-block"
-            },
-            {
-              "include": "#math-operator"
-            }
-          ]
-        }
-      ]
-    },
-    "math-operator": {
-      "patterns": [
-        {
-          "name": "entity.name.function.satysfi",
-          "match": "(?<!\\\\)(\\_|\\^)"
-        }
-      ]
-    },
-    "math-inline-block": {
-      "patterns": [
-        {
-          "begin": "\\{",
-          "end": "\\}",
-          "patterns": [
-            {
-              "include": "#math-inline-block"
-            },
-            {
-              "include": "#inline"
-            },
-            {
-              "include": "#comments"
-            },
-            {
-              "include": "#variable"
-            },
-            {
-              "include": "#math"
-            },
-            {
-              "include": "#math-operator"
-            }
-          ]
+          "name": "constant.numeric.decimal.length.satysfi",
+          "match": "(?<![0-9a-zA-Zあ-ん一-龠々、。，．@\\w])\\-?(([0-9]+\\.[0-9]*)|(\\.[0-9]+))[a-z][0-9a-zA-Z\\-]*"
         },
         {
-          "begin": "\\[",
-          "end": "\\]",
-          "patterns": [
-            {
-              "include": "#math"
-            },
-            {
-              "include": "#comments"
-            }
-          ]
-        }
-      ]
-    },
-    "inline": {
-      "patterns": [
-        {
-          "name": "entity.name.function.satysfi",
-          "match": "\\\\\\w+\\-?[a-zA-Z][a-zA-Z0-9]*!?(?=[;\\W])"
-        }
-      ]
-    },
-    "inline-block": {
-      "patterns": [
-        {
-          "begin": "\\{",
-          "end": "\\}",
-          "patterns": [
-            {
-              "include": "#inline-block"
-            },
-            {
-              "include": "#inline"
-            },
-            {
-              "include": "#comments"
-            },
-            {
-              "include": "#variable"
-            },
-            {
-              "include": "#math"
-            }
-          ]
+          "name": "constant.numeric.decimal.length.satysfi",
+          "match": "(?<![0-9a-zA-Zあ-ん一-龠々、。，．@\\w])\\-?([0-9]|([1-9][0-9]+))[a-z][0-9a-zA-Z\\-]*"
         },
         {
-          "begin": "\\[",
-          "end": "\\]",
-          "patterns": [
-            {
-              "include": "#inline-block"
-            },
-            {
-              "include": "#inline"
-            },
-            {
-              "include": "#string"
-            },
-            {
-              "include": "#math"
-            },
-            {
-              "include": "#comments"
-            }
-          ]
+          "name": "constant.numeric.decimal.float.satysfi",
+          "match": "(?<![0-9a-zA-Zあ-ん一-龠々、。，．@\\w])([0-9]+\\.[0-9]*)|(\\.[0-9]+)"
+        },
+        {
+          "name": "constant.numeric.decimal.integer.satysfi",
+          "match": "(?<![0-9a-zA-Zあ-ん一-龠々、。，．@\\w])[0-9]|([1-9][0-9]+)"
         }
       ]
     },
@@ -546,11 +183,27 @@
       "patterns": [
         {
           "name": "keyword.control.satysfi",
-          "match": "(?<![\\-\\w])(end|in|match|with|when|as|fun|of|if|then|else|while|do|before|\\-\\>)(?![\\-\\w])"
+          "match": "(?<![\\-\\w])(end|in|match|with|when|as|fun|of|if|then|else|while|do|before|\\-\\>|\\<\\-)(?![\\-\\w])"
         },
         {
-          "name": "keyword.control.satysfi",
-          "match": "(?<![\\-\\w])(\\=)(?![\\-\\w])"
+          "name": "keyword.operator.satysfi",
+          "match": "(?<![\\-\\w])(&&|\\|\\||\\|\\>|\\=\\=|\\<\\>|((\\<|\\>)(\\=|')?)|\\=|((\\+|\\-|\\*|/)(\\.|')?)|\\^)(?![\\-\\w])"
+        },
+        {
+          "name": "keyword.operator.satysfi",
+          "match": "(?<![\\-\\w])(mod|not|bxor|band|bor|bnot)(?![\\-\\w])"
+        }
+      ]
+    },
+    "punctuation": {
+      "patterns": [
+        {
+          "name": "punctuation.separator.comma.satysfi",
+          "match": ","
+        },
+        {
+          "name": "punctuation.separator.semicolon.satysfi",
+          "match": ";"
         }
       ]
     },
@@ -558,7 +211,7 @@
       "patterns": [
         {
           "name": "storage.type.satysfi",
-          "match": "(?<![\\-\\w])(struct|module|let(\\-(inline|math|rec|block|mutable))?|and|val|direct|type)(?![\\-\\w])"
+          "match": "(?<![\\-\\w])(struct|module|open|let(\\-(inline|math|rec|block|mutable))?|and|val|direct|type)(?![\\-\\w])"
         }
       ]
     },
@@ -566,7 +219,7 @@
       "patterns": [
         {
           "name": "support.type.satysfi",
-          "match": "(?<![\\-\\w])(unit|int|bool|float|length|string|inline-text|inline-boxes|block-text|block-boxes|paddings|deco|deco-set|context|graphics|document|script|image|point|pre-path|path|color|font|language|math|obj|math-class|math-kern-func|math-char-style|paren|math-char-class|Option|type-syntax|list)(?![\\-\\w])"
+          "match": "(?<![\\-\\w])(unit|int|bool|float|length|string|inline-text|inline-boxes|block-text|block-boxes|inline-cmd|block-cmd|paddings|deco|deco-set|context|graphics|document|script|image|point|pre-path|path|color|font|language|math|obj|math-class|math-kern-func|math-char-style|paren|math-char-class|Option|type-syntax|list|itemize)(?![\\-\\w])"
         }
       ]
     },
@@ -590,7 +243,7 @@
       "patterns": [
         {
           "name": "support.function.satysfi",
-          "match": "(?<![\\-\\w])(arabic|string\\-(unexplode|same|sub|length)|read\\-inline|inline\\-(skip|glue|fil|nil)\\+\\+|embed\\-(string|math)|discretionary|script\\-guard|get\\-natural\\-width|inline\\-(graphics|frame\\-(outer|inner|breakable))|embed\\-block\\-(top|bottom)|line\\-stack\\-(top|bottom)|read-block|line-break|\\+\\+\\+|block\\-(nil|frame\\-breakable)|set\\-space\\-ratio|(set|get)\\-font\\-size|set\\-font|(set|get)\\-language|set\\-math\\-font|(set|get)\\-dominant\\-(wide|narrow)\\-script|set\\-(text\\-color|leading|manual\\-rising)|get\\-text\\-width|math\\-((|big\\-)char(|\\-with\\-kern)|sup|sub|lower|upper|frac|radical|paren|variant\\-char|color|char\\-glass)|text\\-in\\-math|load\\-(|pdf\\-)image|use\\-image\\-by\\-width|start\\-path|line\\-to|bezier\\-to|close\\-with\\-(line|bezier)|(terminate|unite)\\-path|fill|stroke|draw\\-text)(?![\\-\\w])"
+          "match": "(?<![\\-\\w])(arabic|string\\-(unexplode|same|sub|length)|read\\-inline|inline\\-(skip|glue|fil|nil)\\+\\+|embed\\-(string|math)|discretionary|script\\-guard|get\\-natural\\-width|inline\\-(graphics|frame\\-(outer|inner|breakable))|embed\\-block\\-(top|bottom)|line\\-stack\\-(top|bottom)|read-block|line-break|\\+\\+\\+|block\\-(nil|frame\\-breakable)|set\\-space\\-ratio|(set|get)\\-font\\-size|set\\-font|(set|get)\\-language|set\\-math\\-font|(set|get)\\-dominant\\-(wide|narrow)\\-script|set\\-(text\\-color|leading|manual\\-rising)|set\\-paragraph\\-margin|set\\-code\\-text\\-command|get\\-text\\-width|(register|get)\\-cross\\-reference|math\\-((|big\\-)char(|\\-with\\-kern)|sup|sub|lower|upper|frac|radical|paren|variant\\-char|color|char\\-glass)|text\\-in\\-math|load\\-(|pdf\\-)image|use\\-image\\-by\\-width|start\\-path|line\\-to|bezier\\-to|close\\-with\\-(line|bezier)|(terminate|unite)\\-path|fill|stroke|draw\\-text)(?![\\-\\w])"
         }
       ]
     },
@@ -610,35 +263,11 @@
         }
       ]
     },
-    "meta": {
-      "patterns": [
-        {
-          "name": "keyword.control.satysfi",
-          "match": "\\@\\b(require|import|stage)\\b"
-        }
-      ]
-    },
-    "variable": {
-      "patterns": [
-        {
-          "name": "variable.paramater.satysfi",
-          "match": "\\#[a-zA-Z0-9][a-zA-Z0-9\\-]*"
-        }
-      ]
-    },
-    "numeric": {
-      "patterns": [
-        {
-          "name": "constant.numeric.satysfi",
-          "match": "(?<![0-9a-zA-Zあ-ん一-龠々、。，．@\\w])[0-9]+(\\.[0-9]*)?[a-zA-Z]*"
-        }
-      ]
-    },
     "comments": {
       "patterns": [
         {
           "name": "comment.line.satysfi",
-          "match": "(?<!\\\\)%.*"
+          "match": "%.*"
         }
       ]
     },
@@ -656,6 +285,267 @@
           "name": "markup.raw.satysfi",
           "begin": "```",
           "end": "```"
+        }
+      ]
+    },
+    "paren-like-in-program": {
+      "patterns": [
+        {
+          "begin": "\\(",
+          "end": "\\)",
+          "patterns": [
+            {
+              "include": "#program-mode"
+            }
+          ]
+        },
+        {
+          "begin": "\\[",
+          "end": "\\]",
+          "patterns": [
+            {
+              "include": "#program-mode"
+            }
+          ]
+        }
+      ]
+    },
+    "block-bracket-in-program": {
+      "$comment": "block text included in program",
+      "patterns": [
+        {
+          "begin": "'\\<",
+          "end": "\\>",
+          "patterns": [
+            {
+              "include": "#block-mode"
+            }
+          ]
+        }
+      ]
+    },
+    "command-name-in-program": {
+      "patterns": [
+        {
+          "name": "entity.name.section.satysfi",
+          "match": "\\+\\w+(?:\\-\\w+)*"
+        },
+        {
+          "name": "entity.name.function.satysfi",
+          "match": "\\\\\\w+(?:\\-\\w+)*"
+        }
+      ]
+    },
+
+    "block-command": {
+      "$comment": "block command and its arguments enclosed in parentheses",
+      "patterns": [
+        {
+          "begin": "\\+([A-Z][0-9a-zA-Z\\-]*\\.)*[a-z][0-9a-zA-Z\\-]*",
+          "beginCaptures": {
+            "0": {
+              "name": "entity.name.section.satysfi"
+            }
+          },
+          "end": ";|(?=\\{|\\<)",
+          "patterns": [
+            {
+              "include": "#argument"
+            }
+          ]
+        }
+      ]
+    },
+    "block-bracket-in-text": {
+      "$comment": "block included in inline-text or block-text. This is an argument for some command.",
+      "patterns": [
+        {
+          "begin": "\\<",
+          "end": "\\>",
+          "patterns": [
+            {
+              "include": "#block-mode"
+            }
+          ]
+        }
+      ]
+    },
+
+    "inline-command": {
+      "$comment": "inline command and its arguments enclosed in parentheses",
+      "patterns": [
+        {
+          "begin": "\\\\([A-Z][0-9a-zA-Z\\-]*\\.)*[a-z][0-9a-zA-Z\\-]*",
+          "beginCaptures": {
+            "0": {
+              "name": "entity.name.function.satysfi"
+            }
+          },
+          "end": ";|(?=\\{|\\<)",
+          "patterns": [
+            {
+              "include": "#argument"
+            }
+          ]
+        }
+      ]
+    },
+    "itemize": {
+      "patterns": [
+        {
+          "name": "punctuation.definition.list.begin.markdown",
+          "match": "[\\*]+"
+        }
+      ]
+    },
+    "math-brace": {
+      "patterns": [
+        {
+          "begin": "(\\$)\\{",
+          "beginCaptures": {
+            "1": {
+              "name": "keyword.control.satysfi"
+            }
+          },
+          "end": "\\}",
+          "patterns": [
+            {
+              "include": "#math-mode"
+            }
+          ]
+        }
+      ]
+    },
+    "escape": {
+      "patterns": [
+        {
+          "match": "\\\\[\\{\\}\\<\\>\\|%\\*;#\\$\\\\\\@\\`]"
+        }
+      ]
+    },
+
+    "math-command": {
+      "$comment": "math command. arguments not included.",
+      "patterns": [
+        {
+          "match": "\\\\\\w+(?:\\-\\w+)*",
+          "name": "entity.name.function.satysfi"
+        }
+      ]
+    },
+    "math-operator": {
+      "patterns": [
+        {
+          "name": "entity.name.function.satysfi",
+          "match": "(?<!\\\\)(\\_|\\^)"
+        }
+      ]
+    },
+    "brace-in-math": {
+      "patterns": [
+        {
+          "begin": "\\{",
+          "end": "\\}",
+          "patterns": [
+            {
+              "include": "#math-mode"
+            }
+          ]
+        }
+      ]
+    },
+    "program-in-math": {
+      "patterns": [
+        {
+          "begin": "\\!\\(",
+          "end": "\\)",
+          "patterns": [
+            {
+              "include": "#program-mode"
+            }
+          ]
+        },
+        {
+          "begin": "\\!\\[",
+          "end": "\\]",
+          "patterns": [
+            {
+              "include": "#program-mode"
+            }
+          ]
+        }
+      ]
+    },
+    "block-in-math": {
+      "patterns": [
+        {
+          "begin": "\\!\\<",
+          "end": "\\>",
+          "patterns": [
+            {
+              "include": "#block-mode"
+            }
+          ]
+        }
+      ]
+    },
+    "inline-in-math": {
+      "patterns": [
+        {
+          "begin": "\\!\\{",
+          "end": "\\}",
+          "patterns": [
+            {
+              "include": "#inline-mode"
+            }
+          ]
+        }
+      ]
+    },
+
+    "argument": {
+      "$comment": "argument for some command. include program.",
+      "patterns": [
+        {
+          "begin": "\\(",
+          "end": "\\)",
+          "patterns": [
+            {
+              "include": "#program-mode"
+            }
+          ]
+        },
+        {
+          "begin": "\\[",
+          "end": "\\]",
+          "patterns": [
+            {
+              "include": "#program-mode"
+            }
+          ]
+        }
+      ]
+    },
+    "inline-brace": {
+      "$comment": "inline included in any context (inline, block, program). this is an argument for some command.",
+      "patterns": [
+        {
+          "begin": "\\{",
+          "end": "\\}",
+
+          "patterns": [
+            {
+              "include": "#inline-mode"
+            }
+          ]
+        }
+      ]
+    },
+    "variable": {
+      "patterns": [
+        {
+          "name": "variable.paramater.satysfi",
+          "match": "\\#[a-zA-Z0-9][a-zA-Z0-9\\-]*"
         }
       ]
     }
