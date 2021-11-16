@@ -74,7 +74,37 @@
         "scopeName": "text.saty.satyh",
         "path": "./snippets/satysfi.json"
       }
-    ]
+    ],
+    "commands": [
+      {
+        "command": "satysfi.build",
+        "title": "Build SATySFi Project",
+        "category": "SATySFi",
+        "icon": "$(debug-start)"
+      },
+      {
+        "command": "satysfi.openBuildLog",
+        "title": "Open SATySFi Build Log",
+        "category": "SATySFi"
+      }
+    ],
+    "keybindings": [
+      {
+        "key": "ctrl+alt+b",
+        "mac": "cmd+alt+b",
+        "command": "satysfi.build",
+        "when": "editorLangId == satysfi"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "when": "editorLangId == satysfi",
+          "command": "satysfi.build",
+          "group": "navigation"
+        }
+      ]
+    }
   },
   "activationEvents": [
     "onLanguage:satysfi"
