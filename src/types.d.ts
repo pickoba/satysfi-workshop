@@ -4,9 +4,8 @@ export interface ExtensionConfig {
     buildOptions: string[];
     rootFile: string;
   };
-  diagnostics: {
-    enabled: boolean;
-    onChange: boolean;
+  typecheck: {
     buildOptions: string[];
+    when: "never" | "onSave" | "onFileChange";
   };
 }

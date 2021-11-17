@@ -24,7 +24,7 @@ export default class DiagnosticsProvider implements Disposable {
 
     this.disposables.push(
       workspace.onDidChangeTextDocument((evt) => {
-        if (!getConfig().diagnostics.onChange) return;
+        if (getConfig().typecheck.when !== "onFileChange") return;
         this.checkDocument(evt.document, true);
       }, this),
     );
@@ -34,7 +34,7 @@ export default class DiagnosticsProvider implements Disposable {
   }
 
   private async checkDocument(document: TextDocument, copy?: boolean) {
-    if (!getConfig().diagnostics.enabled) return;
+    if (getConfig().typecheck.when === "never") return;
     if (document.languageId !== "satysfi") return;
 
     const originalPath = document.fileName;
@@ -68,7 +68,7 @@ export default class DiagnosticsProvider implements Disposable {
   }
 
   private async execTypeCheck(path: string) {
-    const defaultOptions = getConfig().diagnostics.buildOptions;
+    const defaultOptions = getConfig().typecheck.buildOptions;
     const workdir = workspace.getWorkspaceFolder(Uri.file(path))?.uri.fsPath ?? fp.dirname(path);
 
     try {
