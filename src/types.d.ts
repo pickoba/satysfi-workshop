@@ -3,5 +3,6 @@ export interface ExtensionConfig {
   diagnostics: {
     enabled: boolean;
     onChange: boolean;
+    buildOptions: string[];
   };
 }

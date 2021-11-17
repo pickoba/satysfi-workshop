@@ -68,7 +68,7 @@ export default class DiagnosticsProvider implements Disposable {
   }
 
   private async execTypeCheck(path: string) {
-    const defaultOptions = ["--full-path", "--type-check-only", "--bytecomp"];
+    const defaultOptions = getConfig().diagnostics.buildOptions;
     const workdir = workspace.getWorkspaceFolder(Uri.file(path))?.uri.fsPath ?? fp.dirname(path);
 
     try {

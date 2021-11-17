@@ -42,6 +42,19 @@
             "title": "Check on Change",
             "default": false,
             "description": "Check on Change"
+          },
+          "satysfi.diagnostics.buildOptions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "Diagnostics Build Options",
+            "default": [
+              "--full-path",
+              "--type-check-only",
+              "--bytecomp"
+            ],
+            "description": "build options passed to satysfi when type check"
           }
         }
       }
