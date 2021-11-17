@@ -46,24 +46,23 @@
             "title": "Root File for Build",
             "markdownDescription": "The root .saty file to build a project. You do not need to set it if you have only one .saty file in your workspace."
           },
-          "satysfi.diagnostics.enabled": {
-            "type": "boolean",
-            "title": "Enable Diagnostics",
-            "default": true,
-            "description": "Enables Diagnostics"
+          "satysfi.typecheck.when": {
+            "type": "string",
+            "enum": [
+              "never",
+              "onSave",
+              "onFileChange"
+            ],
+            "title": "When to perform a Type Check",
+            "default": "onSave",
+            "description": "When to perform a type check"
           },
-          "satysfi.diagnostics.onChange": {
-            "type": "boolean",
-            "title": "Check on Change",
-            "default": false,
-            "description": "Check on Change"
-          },
-          "satysfi.diagnostics.buildOptions": {
+          "satysfi.typecheck.buildOptions": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "title": "Diagnostics Build Options",
+            "title": "Typecheck Build Options",
             "default": [
               "--full-path",
               "--type-check-only",
