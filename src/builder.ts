@@ -1,10 +1,9 @@
-import * as proc from "child_process";
 import { commands, Disposable, Uri, window, workspace } from "vscode";
 import { EXTENSION_NAME } from "./const";
 import { Context } from "./extension";
 import { Logger } from "./logger";
+import { spawnSATySFi } from "./runner";
 import { StatusBar } from "./statusbar";
-import { getConfig } from "./util";
 
 export class Builder {
   private readonly disposables: Disposable[] = [];
@@ -26,9 +25,7 @@ export class Builder {
     this.logger.clearLogBuild();
     this.statusBar.show("sync~spin", "Building...");
 
-    const spawned = proc.spawn(getConfig().executable, [target.fsPath], {
-      cwd: workDir.uri.fsPath,
-    });
+    const { spawned } = spawnSATySFi(target.fsPath, workDir.uri.fsPath);
 
     spawned.stdout.on("data", (data) => {
       this.logger.logBuild(data.toString());

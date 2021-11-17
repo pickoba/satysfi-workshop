@@ -4,7 +4,7 @@
 import { commands, ExtensionContext } from "vscode";
 import { Builder } from "./builder";
 import { COMMAND_BUILD, COMMAND_OPEN_BUILD_LOG } from "./const";
-import SATySFiProvider from "./diagnostics";
+import DiagnosticsProvider from "./diagnostics";
 import { Logger } from "./logger";
 import { StatusBar } from "./statusbar";
 
@@ -24,9 +24,9 @@ export async function activate(extContext: ExtensionContext) {
   const builder = new Builder(context);
   extContext.subscriptions.push(builder);
 
+  const diagnosticsProvider = new DiagnosticsProvider();
+  extContext.subscriptions.push(diagnosticsProvider);
+
   commands.registerCommand(COMMAND_BUILD, () => builder.buildProject());
   commands.registerCommand(COMMAND_OPEN_BUILD_LOG, () => context.logger.showBuildLog());
-
-  let provider: SATySFiProvider = new SATySFiProvider();
-  extContext.subscriptions.push(provider);
 }
