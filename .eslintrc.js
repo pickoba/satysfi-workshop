@@ -27,7 +27,7 @@ module.exports = {
     "@typescript-eslint/naming-convention": "warn",
     "@typescript-eslint/no-unused-expressions": "warn",
     "@typescript-eslint/semi": ["warn", "always"],
-    curly: "warn",
+    curly: ["warn", "multi-line"],
     eqeqeq: ["warn", "always"],
     "no-redeclare": "warn",
     "no-throw-literal": "warn",
