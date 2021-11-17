@@ -31,6 +31,15 @@
             "title": "SATySFi Executable",
             "default": "satysfi"
           },
+          "satysfi.build.buildOptions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "Build Options",
+            "default": [],
+            "markdownDescription": "Additional options to pass to the `satysfi` when build"
+          },
           "satysfi.diagnostics.enabled": {
             "type": "boolean",
             "title": "Enable Diagnostics",
@@ -54,7 +63,7 @@
               "--type-check-only",
               "--bytecomp"
             ],
-            "description": "build options passed to satysfi when type check"
+            "markdownDescription": "Additional options to pass to the `satysfi` when type check"
           }
         }
       }

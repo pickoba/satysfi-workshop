@@ -4,6 +4,7 @@ import { Context } from "./extension";
 import { Logger } from "./logger";
 import { spawnSATySFi } from "./runner";
 import { StatusBar } from "./statusbar";
+import { getConfig } from "./util";
 
 export class Builder {
   private readonly disposables: Disposable[] = [];
@@ -25,7 +26,8 @@ export class Builder {
     this.logger.clearLogBuild();
     this.statusBar.show("sync~spin", "Building...");
 
-    const { spawned } = spawnSATySFi(target.fsPath, workDir.uri.fsPath);
+    const options = getConfig().build.buildOptions;
+    const { spawned } = spawnSATySFi(target.fsPath, workDir.uri.fsPath, options);
 
     spawned.stdout.on("data", (data) => {
       this.logger.logBuild(data.toString());
