@@ -3,6 +3,8 @@ import { Diagnostic, DiagnosticSeverity, Range } from "vscode";
 
 export function parseLog(output: string) {
   let target: string | undefined;
+  // filename -> fullpath
+  const filenameMap: Map<string, string> = new Map();
   const diagnostics: Map<string, Diagnostic[]> = new Map();
   let regex =
     /^(?:(  (?:reading|parsing|type checking) '(.+?)' ...)|(! \[(.+?)\] at "(.+)", (line (\d+), characters (\d+)-(\d+)|line (\d+), character (\d+) to line (\d+), character (\d+)):?\s*))$/gm;
@@ -11,11 +13,15 @@ export function parseLog(output: string) {
     if (pos[1]) {
       // Parsing or Reading file
       target = pos[2];
+      filenameMap.set(fp.basename(target), target);
     } else if (pos[3]) {
       // Diagnostics found
       if (!target) throw new Error("failed to find reading/parsing/type checking line");
       if (fp.basename(target) !== pos[5]) {
-        throw new Error(`unexpected filename: expect ${fp.basename(target)}, but got ${pos[5]}`);
+        target = filenameMap.get(pos[5]);
+        if (!target) {
+          throw new Error(`failed to determine the full path of ${pos[5]}`);
+        }
       }
       let startLine;
       let endLine;
