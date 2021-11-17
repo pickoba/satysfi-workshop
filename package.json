@@ -40,6 +40,12 @@
             "default": [],
             "markdownDescription": "Additional options to pass to the `satysfi` when build"
           },
+          "satysfi.build.rootFile": {
+            "type": "string",
+            "default": "",
+            "title": "Root File for Build",
+            "markdownDescription": "The root .saty file to build a project. You do not need to set it if you have only one .saty file in your workspace."
+          },
           "satysfi.diagnostics.enabled": {
             "type": "boolean",
             "title": "Enable Diagnostics",

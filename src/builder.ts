@@ -1,10 +1,9 @@
-import { commands, Disposable, Uri, window, workspace } from "vscode";
-import { EXTENSION_NAME } from "./const";
+import { Disposable, Uri, window, workspace } from "vscode";
 import { Context } from "./extension";
 import { Logger } from "./logger";
 import { spawnSATySFi } from "./runner";
 import { StatusBar } from "./statusbar";
-import { getConfig } from "./util";
+import { getConfig, showErrorWithOpenSettings } from "./util";
 
 export class Builder {
   private readonly disposables: Disposable[] = [];
@@ -51,7 +50,10 @@ export class Builder {
           this.onBuildSuccess(target);
           break;
         case -2:
-          this.onExecutableNotFound();
+          showErrorWithOpenSettings(
+            `SATySFi executable not found. Please set the executable path in the settings.`,
+            false,
+          );
           break;
         default:
           this.onBuildFail(target);
@@ -73,18 +75,7 @@ export class Builder {
     }
   }
 
-  private async onExecutableNotFound() {
-    const item = await window.showErrorMessage(
-      `SATySFi executable not found. Please set the executable path in the settings.`,
-      "Open Settings",
-    );
-
-    if (item === "Open Settings") {
-      commands.executeCommand("workbench.action.openSettings", `@ext:${EXTENSION_NAME}`);
-    }
-  }
-
-  public buildProject() {
+  public async buildProject() {
     const document = window.activeTextEditor?.document;
 
     if (document && document.fileName.endsWith(".saty")) {
@@ -93,9 +84,34 @@ export class Builder {
       return;
     }
 
-    // TODO: find root document and build it
-    console.log("build root document");
-    return;
+    // find root file in workspace
+    const rootFilePath = getConfig().build.rootFile;
+    if (rootFilePath) {
+      const [rootFile] = await workspace.findFiles(rootFilePath, null, 1);
+      if (rootFile) {
+        this.build(rootFile);
+      } else {
+        window.showErrorMessage(`Root file not found: ${rootFilePath}`);
+      }
+      return;
+    }
+
+    // find .saty file in workspace
+    const satyFiles = await workspace.findFiles("**/*.saty", "**/.git/**", 2);
+    switch (satyFiles.length) {
+      case 0:
+        window.showErrorMessage("No .saty file found in workspace.");
+        break;
+      case 1:
+        this.build(satyFiles[0]);
+        break;
+      default:
+        showErrorWithOpenSettings(
+          "Multiple .saty files found in workspace. Please set the root .saty file in settings.",
+          true,
+        );
+        break;
+    }
   }
 
   public dispose() {
