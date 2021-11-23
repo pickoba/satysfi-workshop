@@ -35,4 +35,5 @@ module.exports = {
     semi: "warn",
   },
   ignorePatterns: ["out", "dist", "**/*.d.ts"],
+  extends: ["prettier"],
 };
