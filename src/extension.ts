@@ -24,7 +24,7 @@ export async function activate(extContext: ExtensionContext) {
   const builder = new Builder(context);
   extContext.subscriptions.push(builder);
 
-  const diagnosticsProvider = new DiagnosticsProvider();
+  const diagnosticsProvider = new DiagnosticsProvider(context);
   extContext.subscriptions.push(diagnosticsProvider);
 
   commands.registerCommand(COMMAND_BUILD, () => builder.buildProject());
