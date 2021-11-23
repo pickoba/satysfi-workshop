@@ -1,7 +1,7 @@
 import { Disposable, Uri, window, workspace } from "vscode";
 import { Context } from "./extension";
 import { Logger } from "./logger";
-import { spawnSATySFi } from "./runner";
+import { buildSATySFi } from "./runner";
 import { StatusBar } from "./statusbar";
 import { getConfig, showErrorWithOpenSettings } from "./util";
 
@@ -15,51 +15,30 @@ export class Builder {
     this.statusBar = context.statusBar;
   }
 
-  private build(target: Uri) {
-    const workDir = workspace.getWorkspaceFolder(target);
-    if (!workDir) {
-      window.showErrorMessage(`No workspace folder found for ${target}`);
-      return;
-    }
-
+  private async build(target: Uri) {
     this.logger.clearLogBuild();
     this.statusBar.show("sync~spin", "Building...");
 
-    const options = getConfig().build.buildOptions;
-    const { spawned } = spawnSATySFi(target.fsPath, workDir.uri.fsPath, options);
+    try {
+      // TODO: use diagnostics
+      const { success, diagnostics } = await buildSATySFi(
+        target,
+        getConfig().build.buildOptions,
+        this.logger,
+      );
 
-    spawned.stdout.on("data", (data) => {
-      this.logger.logBuild(data.toString());
-    });
+      if (success) this.onBuildSuccess(target);
+      else this.onBuildFail(target);
+    } catch (e) {
+      showErrorWithOpenSettings(
+        `SATySFi executable not found. Please set the executable path in the settings.`,
+        false,
+      );
 
-    spawned.stderr.on("data", (data) => {
-      this.logger.logBuild(data.toString());
-    });
-
-    spawned.on("error", (err) => {
-      this.logger.logBuild(err.message);
-    });
-
-    spawned.on("close", (code) => {
-      console.log(`build ${target}: exited with code ${code}`);
-
+      this.logger.log(`Build ${e}`);
+    } finally {
       this.statusBar.hide();
-
-      switch (code) {
-        case 0:
-          this.onBuildSuccess(target);
-          break;
-        case -2:
-          showErrorWithOpenSettings(
-            `SATySFi executable not found. Please set the executable path in the settings.`,
-            false,
-          );
-          break;
-        default:
-          this.onBuildFail(target);
-          break;
-      }
-    });
+    }
   }
 
   private async onBuildSuccess(target: Uri) {

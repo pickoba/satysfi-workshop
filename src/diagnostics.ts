@@ -1,25 +1,18 @@
 "use strict";
 
-import * as fs from "fs/promises";
-import * as fp from "path";
-import {
-  Diagnostic,
-  DiagnosticCollection,
-  Disposable,
-  languages,
-  TextDocument,
-  Uri,
-  window,
-  workspace,
-} from "vscode";
-import { execSATySFi } from "./runner";
-import { getConfig, getWorkPath } from "./util";
+import { DiagnosticCollection, Disposable, languages, TextDocument, Uri, workspace } from "vscode";
+import { Context } from "./extension";
+import { Logger } from "./logger";
+import { buildSATySFi } from "./runner";
+import { getConfig, showErrorWithOpenSettings } from "./util";
 
 export default class DiagnosticsProvider implements Disposable {
+  private readonly logger: Logger;
   private collection: DiagnosticCollection;
   private readonly disposables: Disposable[] = [];
 
-  constructor() {
+  constructor(context: Context) {
+    this.logger = context.logger;
     this.collection = languages.createDiagnosticCollection();
 
     this.disposables.push(
@@ -34,53 +27,28 @@ export default class DiagnosticsProvider implements Disposable {
   }
 
   private async checkDocument(document: TextDocument, copy?: boolean) {
-    if (getConfig().typecheck.when === "never") return;
+    const config = getConfig();
+
+    if (config.typecheck.when === "never") return;
     if (document.languageId !== "satysfi") return;
 
-    const originalPath = document.fileName;
-    let workPath = originalPath;
-
-    if (copy) {
-      const content = document.getText();
-      workPath = getWorkPath(originalPath);
-      await fs.writeFile(workPath, content);
-    }
-
     try {
-      await this.checkFile(workPath, originalPath);
-    } finally {
-      if (copy) fs.unlink(workPath);
-    }
-  }
+      const { diagnostics } = await buildSATySFi(
+        copy ? document : document.uri,
+        config.typecheck.buildOptions,
+      );
 
-  private async checkFile(tmpPath: string, originalPath: string) {
-    // originalPath: /path/to/workspace/target.saty
-    // tmpPath:      /path/to/workspace/target.check-00000000.saty (when copy)
-    // workPath:     /satysfi/target.check-00000000.saty (when using docker)
-
-    const diagnostics = await this.execTypeCheck(tmpPath);
-
-    this.collection.clear();
-
-    diagnostics.forEach((ds, key) => {
-      this.collection.set(Uri.file(key === tmpPath ? originalPath : key), ds);
-    });
-  }
-
-  private async execTypeCheck(path: string) {
-    const defaultOptions = getConfig().typecheck.buildOptions;
-    const workdir = workspace.getWorkspaceFolder(Uri.file(path))?.uri.fsPath ?? fp.dirname(path);
-
-    try {
-      return await execSATySFi(path, workdir, defaultOptions);
+      this.collection.clear();
+      diagnostics.forEach((ds, key) => {
+        this.collection.set(Uri.file(key), ds);
+      });
     } catch (e) {
-      if (e instanceof Error) {
-        window.showErrorMessage(e.message);
-      } else {
-        window.showErrorMessage("Unknown error occured during type check");
-      }
+      showErrorWithOpenSettings(
+        `SATySFi executable not found. Please set the executable path in the settings.`,
+        false,
+      );
 
-      return new Map<string, Diagnostic[]>();
+      this.logger.log(`TypeCheck ${e}`);
     }
   }
 
