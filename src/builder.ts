@@ -5,7 +5,7 @@ import { buildSATySFi } from "./runner";
 import { StatusBar } from "./statusbar";
 import { getConfig, showErrorWithOpenSettings } from "./util";
 
-export class Builder {
+export class Builder implements Disposable {
   private readonly disposables: Disposable[] = [];
   private readonly logger: Logger;
   private readonly statusBar: StatusBar;

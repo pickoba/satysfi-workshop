@@ -1,13 +1,11 @@
 import { existsSync } from "fs";
 import * as fp from "path";
 import { commands, window, workspace } from "vscode";
-import { EXTENSION_NAME } from "./const";
+import { CONFIG_SCOPE, EXTENSION_NAME } from "./const";
 import { ExtensionConfig } from "./types";
 
-const configScope = "satysfi";
-
 export function getConfig() {
-  return workspace.getConfiguration(configScope) as unknown as ExtensionConfig;
+  return workspace.getConfiguration(CONFIG_SCOPE) as unknown as ExtensionConfig;
 }
 
 export async function showErrorWithOpenSettings(message: string, workspace: boolean) {
