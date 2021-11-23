@@ -1,14 +1,12 @@
-"use strict";
-
 import { DiagnosticCollection, Disposable, languages, TextDocument, Uri, workspace } from "vscode";
 import { Context } from "./extension";
 import { Logger } from "./logger";
 import { buildSATySFi } from "./runner";
 import { getConfig, showErrorWithOpenSettings } from "./util";
 
-export default class DiagnosticsProvider implements Disposable {
+export class DiagnosticsProvider implements Disposable {
   private readonly logger: Logger;
-  private collection: DiagnosticCollection;
+  private readonly collection: DiagnosticCollection;
   private readonly disposables: Disposable[] = [];
 
   constructor(context: Context) {
