@@ -11,7 +11,7 @@ export interface Context {
   statusBar: StatusBar;
 }
 
-export async function activate(extContext: ExtensionContext) {
+export function activate(extContext: ExtensionContext): void {
   const context = {
     logger: new Logger(),
     statusBar: new StatusBar(extContext),

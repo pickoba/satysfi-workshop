@@ -50,7 +50,7 @@ export class DiagnosticsProvider implements Disposable {
     }
   }
 
-  public dispose() {
+  public dispose(): void {
     this.collection.clear();
     this.collection.dispose();
     this.disposables.forEach((i) => i.dispose());

@@ -10,12 +10,12 @@ export class StatusBar {
     subscriptions.push(this.statusBarItem);
   }
 
-  public show(icon: string, message: string) {
+  public show(icon: string, message: string): void {
     this.statusBarItem.text = `$(${icon})${message}`;
     this.statusBarItem.show();
   }
 
-  public hide() {
+  public hide(): void {
     this.statusBarItem.hide();
   }
 }

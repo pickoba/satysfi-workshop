@@ -4,11 +4,14 @@ import { commands, window, workspace } from "vscode";
 import { CONFIG_SCOPE, EXTENSION_NAME } from "./const";
 import { ExtensionConfig } from "./types";
 
-export function getConfig() {
+export function getConfig(): ExtensionConfig {
   return workspace.getConfiguration(CONFIG_SCOPE) as unknown as ExtensionConfig;
 }
 
-export async function showErrorWithOpenSettings(message: string, workspace: boolean) {
+export async function showErrorWithOpenSettings(
+  message: string,
+  workspace: boolean,
+): Promise<void> {
   const item = await window.showErrorMessage(message, "Open Settings");
 
   if (item === "Open Settings") {
@@ -17,7 +20,7 @@ export async function showErrorWithOpenSettings(message: string, workspace: bool
   }
 }
 
-export function getWorkPath(path: string) {
+export function getWorkPath(path: string): string {
   const ext = fp.extname(path);
   const namebase = fp.join(fp.dirname(path), fp.basename(path, ext));
 

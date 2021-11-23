@@ -1,12 +1,19 @@
 import * as proc from "child_process";
 import * as fs from "fs/promises";
 import * as fp from "path";
-import { TextDocument, Uri, workspace } from "vscode";
+import { Diagnostic, TextDocument, Uri, workspace } from "vscode";
 import { Logger } from "./logger";
 import { parseLog } from "./logParser";
 import { getConfig, getWorkPath } from "./util";
 
-export async function buildSATySFi(target: Uri | TextDocument, args: string[], logger?: Logger) {
+export async function buildSATySFi(
+  target: Uri | TextDocument,
+  args: string[],
+  logger?: Logger,
+): Promise<{
+  success: boolean;
+  diagnostics: Map<string, Diagnostic[]>;
+}> {
   const isDocument = !(target instanceof Uri);
 
   const targetUri = isDocument ? target.uri : target;

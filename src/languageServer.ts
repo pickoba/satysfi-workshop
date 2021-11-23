@@ -24,7 +24,7 @@ export class LanguageServer implements Disposable {
     this.path = config.languageServer.path;
 
     this.disposables.push(
-      workspace.onDidChangeConfiguration((_) => {
+      workspace.onDidChangeConfiguration(() => {
         const config = getConfig();
 
         if (config.languageServer.path !== this.path) {
@@ -82,7 +82,7 @@ export class LanguageServer implements Disposable {
     this.logger.log("Language Server: stop");
   }
 
-  public dispose() {
+  public dispose(): void {
     this.stopServer();
     this.disposables.forEach((d) => d.dispose());
   }

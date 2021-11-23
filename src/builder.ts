@@ -21,11 +21,7 @@ export class Builder implements Disposable {
 
     try {
       // TODO: use diagnostics
-      const { success, diagnostics } = await buildSATySFi(
-        target,
-        getConfig().build.buildOptions,
-        this.logger,
-      );
+      const { success } = await buildSATySFi(target, getConfig().build.buildOptions, this.logger);
 
       if (success) this.onBuildSuccess(target);
       else this.onBuildFail(target);
@@ -54,7 +50,7 @@ export class Builder implements Disposable {
     }
   }
 
-  public async buildProject() {
+  public async buildProject(): Promise<void> {
     const document = window.activeTextEditor?.document;
 
     if (document && document.fileName.endsWith(".saty")) {
@@ -93,7 +89,7 @@ export class Builder implements Disposable {
     }
   }
 
-  public dispose() {
+  public dispose(): void {
     this.disposables.forEach((d) => d.dispose());
   }
 }

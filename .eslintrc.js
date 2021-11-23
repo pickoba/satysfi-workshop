@@ -1,4 +1,5 @@
 module.exports = {
+  root: true,
   env: {
     browser: true,
     es6: true,
@@ -35,5 +36,10 @@ module.exports = {
     semi: "warn",
   },
   ignorePatterns: ["out", "dist", "**/*.d.ts"],
-  extends: ["prettier"],
+  extends: [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier",
+  ],
 };
