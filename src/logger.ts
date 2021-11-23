@@ -9,23 +9,23 @@ export class Logger {
     this.buildPanel = vscode.window.createOutputChannel("SATySFi (Build)");
   }
 
-  log(message: string) {
+  log(message: string): void {
     this.mainPanel.appendLine(message);
   }
 
-  logBuild(message: string) {
+  logBuild(message: string): void {
     this.buildPanel.append(message);
   }
 
-  clearLogBuild() {
+  clearLogBuild(): void {
     this.buildPanel.clear();
   }
 
-  showLog() {
+  showLog(): void {
     this.mainPanel.show();
   }
 
-  showBuildLog() {
+  showBuildLog(): void {
     this.buildPanel.show();
   }
 }

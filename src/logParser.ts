@@ -1,13 +1,13 @@
 import * as fp from "path";
 import { Diagnostic, DiagnosticSeverity, Range } from "vscode";
 
-export function parseLog(output: string) {
+export function parseLog(output: string): Map<string, Diagnostic[]> {
   let target: string | undefined;
   // filename -> fullpath
   const filenameMap: Map<string, string> = new Map();
   const diagnostics: Map<string, Diagnostic[]> = new Map();
-  let regex =
-    /^(?:(  (?:reading|parsing|type checking) '(.+?)' ...)|(! \[(.+?)\] at "(.+)", (line (\d+), characters (\d+)-(\d+)|line (\d+), character (\d+) to line (\d+), character (\d+)):?\s*))$/gm;
+  const regex =
+    /^(?:( {2}(?:reading|parsing|type checking) '(.+?)' ...)|(! \[(.+?)\] at "(.+)", (line (\d+), characters (\d+)-(\d+)|line (\d+), character (\d+) to line (\d+), character (\d+)):?\s*))$/gm;
   let pos: RegExpExecArray | null;
   while ((pos = regex.exec(output))) {
     if (pos[1]) {
