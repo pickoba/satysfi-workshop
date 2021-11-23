@@ -8,4 +8,8 @@ export interface ExtensionConfig {
     buildOptions: string[];
     when: "never" | "onSave" | "onFileChange";
   };
+  languageServer: {
+    enabled: boolean;
+    path: string;
+  };
 }
