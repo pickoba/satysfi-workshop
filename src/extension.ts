@@ -1,10 +1,10 @@
 import { commands, ExtensionContext } from "vscode";
 import { Builder } from "./builder";
 import { COMMAND_BUILD, COMMAND_OPEN_BUILD_LOG } from "./const";
-import { DiagnosticsProvider } from "./diagnostics";
 import { LanguageServer } from "./languageServer";
 import { Logger } from "./logger";
 import { StatusBar } from "./statusbar";
+import { TypeChecker } from "./typeChecker";
 
 export interface Context {
   logger: Logger;
@@ -20,8 +20,8 @@ export function activate(extContext: ExtensionContext): void {
   const builder = new Builder(context);
   extContext.subscriptions.push(builder);
 
-  const diagnosticsProvider = new DiagnosticsProvider(context);
-  extContext.subscriptions.push(diagnosticsProvider);
+  const typeChecker = new TypeChecker(context);
+  extContext.subscriptions.push(typeChecker);
 
   const languageServer = new LanguageServer(context);
   extContext.subscriptions.push(languageServer);

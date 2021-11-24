@@ -4,7 +4,7 @@ import { Logger } from "./logger";
 import { buildSATySFi } from "./runner";
 import { getConfig, showErrorWithOpenSettings } from "./util";
 
-export class DiagnosticsProvider implements Disposable {
+export class TypeChecker implements Disposable {
   private readonly logger: Logger;
   private readonly collection: DiagnosticCollection;
   private readonly disposables: Disposable[] = [];
