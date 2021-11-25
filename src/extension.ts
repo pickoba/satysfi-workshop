@@ -3,6 +3,7 @@ import { Builder } from "./builder";
 import { COMMAND_BUILD, COMMAND_OPEN_BUILD_LOG } from "./const";
 import { LanguageServer } from "./languageServer";
 import { Logger } from "./logger";
+import { packageCompletion } from "./packageCompletion";
 import { StatusBar } from "./statusbar";
 import { TypeChecker } from "./typeChecker";
 
@@ -22,6 +23,8 @@ export function activate(extContext: ExtensionContext): void {
 
   const typeChecker = new TypeChecker(context);
   extContext.subscriptions.push(typeChecker);
+
+  extContext.subscriptions.push(...packageCompletion());
 
   const languageServer = new LanguageServer(context);
   extContext.subscriptions.push(languageServer);
