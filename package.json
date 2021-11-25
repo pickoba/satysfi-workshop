@@ -27,17 +27,17 @@
         "properties": {
           "satysfi.executable": {
             "type": "string",
-            "markdownDescription": "A path to the `satysfi` executable",
+            "default": "satysfi",
             "title": "SATySFi Executable",
-            "default": "satysfi"
+            "markdownDescription": "A path to the `satysfi` executable"
           },
           "satysfi.build.buildOptions": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "title": "Build Options",
             "default": [],
+            "title": "Build Options",
             "markdownDescription": "Additional options to pass to the `satysfi` when build"
           },
           "satysfi.build.rootFile": {
@@ -53,21 +53,21 @@
               "onSave",
               "onFileChange"
             ],
-            "title": "When to perform a Type Check",
             "default": "onSave",
-            "description": "When to perform a type check"
+            "title": "When to perform a Type Check",
+            "markdownDescription": "When to perform a type check"
           },
           "satysfi.typecheck.buildOptions": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "title": "Typecheck Build Options",
             "default": [
               "--full-path",
               "--type-check-only",
               "--bytecomp"
             ],
+            "title": "Typecheck Build Options",
             "markdownDescription": "Additional options to pass to the `satysfi` when type check"
           },
           "satysfi.languageServer.enabled": {
