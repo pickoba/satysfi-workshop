@@ -1,6 +1,6 @@
 import * as proc from "child_process";
 import * as fs from "fs/promises";
-import * as fp from "path";
+import * as path from "path";
 import { Diagnostic, TextDocument, Uri, workspace } from "vscode";
 import { Logger } from "./logger";
 import { parseLog } from "./logParser";
@@ -19,7 +19,7 @@ export async function buildSATySFi(
   const targetUri = isDocument ? target.uri : target;
   const targetPath = targetUri.fsPath;
   const workPath = isDocument ? await copyToFile(target) : targetPath;
-  const workdir = workspace.getWorkspaceFolder(targetUri)?.uri.fsPath ?? fp.dirname(targetPath);
+  const workdir = workspace.getWorkspaceFolder(targetUri)?.uri.fsPath ?? path.dirname(targetPath);
 
   const { code, stdout, stderr } = await spawnSATySFi(workPath, workdir, args, logger).finally(
     () => {

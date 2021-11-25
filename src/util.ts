@@ -1,5 +1,5 @@
 import { existsSync } from "fs";
-import * as fp from "path";
+import * as path from "path";
 import { commands, window, workspace } from "vscode";
 import { CONFIG_SCOPE, EXTENSION_NAME } from "./const";
 import { ExtensionConfig } from "./types";
@@ -20,9 +20,9 @@ export async function showErrorWithOpenSettings(
   }
 }
 
-export function getWorkPath(path: string): string {
-  const ext = fp.extname(path);
-  const namebase = fp.join(fp.dirname(path), fp.basename(path, ext));
+export function getWorkPath(originalPath: string): string {
+  const ext = path.extname(originalPath);
+  const namebase = path.join(path.dirname(originalPath), path.basename(originalPath, ext));
 
   let name: string;
   do {
