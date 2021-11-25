@@ -86,16 +86,6 @@
       "body": ["let-rec ${1} = ${2} in"]
     }
   ],
-  "meta": [
-    {
-      "prefix": "@require",
-      "body": ["@require: ${1}"]
-    },
-    {
-      "prefix": "@import",
-      "body": ["@import: ${1}"]
-    }
-  ],
   "requirements": [
     {
       "prefix": "stdjabook",

@@ -81,6 +81,18 @@
             "default": "",
             "title": "Language Server Path",
             "markdownDescription": "The path to the language server executable"
+          },
+          "satysfi.packageCompletion.enabled": {
+            "type": "boolean",
+            "default": true,
+            "title": "Enable Package Completion",
+            "markdownDescription": "Enable package/file completion on @require and @import"
+          },
+          "satysfi.packageCompletion.searchPath": {
+            "type": "string",
+            "default": "",
+            "title": "Package Search Path",
+            "markdownDescription": "The path to search packages for completion. Leave empty to use default."
           }
         }
       }

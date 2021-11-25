@@ -12,4 +12,8 @@ export interface ExtensionConfig {
     enabled: boolean;
     path: string;
   };
+  packageCompletion: {
+    enabled: boolean;
+    searchPath: string;
+  };
 }
