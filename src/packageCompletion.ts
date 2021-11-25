@@ -1,6 +1,6 @@
 import * as fs from "fs/promises";
 import { homedir } from "os";
-import * as fp from "path";
+import * as path from "path";
 import { CompletionItem, CompletionItemKind, Disposable, languages, window } from "vscode";
 import { getConfig } from "./util";
 
@@ -43,9 +43,9 @@ export function packageCompletion(): Disposable[] {
 }
 
 function listPackageCompletions(dir: string) {
-  const defaultSearchRoot = fp.join(homedir(), ".satysfi", "dist", "packages");
+  const defaultSearchRoot = path.join(homedir(), ".satysfi", "dist", "packages");
   const searchRoot = getConfig().packageCompletion.searchPath || defaultSearchRoot;
-  const searchPath = fp.join(searchRoot, dir);
+  const searchPath = path.join(searchRoot, dir);
 
   return listCompletions(searchPath);
 }
@@ -53,15 +53,15 @@ function listPackageCompletions(dir: string) {
 function listLocalCompletions(dir: string) {
   if (!window.activeTextEditor) return [];
 
-  const searchRoot = fp.dirname(window.activeTextEditor.document.fileName);
-  const searchPath = fp.join(searchRoot, dir);
+  const searchRoot = path.dirname(window.activeTextEditor.document.fileName);
+  const searchPath = path.join(searchRoot, dir);
 
   return listCompletions(searchPath);
 }
 
-async function listCompletions(path: string) {
+async function listCompletions(dir: string) {
   try {
-    const dirents = await fs.readdir(path, { withFileTypes: true });
+    const dirents = await fs.readdir(dir, { withFileTypes: true });
 
     return dirents.flatMap((d) => {
       let item: CompletionItem;
