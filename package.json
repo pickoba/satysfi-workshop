@@ -171,7 +171,7 @@
     "fix": "run-s fix:prettier fix:eslint",
     "fix:eslint": "npm run lint:eslint -- --fix",
     "fix:prettier": "npm run lint:prettier -- --write",
-    "test": "echo \"You cannot run extension tests from CLI because of VS Code's limitation.\nUse VS Code's built-in debugger instead.\""
+    "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
     "@types/glob": "^7.2.0",
