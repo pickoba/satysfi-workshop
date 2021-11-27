@@ -1,6 +1,6 @@
 import * as assert from "assert";
 import * as vscode from "vscode";
-import { activate } from "../helper";
+import { activate, sleep } from "../helper";
 
 suite("test for packageCompletion", () => {
   test("packageCompletion: @import (simple)", async () => {
@@ -51,6 +51,7 @@ async function completeAfterType(
     document.positionAt(document.getText().length),
   );
   await editor.edit((eb) => eb.replace(all, content));
+  await sleep(500);
   return (await vscode.commands.executeCommand(
     "vscode.executeCompletionItemProvider",
     document.uri,
