@@ -4,7 +4,8 @@ import { getWorkPath } from "../../util";
 
 suite("test for util", () => {
   test("util: getWorkPath", () => {
-    const originalPath = "/satysfi/doc.saty";
+    const originalPath =
+      process.platform === "win32" ? "C:\\satysfi\\doc.saty" : "/satysfi/doc.saty";
     const workPath = getWorkPath(originalPath);
 
     assert.notStrictEqual(workPath, originalPath);
