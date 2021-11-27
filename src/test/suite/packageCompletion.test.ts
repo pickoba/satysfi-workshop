@@ -14,6 +14,10 @@ suite("test for packageCompletion", () => {
       { label: "folder01", insertText: "folder01/", kind: vscode.CompletionItemKind.Folder },
     ];
 
+    completions.items.forEach((c) => {
+      console.log(c.label);
+    });
+
     expected.forEach((e, i) => {
       const actual = completions.items[i];
 
@@ -52,7 +56,6 @@ async function completeAfterType(
   );
   await editor.edit((eb) => eb.replace(all, content));
   await sleep(500);
-  console.log(`text: ${document.getText()}`);
   return (await vscode.commands.executeCommand(
     "vscode.executeCompletionItemProvider",
     document.uri,
