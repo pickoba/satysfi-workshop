@@ -52,6 +52,7 @@ async function completeAfterType(
   );
   await editor.edit((eb) => eb.replace(all, content));
   await sleep(500);
+  console.log(`text: ${document.getText()}`);
   return (await vscode.commands.executeCommand(
     "vscode.executeCompletionItemProvider",
     document.uri,
