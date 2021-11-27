@@ -1,6 +1,6 @@
 import * as assert from "assert";
 import * as vscode from "vscode";
-import { activate, sleep } from "../helper";
+import { activate } from "../helper";
 
 suite("test for packageCompletion", () => {
   test("packageCompletion: @import (simple)", async () => {
@@ -13,10 +13,6 @@ suite("test for packageCompletion", () => {
       { label: "file03", insertText: "file03", kind: vscode.CompletionItemKind.File },
       { label: "folder01", insertText: "folder01/", kind: vscode.CompletionItemKind.Folder },
     ];
-
-    completions.items.forEach((c) => {
-      console.log(c.label);
-    });
 
     expected.forEach((e, i) => {
       const actual = completions.items[i];
@@ -55,7 +51,6 @@ async function completeAfterType(
     document.positionAt(document.getText().length),
   );
   await editor.edit((eb) => eb.replace(all, content));
-  await sleep(500);
   return (await vscode.commands.executeCommand(
     "vscode.executeCompletionItemProvider",
     document.uri,
