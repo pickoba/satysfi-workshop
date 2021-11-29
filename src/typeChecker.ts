@@ -1,4 +1,12 @@
-import { DiagnosticCollection, Disposable, languages, TextDocument, Uri, workspace } from "vscode";
+import {
+  DiagnosticCollection,
+  Disposable,
+  languages,
+  TextDocument,
+  Uri,
+  window,
+  workspace,
+} from "vscode";
 import { Context } from "./extension";
 import { Logger } from "./logger";
 import { buildSATySFi } from "./runner";
@@ -19,21 +27,23 @@ export class TypeChecker implements Disposable {
         this.checkDocument(evt.document, true);
       }, this),
     );
-    this.disposables.push(workspace.onDidSaveTextDocument((i) => this.checkDocument(i), this));
+    this.disposables.push(
+      workspace.onDidSaveTextDocument((i) => {
+        if (getConfig().typecheck.when !== "onSave") return;
+        this.checkDocument(i);
+      }, this),
+    );
 
     workspace.textDocuments.forEach((i) => this.checkDocument(i), this);
   }
 
   private async checkDocument(document: TextDocument, copy?: boolean) {
-    const config = getConfig();
-
-    if (config.typecheck.when === "never") return;
     if (document.languageId !== "satysfi") return;
 
     try {
       const { diagnostics } = await buildSATySFi(
         copy ? document : document.uri,
-        config.typecheck.buildOptions,
+        getConfig().typecheck.buildOptions,
       );
 
       this.collection.clear();
@@ -48,6 +58,11 @@ export class TypeChecker implements Disposable {
 
       this.logger.log(`TypeCheck ${e}`);
     }
+  }
+
+  public async checkCurrentDocument(): Promise<void> {
+    const document = window.activeTextEditor?.document;
+    if (document) this.checkDocument(document, true);
   }
 
   public dispose(): void {
