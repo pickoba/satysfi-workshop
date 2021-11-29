@@ -31,6 +31,16 @@
             "title": "SATySFi Executable",
             "markdownDescription": "A path to the `satysfi` executable"
           },
+          "satysfi.build.when": {
+            "type": "string",
+            "enum": [
+              "never",
+              "onSave"
+            ],
+            "default": "never",
+            "title": "When to Build",
+            "markdownDescription": "When to trigger automatic build"
+          },
           "satysfi.build.buildOptions": {
             "type": "array",
             "items": {
