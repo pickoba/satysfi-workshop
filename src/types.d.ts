@@ -2,6 +2,7 @@ export interface ExtensionConfig {
   executable: string;
   build: {
     buildOptions: string[];
+    when: "never" | "onSave";
     rootFile: string;
   };
   typecheck: {

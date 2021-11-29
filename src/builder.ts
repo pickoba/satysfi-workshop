@@ -13,6 +13,14 @@ export class Builder implements Disposable {
   constructor(context: Context) {
     this.logger = context.logger;
     this.statusBar = context.statusBar;
+
+    this.disposables.push(
+      workspace.onDidSaveTextDocument((i) => {
+        if (i.languageId !== "satysfi") return;
+        if (getConfig().build.when !== "onSave") return;
+        this.buildProject();
+      }, this),
+    );
   }
 
   private async build(target: Uri) {
