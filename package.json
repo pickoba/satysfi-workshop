@@ -55,7 +55,7 @@
             ],
             "default": "onSave",
             "title": "When to perform a Type Check",
-            "markdownDescription": "When to perform a type check"
+            "markdownDescription": "When to perform a type check automatically"
           },
           "satysfi.typecheck.buildOptions": {
             "type": "array",
@@ -132,6 +132,11 @@
         "title": "Build SATySFi Project",
         "category": "SATySFi",
         "icon": "$(debug-start)"
+      },
+      {
+        "command": "satysfi.typecheck",
+        "title": "TypeCheck Current Document",
+        "category": "SATySFi"
       },
       {
         "command": "satysfi.openBuildLog",
