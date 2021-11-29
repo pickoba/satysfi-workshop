@@ -5,8 +5,8 @@ export class Logger {
   private readonly buildPanel: vscode.OutputChannel;
 
   constructor() {
-    this.mainPanel = vscode.window.createOutputChannel("SATySFi");
-    this.buildPanel = vscode.window.createOutputChannel("SATySFi (Build)");
+    this.mainPanel = vscode.window.createOutputChannel("SATySFi Workshop");
+    this.buildPanel = vscode.window.createOutputChannel("SATySFi Workshop (Build)");
   }
 
   log(message: string): void {

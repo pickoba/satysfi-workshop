@@ -1,11 +1,11 @@
 {
-  "name": "wraikny-satysfi-extension",
-  "displayName": "SATySFi",
+  "name": "satysfi-workshop",
+  "displayName": "SATySFi Workshop",
   "description": "Launguage support for SATySFi",
   "version": "0.1.2",
-  "publisher": "wraikny",
+  "publisher": "pickoba",
   "repository": {
-    "url": "https://github.com/wraikny/vscode-satysfi"
+    "url": "https://github.com/pickoba/satysfi-workshop"
   },
   "icon": "vscode-satysfi.png",
   "galleryBanner": {
@@ -25,13 +25,13 @@
       {
         "title": "SATySFi",
         "properties": {
-          "satysfi.executable": {
+          "satysfi-workshop.executable": {
             "type": "string",
             "default": "satysfi",
             "title": "SATySFi Executable",
             "markdownDescription": "A path to the `satysfi` executable"
           },
-          "satysfi.build.when": {
+          "satysfi-workshop.build.when": {
             "type": "string",
             "enum": [
               "never",
@@ -41,7 +41,7 @@
             "title": "When to Build",
             "markdownDescription": "When to trigger automatic build"
           },
-          "satysfi.build.buildOptions": {
+          "satysfi-workshop.build.buildOptions": {
             "type": "array",
             "items": {
               "type": "string"
@@ -50,13 +50,13 @@
             "title": "Build Options",
             "markdownDescription": "Additional options to pass to the `satysfi` when build"
           },
-          "satysfi.build.rootFile": {
+          "satysfi-workshop.build.rootFile": {
             "type": "string",
             "default": "",
             "title": "Root File for Build",
             "markdownDescription": "The root .saty file to build a project. You do not need to set it if you have only one .saty file in your workspace."
           },
-          "satysfi.typecheck.when": {
+          "satysfi-workshop.typecheck.when": {
             "type": "string",
             "enum": [
               "never",
@@ -67,7 +67,7 @@
             "title": "When to perform a Type Check",
             "markdownDescription": "When to perform a type check automatically"
           },
-          "satysfi.typecheck.buildOptions": {
+          "satysfi-workshop.typecheck.buildOptions": {
             "type": "array",
             "items": {
               "type": "string"
@@ -80,25 +80,25 @@
             "title": "Typecheck Build Options",
             "markdownDescription": "Additional options to pass to the `satysfi` when type check"
           },
-          "satysfi.languageServer.enabled": {
+          "satysfi-workshop.languageServer.enabled": {
             "type": "boolean",
             "default": false,
             "title": "Enable Language Server",
             "markdownDescription": "Enable the language server"
           },
-          "satysfi.languageServer.path": {
+          "satysfi-workshop.languageServer.path": {
             "type": "string",
             "default": "",
             "title": "Language Server Path",
             "markdownDescription": "The path to the language server executable"
           },
-          "satysfi.packageCompletion.enabled": {
+          "satysfi-workshop.packageCompletion.enabled": {
             "type": "boolean",
             "default": true,
             "title": "Enable Package Completion",
             "markdownDescription": "Enable package/file completion on @require and @import"
           },
-          "satysfi.packageCompletion.searchPath": {
+          "satysfi-workshop.packageCompletion.searchPath": {
             "type": "string",
             "default": "",
             "title": "Package Search Path",
@@ -138,18 +138,18 @@
     ],
     "commands": [
       {
-        "command": "satysfi.build",
+        "command": "satysfi-workshop.build",
         "title": "Build SATySFi Project",
         "category": "SATySFi",
         "icon": "$(debug-start)"
       },
       {
-        "command": "satysfi.typecheck",
+        "command": "satysfi-workshop.typecheck",
         "title": "TypeCheck Current Document",
         "category": "SATySFi"
       },
       {
-        "command": "satysfi.openBuildLog",
+        "command": "satysfi-workshop.openBuildLog",
         "title": "Open SATySFi Build Log",
         "category": "SATySFi"
       }
@@ -158,7 +158,7 @@
       {
         "key": "ctrl+alt+b",
         "mac": "cmd+alt+b",
-        "command": "satysfi.build",
+        "command": "satysfi-workshop.build",
         "when": "editorLangId == satysfi"
       }
     ],
@@ -166,7 +166,7 @@
       "editor/title": [
         {
           "when": "editorLangId == satysfi",
-          "command": "satysfi.build",
+          "command": "satysfi-workshop.build",
           "group": "navigation"
         }
       ]
