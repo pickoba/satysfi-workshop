@@ -1,5 +1,17 @@
+# defaults
 .vscode/**
 .vscode-test/**
+out/test/**
+src/**
 .gitignore
-debug/**
-.git/
+**/tsconfig.json
+**/*.map
+**/*.ts
+
+# additional
+.eslintignore
+.eslintrc.js
+.gitattributes
+.github/**
+.prettierignore
+prettier.config.js
