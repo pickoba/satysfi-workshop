@@ -1,5 +1,7 @@
 # SATySFi Workshop
 
+[![CI](https://github.com/pickoba/satysfi-workshop/actions/workflows/main.yml/badge.svg)](https://github.com/pickoba/satysfi-workshop/actions/workflows/main.yml)
+
 This extension provides language support for [SATySFi](https://github.com/gfngfn/SATySFi).
 
 **Note:** This project is forked from wraikny/vscode-satysfi.
