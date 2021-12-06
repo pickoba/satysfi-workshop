@@ -1,16 +1,48 @@
-# wraikny-vscode-satysfi README
+# SATySFi Workshop
 
-This is an extension of highlighting and snippet for SATySFi, developed in  
-https://github.com/gfngfn/SATySFi.  
+This extension provides language support for [SATySFi](https://github.com/gfngfn/SATySFi).
 
-The source code of this extension is here  
-https://github.com/wraikny/vscode-satysfi.
+**Note:** This project is forked from wraikny/vscode-satysfi.
 
-Please commit to this extension :)
+## Features
 
-## Known Issues
+### Building
 
+<img src="media/building.gif" alt="Building" height="300px">
 
-### 0.0.1
+You can build your SATySFi documents from the button (top right) and keyboard shortcuts (ctrl/cmd + alt + b). You can also set it to build automatically when you save the file.
 
-Initial release
+**Note:** This extension does not include a pdf viewer. If you need it, please install [vscode-pdf](https://marketplace.visualstudio.com/items?itemName=tomoki1207.pdf) or [LaTeX Workshop](https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop) etc.
+
+### Type Checking
+
+<img src="media/type-checking.png" alt="Type Checking" height="240px">
+
+Type checking can be performed automatically when typing or saving a document.
+
+### Package Completion
+
+<img src="media/completion.gif" alt="Package Completion" height="240px">
+
+Package name completion based on SATySFi installation.
+
+### Language Server Support
+
+The language server provides completion and explanation of inline/block commands.
+
+This extension does not include the language server itself. You have to clone & build [monaqa/satysfi-language-server](https://github.com/monaqa/satysfi-language-server) on your own and configure as follows.
+
+```json
+{
+  "satysfi-workshop.languageServer.enabled": true,
+  "satysfi-workshop.languageServer.path": "/path/to/language server"
+}
+```
+
+## Credits
+
+I would like to express my gratitude to @wraikny, the original author of [vscode-satysfi](https://marketplace.visualstudio.com/items?itemName=wraikny.wraikny-satysfi-extension).
+
+## License
+
+Apache License 2.0, See [LICENSE](./LICENSE) for more information.
