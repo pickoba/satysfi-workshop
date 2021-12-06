@@ -341,7 +341,7 @@
       "$comment": "block command and its arguments enclosed in parentheses",
       "patterns": [
         {
-          "begin": "\\+([A-Z][0-9a-zA-Z\\-]*\\.)*[a-z][0-9a-zA-Z\\-]*",
+          "begin": "\\+([A-Z][0-9a-zA-Z\\-]*\\.)*[a-zA-Z][0-9a-zA-Z\\-]*",
           "beginCaptures": {
             "0": {
               "name": "entity.name.section.satysfi"
@@ -375,7 +375,7 @@
       "$comment": "inline command and its arguments enclosed in parentheses",
       "patterns": [
         {
-          "begin": "\\\\([A-Z][0-9a-zA-Z\\-]*\\.)*[a-z][0-9a-zA-Z\\-]*",
+          "begin": "\\\\([A-Z][0-9a-zA-Z\\-]*\\.)*[a-zA-Z][0-9a-zA-Z\\-]*",
           "beginCaptures": {
             "0": {
               "name": "entity.name.function.satysfi"
