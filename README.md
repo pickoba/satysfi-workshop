@@ -30,7 +30,9 @@ Package name completion based on SATySFi installation.
 
 ### Language Server Support
 
-The language server provides completion and explanation of inline/block commands.
+<img src="media/languageServer.gif" alt="Language Server" height="240px">
+
+The language server provides completion and explanation of commands and variables.
 
 This extension does not include the language server itself. You have to clone & build [monaqa/satysfi-language-server](https://github.com/monaqa/satysfi-language-server) on your own and configure as follows.
 
