@@ -34,7 +34,9 @@ export class TypeChecker implements Disposable {
       }, this),
     );
 
-    workspace.textDocuments.forEach((i) => this.checkDocument(i), this);
+    if (getConfig().typecheck.when !== "never") {
+      workspace.textDocuments.forEach((i) => this.checkDocument(i), this);
+    }
   }
 
   private async checkDocument(document: TextDocument, copy?: boolean) {
