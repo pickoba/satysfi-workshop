@@ -167,7 +167,7 @@
         },
         {
           "name": "constant.numeric.decimal.length.satysfi",
-          "match": "(?<![0-9a-zA-Zあ-ん一-龠々、。，．@\\w])\\-?([0-9]|([1-9][0-9]+))[a-z][0-9a-zA-Z\\-]*"
+          "match": "(?<![0-9a-zA-Zあ-ん一-龠々、。，．@\\w])\\-?([1-9][0-9]+|[0-9])[a-z][0-9a-zA-Z\\-]*"
         },
         {
           "name": "constant.numeric.decimal.float.satysfi",
@@ -175,7 +175,7 @@
         },
         {
           "name": "constant.numeric.decimal.integer.satysfi",
-          "match": "(?<![0-9a-zA-Zあ-ん一-龠々、。，．@\\w])[0-9]|([1-9][0-9]+)"
+          "match": "(?<![0-9a-zA-Zあ-ん一-龠々、。，．@\\w])([1-9][0-9]+|[0-9])"
         }
       ]
     },
