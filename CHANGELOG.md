@@ -4,4 +4,9 @@ All notable changes to the "satysfi-workshop" extension will be documented in th
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
 ## [Unreleased]
-- Initial release
+
+## [1.0.0] - 2021-12-20
+- Initial release as SATySFi Workshop
+
+[Unreleased]: https://github.com/pickoba/satysfi-workshop/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/pickoba/satysfi-workshop/releases/tag/v1.0.0
