@@ -2,7 +2,7 @@
   "name": "satysfi-workshop",
   "displayName": "SATySFi Workshop",
   "description": "Launguage support for SATySFi",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "publisher": "pickoba",
   "repository": {
     "url": "https://github.com/pickoba/satysfi-workshop"
