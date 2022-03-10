@@ -218,7 +218,7 @@
       "patterns": [
         {
           "name": "support.type.satysfi",
-          "match": "(?<![\\-\\w])(unit|int|bool|float|length|string|inline-text|inline-boxes|block-text|block-boxes|inline-cmd|block-cmd|paddings|deco|deco-set|context|graphics|document|script|image|point|pre-path|path|color|font|language|math|obj|math-class|math-kern-func|math-char-style|paren|math-char-class|Option|type-syntax|list|itemize)(?![\\-\\w])"
+          "match": "(?<![\\-\\w])(unit|int|bool|float|length|string|inline-text|inline-boxes|block-text|block-boxes|inline-cmd|block-cmd|paddings|deco|deco-set|context|graphics|document|script|image|point|pre-path|path|color|font|language|math|obj|math-class|math-kern-func|math-char-style|paren|math-char-class|option|type-syntax|list|itemize)(?![\\-\\w])"
         }
       ]
     },
