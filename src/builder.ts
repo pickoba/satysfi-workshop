@@ -51,7 +51,7 @@ export class Builder implements Disposable {
 
   private async onBuildFail(target: Uri) {
     this.logger.log(`Build Fail: ${target}`);
-    const item = await window.showErrorMessage(`failed to build ${target}`, "Open Log");
+    const item = await window.showErrorMessage(`failed to build ${target.fsPath}`, "Open Log");
 
     if (item === "Open Log") {
       this.logger.showBuildLog();
