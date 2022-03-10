@@ -74,9 +74,6 @@
           "include": "#string"
         },
         {
-          "include": "#raw"
-        },
-        {
           "include": "#command-name-in-program"
         }
       ]
@@ -272,21 +269,9 @@
       ]
     },
     "string": {
-      "patterns": [
-        {
-          "name": "string.quoted.single.satysfi",
-          "match": "(?<!`)`[^`]*`(?!`)"
-        }
-      ]
-    },
-    "raw": {
-      "patterns": [
-        {
-          "name": "markup.raw.satysfi",
-          "begin": "```",
-          "end": "```"
-        }
-      ]
+      "name": "string.quoted.satysfi",
+      "begin": "(?<!`)#?(`+)(?!`)",
+      "end": "\\1#?"
     },
     "paren-like-in-program": {
       "patterns": [
