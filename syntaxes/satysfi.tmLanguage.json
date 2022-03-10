@@ -185,6 +185,10 @@
           "match": "(?<![\\-\\w])(&&|\\|\\||\\|\\>|\\=\\=|\\<\\>|((\\<|\\>)(\\=|')?)|\\=|((\\+|\\-|\\*|/)(\\.|')?)|\\^)(?![\\-\\w])"
         },
         {
+          "name": "variable.parameter.optional.satysfi",
+          "match": "\\?:?"
+        },
+        {
           "name": "keyword.operator.satysfi",
           "match": "(?<![\\-\\w])(mod|not|bxor|band|bor|bnot)(?![\\-\\w])"
         }
