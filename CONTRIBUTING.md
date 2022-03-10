@@ -32,6 +32,8 @@ You can debug the extension from the Run view:
 
 ## Testing
 
+**Update:** With the update of the `@vscode/test-electron` package, the following restrictions seem to be gone.
+
 Because of VS Code's limitation, you cannot run the tests on CLI if you are using VS Code stable (see [here](https://code.visualstudio.com/api/working-with-extensions/testing-extension#using-insiders-version-for-extension-development)). I recommend running the tests from the debug launch configuration from within VS Code itself:
 
 1. Open the Run view (ctrl/cmd + shift + D)
