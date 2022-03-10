@@ -88,7 +88,7 @@
           },
           "satysfi-workshop.languageServer.path": {
             "type": "string",
-            "default": "",
+            "default": "satysfi-language-server",
             "title": "Language Server Path",
             "markdownDescription": "The path to the language server executable"
           },
