@@ -507,6 +507,9 @@
       "$comment": "argument for some command. include program.",
       "patterns": [
         {
+          "include": "#comments"
+        },
+        {
           "begin": "\\(",
           "end": "\\)",
           "patterns": [
