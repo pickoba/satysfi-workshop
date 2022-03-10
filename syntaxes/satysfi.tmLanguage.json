@@ -206,7 +206,7 @@
       "patterns": [
         {
           "name": "storage.type.satysfi",
-          "match": "(?<![\\-\\w])(struct|module|open|let(\\-(inline|math|rec|block|mutable))?|and|val|direct|type)(?![\\-\\w])"
+          "match": "(?<![\\-\\w])(struct|module|open|let(\\-(inline|math|rec|block|mutable))?|sig|and|val|direct|type)(?![\\-\\w])"
         }
       ]
     },
