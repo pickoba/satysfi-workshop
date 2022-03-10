@@ -13,8 +13,12 @@
     "meta": {
       "patterns": [
         {
-          "name": "keyword.control.satysfi",
-          "match": "\\@\\b(require|import|stage)\\b"
+          "match": "(@(require|import|stage)):\\s*.+$",
+          "captures": {
+            "1": {
+              "name": "keyword.control.satysfi"
+            }
+          }
         }
       ]
     },
@@ -62,19 +66,10 @@
           "include": "#function"
         },
         {
-          "include": "#module"
-        },
-        {
-          "include": "#property"
-        },
-        {
           "include": "#variable"
         },
         {
           "include": "#string"
-        },
-        {
-          "include": "#raw"
         },
         {
           "include": "#command-name-in-program"
@@ -226,8 +221,8 @@
     "constant": {
       "patterns": [
         {
-          "name": "constant.language.satysfi",
-          "match": "(?<![\\-\\w])(Some|None|RGB)(?![\\-\\w])"
+          "name": "constant.language.capital-identifier.satysfi",
+          "match": "(?<![\\-\\w])([A-Z][0-9a-zA-Z\\-]*)(?![\\-\\w])"
         }
       ]
     },
@@ -247,22 +242,6 @@
         }
       ]
     },
-    "module": {
-      "patterns": [
-        {
-          "name": "support.class.satysfi",
-          "match": "[A-Z][a-zA-Z0-9]*(?=\\.[a-z][a-zA-Z0-9]*)"
-        }
-      ]
-    },
-    "property": {
-      "patterns": [
-        {
-          "name": "support.type.property-name.satysfi",
-          "match": "(?<=\\.)[a-z][a-zA-Z0-9\\-]*(?=\\W)"
-        }
-      ]
-    },
     "comments": {
       "patterns": [
         {
@@ -272,21 +251,9 @@
       ]
     },
     "string": {
-      "patterns": [
-        {
-          "name": "string.quoted.single.satysfi",
-          "match": "(?<!`)`[^`]*`(?!`)"
-        }
-      ]
-    },
-    "raw": {
-      "patterns": [
-        {
-          "name": "markup.raw.satysfi",
-          "begin": "```",
-          "end": "```"
-        }
-      ]
+      "name": "string.quoted.satysfi",
+      "begin": "(?<!`)#?(`+)(?!`)",
+      "end": "\\1#?"
     },
     "paren-like-in-program": {
       "patterns": [
@@ -506,6 +473,9 @@
     "argument": {
       "$comment": "argument for some command. include program.",
       "patterns": [
+        {
+          "include": "#comments"
+        },
         {
           "begin": "\\(",
           "end": "\\)",
