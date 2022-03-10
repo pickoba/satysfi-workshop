@@ -13,8 +13,12 @@
     "meta": {
       "patterns": [
         {
-          "name": "keyword.control.satysfi",
-          "match": "\\@\\b(require|import|stage)\\b"
+          "match": "(@(require|import|stage)):\\s*.+$",
+          "captures": {
+            "1": {
+              "name": "keyword.control.satysfi"
+            }
+          }
         }
       ]
     },
