@@ -120,6 +120,9 @@
           "include": "#block-bracket-in-text"
         },
         {
+          "include": "#embedded-string"
+        },
+        {
           "include": "#itemize"
         }
       ]
@@ -386,6 +389,11 @@
           ]
         }
       ]
+    },
+    "embedded-string": {
+      "name": "markup.inline.raw.string.satysfi",
+      "begin": "(?<!`)#?(`+)(?!`)",
+      "end": "\\1#?"
     },
     "escape": {
       "patterns": [
