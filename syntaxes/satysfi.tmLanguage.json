@@ -185,7 +185,7 @@
         },
         {
           "name": "keyword.operator.satysfi",
-          "match": "(?<![\\-\\w])(&&|\\|\\||\\|\\>|\\=\\=|\\<\\>|((\\<|\\>)(\\=|')?)|\\=|((\\+|\\-|\\*|/)(\\.|')?)|\\^)(?![\\-\\w])"
+          "match": "(?<![\\-\\w])(\\+\\+\\+|\\+\\+|&&|\\|\\||\\|\\>|\\=\\=|\\<\\>|((\\<|\\>)(\\=|')?)|\\=|((\\+|\\-|\\*|/)(\\.|')?)|\\^)(?![\\-\\w])"
         },
         {
           "name": "variable.parameter.optional.satysfi",
@@ -253,7 +253,7 @@
       "patterns": [
         {
           "name": "support.function.satysfi",
-          "match": "(?<![\\-\\w])(arabic|string\\-(unexplode|same|sub|length)|read\\-inline|inline\\-(skip|glue|fil|nil)\\+\\+|embed\\-(string|math)|discretionary|script\\-guard|get\\-natural\\-width|inline\\-(graphics|frame\\-(outer|inner|breakable))|embed\\-block\\-(top|bottom)|line\\-stack\\-(top|bottom)|read-block|line-break|\\+\\+\\+|block\\-(nil|frame\\-breakable)|set\\-space\\-ratio|(set|get)\\-font\\-size|set\\-font|(set|get)\\-language|set\\-math\\-font|(set|get)\\-dominant\\-(wide|narrow)\\-script|set\\-(text\\-color|leading|manual\\-rising)|set\\-paragraph\\-margin|set\\-code\\-text\\-command|get\\-text\\-width|(register|get)\\-cross\\-reference|math\\-((|big\\-)char(|\\-with\\-kern)|sup|sub|lower|upper|frac|radical|paren|variant\\-char|color|char\\-glass)|text\\-in\\-math|load\\-(|pdf\\-)image|use\\-image\\-by\\-width|start\\-path|line\\-to|bezier\\-to|close\\-with\\-(line|bezier)|(terminate|unite)\\-path|fill|stroke|draw\\-text)(?![\\-\\w])"
+          "match": "(?<![\\-\\w])(arabic|string\\-(unexplode|same|sub|length)|read\\-inline|inline\\-(skip|glue|fil|nil)|embed\\-(string|math)|discretionary|script\\-guard|get\\-natural\\-width|inline\\-(graphics|frame\\-(outer|inner|breakable))|embed\\-block\\-(top|bottom)|line\\-stack\\-(top|bottom)|read-block|line-break|block\\-(nil|frame\\-breakable)|set\\-space\\-ratio|(set|get)\\-font\\-size|set\\-font|(set|get)\\-language|set\\-math\\-font|(set|get)\\-dominant\\-(wide|narrow)\\-script|set\\-(text\\-color|leading|manual\\-rising)|set\\-paragraph\\-margin|set\\-code\\-text\\-command|get\\-text\\-width|(register|get)\\-cross\\-reference|math\\-((|big\\-)char(|\\-with\\-kern)|sup|sub|lower|upper|frac|radical|paren|variant\\-char|color|char\\-glass)|text\\-in\\-math|load\\-(|pdf\\-)image|use\\-image\\-by\\-width|start\\-path|line\\-to|bezier\\-to|close\\-with\\-(line|bezier)|(terminate|unite)\\-path|fill|stroke|draw\\-text)(?![\\-\\w])"
         }
       ]
     },
