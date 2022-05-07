@@ -11,6 +11,15 @@
     ["(|", "|)"],
     ["<", ">"]
   ],
+  // which bracket pairs are colorized
+  "colorizedBracketPairs": [
+    ["{", "}"],
+    ["[", "]"],
+    ["(", ")"],
+    ["(|", "|)"],
+    ["'<", ">"],
+    ["<", ">"]
+  ],
   // symbols that are auto closed when typing
   "autoClosingPairs": [
     ["{", "}"],

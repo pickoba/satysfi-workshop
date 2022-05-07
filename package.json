@@ -127,7 +127,11 @@
       {
         "language": "satysfi",
         "scopeName": "text.saty.satyh",
-        "path": "./syntaxes/satysfi.tmLanguage.json"
+        "path": "./syntaxes/satysfi.tmLanguage.json",
+        "balancedBracketScopes": [
+          "punctuation.definition",
+          "punctuation.parenthesis"
+        ]
       }
     ],
     "snippets": [
