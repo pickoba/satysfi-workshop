@@ -39,9 +39,6 @@
           "include": "#inline-brace"
         },
         {
-          "include": "#paren-like-in-program"
-        },
-        {
           "include": "#numeric"
         },
         {
@@ -70,6 +67,9 @@
         },
         {
           "include": "#string"
+        },
+        {
+          "include": "#paren-like-in-program"
         },
         {
           "include": "#command-name-in-program"
@@ -228,6 +228,14 @@
     "constant": {
       "patterns": [
         {
+          "name": "constant.language.unit.satysfi",
+          "match": "\\(\\)"
+        },
+        {
+          "name": "constant.language.list.satysfi",
+          "match": "\\[\\]"
+        },
+        {
           "name": "constant.language.capital-identifier.satysfi",
           "match": "(?<![\\-\\w])([A-Z][0-9a-zA-Z\\-]*)(?![\\-\\w])"
         }
@@ -265,8 +273,37 @@
     "paren-like-in-program": {
       "patterns": [
         {
+          "begin": "\\(\\|",
+          "end": "\\|\\)",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.record.begin.satysfi"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.record.end.satysfi"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#program-mode"
+            }
+          ]
+        },
+        {
           "begin": "\\(",
           "end": "\\)",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.parenthesis.begin.satysfi"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.parenthesis.end.satysfi"
+            }
+          },
           "patterns": [
             {
               "include": "#program-mode"
@@ -276,6 +313,16 @@
         {
           "begin": "\\[",
           "end": "\\]",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.list.begin.satysfi"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.list.end.satysfi"
+            }
+          },
           "patterns": [
             {
               "include": "#program-mode"
@@ -290,6 +337,16 @@
         {
           "begin": "'\\<",
           "end": "\\>",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.block-text.begin.satysfi"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.block-text.end.satysfi"
+            }
+          },
           "patterns": [
             {
               "include": "#block-mode"
@@ -336,6 +393,16 @@
         {
           "begin": "\\<",
           "end": "\\>",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.block-text.begin.satysfi"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.block-text.end.satysfi"
+            }
+          },
           "patterns": [
             {
               "include": "#block-mode"
@@ -375,13 +442,21 @@
     "math-brace": {
       "patterns": [
         {
-          "begin": "(\\$)\\{",
+          "begin": "(\\$)(\\{)",
           "beginCaptures": {
             "1": {
               "name": "keyword.control.satysfi"
+            },
+            "2": {
+              "name": "punctuation.definition.math.begin.satysfi"
             }
           },
           "end": "\\}",
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.math.end.satysfi"
+            }
+          },
           "patterns": [
             {
               "include": "#math-mode"
@@ -425,6 +500,16 @@
         {
           "begin": "\\{",
           "end": "\\}",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.math.begin.satysfi"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.math.end.satysfi"
+            }
+          },
           "patterns": [
             {
               "include": "#math-mode"
@@ -436,8 +521,18 @@
     "program-in-math": {
       "patterns": [
         {
-          "begin": "\\!\\(",
+          "begin": "\\!(\\()",
           "end": "\\)",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.parenthesis.begin.satysfi"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.parenthesis.end.satysfi"
+            }
+          },
           "patterns": [
             {
               "include": "#program-mode"
@@ -445,8 +540,18 @@
           ]
         },
         {
-          "begin": "\\!\\[",
+          "begin": "\\!(\\[)",
           "end": "\\]",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.definition.list.begin.satysfi"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.list.end.satysfi"
+            }
+          },
           "patterns": [
             {
               "include": "#program-mode"
@@ -458,8 +563,18 @@
     "block-in-math": {
       "patterns": [
         {
-          "begin": "\\!\\<",
+          "begin": "\\!(\\<)",
           "end": "\\>",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.definition.block-text.begin.satysfi"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.block-text.end.satysfi"
+            }
+          },
           "patterns": [
             {
               "include": "#block-mode"
@@ -471,8 +586,18 @@
     "inline-in-math": {
       "patterns": [
         {
-          "begin": "\\!\\{",
+          "begin": "\\!(\\{)",
           "end": "\\}",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.definition.inline-text.begin.satysfi"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.inline-text.end.satysfi"
+            }
+          },
           "patterns": [
             {
               "include": "#inline-mode"
@@ -491,6 +616,16 @@
         {
           "begin": "\\(",
           "end": "\\)",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.parenthesis.begin.satysfi"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.parenthesis.end.satysfi"
+            }
+          },
           "patterns": [
             {
               "include": "#program-mode"
@@ -500,6 +635,16 @@
         {
           "begin": "\\[",
           "end": "\\]",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.list.begin.satysfi"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.list.end.satysfi"
+            }
+          },
           "patterns": [
             {
               "include": "#program-mode"
@@ -514,7 +659,16 @@
         {
           "begin": "\\{",
           "end": "\\}",
-
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.inline-text.begin.satysfi"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.inline-text.end.satysfi"
+            }
+          },
           "patterns": [
             {
               "include": "#inline-mode"
