@@ -39,9 +39,6 @@
           "include": "#inline-brace"
         },
         {
-          "include": "#paren-like-in-program"
-        },
-        {
           "include": "#numeric"
         },
         {
@@ -70,6 +67,9 @@
         },
         {
           "include": "#string"
+        },
+        {
+          "include": "#paren-like-in-program"
         },
         {
           "include": "#command-name-in-program"
@@ -227,6 +227,14 @@
     },
     "constant": {
       "patterns": [
+        {
+          "name": "constant.language.unit.satysfi",
+          "match": "\\(\\)"
+        },
+        {
+          "name": "constant.language.list.satysfi",
+          "match": "\\[\\]"
+        },
         {
           "name": "constant.language.capital-identifier.satysfi",
           "match": "(?<![\\-\\w])([A-Z][0-9a-zA-Z\\-]*)(?![\\-\\w])"
