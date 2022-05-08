@@ -196,7 +196,7 @@
         },
         {
           "name": "variable.parameter.optional.satysfi",
-          "match": "\\?:?"
+          "match": "\\?[:\\*]?"
         },
         {
           "name": "keyword.operator.satysfi",
