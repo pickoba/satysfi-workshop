@@ -39,6 +39,9 @@
           "include": "#inline-brace"
         },
         {
+          "include": "#command-name-in-program"
+        },
+        {
           "include": "#numeric"
         },
         {
@@ -72,7 +75,7 @@
           "include": "#paren-like-in-program"
         },
         {
-          "include": "#command-name-in-program"
+          "include": "#dummy-in-program"
         }
       ]
     },
@@ -181,11 +184,15 @@
       "patterns": [
         {
           "name": "keyword.control.satysfi",
-          "match": "(?<![\\-\\w])(end|in|match|with|when|as|fun|of|if|then|else|while|do|before|\\-\\>|\\<\\-)(?![\\-\\w])"
+          "match": "(?<![\\-\\w])(end|in|match|with|when|as|fun|of|if|then|else|while|do|before)(?![\\-\\w])"
+        },
+        {
+          "name": "keyword.control.satysfi",
+          "match": "\\??\\-\\>|\\<\\-"
         },
         {
           "name": "keyword.operator.satysfi",
-          "match": "(?<![\\-\\w])(\\+\\+\\+|\\+\\+|&&|\\|\\||\\|\\>|\\=\\=|\\<\\>|((\\<|\\>)(\\=|')?)|\\=|((\\+|\\-|\\*|/)(\\.|')?)|\\^)(?![\\-\\w])"
+          "match": "\\+\\+\\+|\\+\\+|&&|\\|\\||\\|\\>|\\=\\=|\\<\\>|((\\<|\\>)(\\=|')?)|\\=|((\\+|\\-|\\*|/)(\\.|')?)|\\^"
         },
         {
           "name": "variable.parameter.optional.satysfi",
@@ -359,13 +366,16 @@
       "patterns": [
         {
           "name": "entity.name.section.satysfi",
-          "match": "\\+\\w+(?:\\-\\w+)*"
+          "match": "\\+[a-zA-Z][0-9a-zA-Z\\-]*"
         },
         {
           "name": "entity.name.function.satysfi",
-          "match": "\\\\\\w+(?:\\-\\w+)*"
+          "match": "\\\\[a-zA-Z][0-9a-zA-Z\\-]*"
         }
       ]
+    },
+    "dummy-in-program": {
+      "match": "[a-zA-Z][0-9a-zA-Z\\-]*"
     },
 
     "block-command": {
