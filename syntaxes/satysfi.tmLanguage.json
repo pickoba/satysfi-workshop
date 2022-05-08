@@ -742,7 +742,7 @@
       "patterns": [
         {
           "name": "variable.paramater.satysfi",
-          "match": "\\#[a-zA-Z0-9][a-zA-Z0-9\\-]*"
+          "match": "\\#([A-Z][0-9a-zA-Z\\-]*\\.)*[a-zA-Z][0-9a-zA-Z\\-]*"
         }
       ]
     }
