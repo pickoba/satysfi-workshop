@@ -184,7 +184,7 @@
       "patterns": [
         {
           "name": "keyword.control.satysfi",
-          "match": "(?<![\\-\\w])(end|in|match|with|when|as|fun|of|if|then|else|while|do|before)(?![\\-\\w])"
+          "match": "(?<![\\-\\w])(end|in|match|with|when|as|fun|of|if|then|else|while|do|before|constraint|controls|cycle)(?![\\-\\w])"
         },
         {
           "name": "keyword.control.satysfi",
@@ -200,7 +200,7 @@
         },
         {
           "name": "keyword.operator.satysfi",
-          "match": "(?<![\\-\\w])(mod|not|bxor|band|bor|bnot)(?![\\-\\w])"
+          "match": "(?<![\\-\\w])(mod|not|bxor|band|bor|bnot|command)(?![\\-\\w])"
         }
       ]
     },
@@ -228,7 +228,7 @@
       "patterns": [
         {
           "name": "support.type.satysfi",
-          "match": "(?<![\\-\\w])(unit|int|bool|float|length|string|inline-text|inline-boxes|block-text|block-boxes|inline-cmd|block-cmd|paddings|deco|deco-set|context|graphics|document|script|image|point|pre-path|path|color|font|language|math|obj|math-class|math-kern-func|math-char-style|paren|math-char-class|option|type-syntax|list|itemize)(?![\\-\\w])"
+          "match": "(?<![\\-\\w])(unit|int|bool|float|length|string|inline-text|inline-boxes|block-text|block-boxes|inline-cmd|block-cmd|math-cmd|paddings|deco|deco-set|context|graphics|document|script|image|point|pre-path|path|color|font|language|math|obj|math-class|math-kern-func|math-char-style|paren|math-char-class|option|type-syntax|list|itemize)(?![\\-\\w])"
         }
       ]
     },
