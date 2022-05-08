@@ -505,7 +505,7 @@
       "$comment": "math command. arguments not included.",
       "patterns": [
         {
-          "match": "\\\\\\w+(?:\\-\\w+)*",
+          "match": "\\\\([A-Z][0-9a-zA-Z\\-]*\\.)*[a-zA-Z][0-9a-zA-Z\\-]*",
           "name": "entity.name.function.satysfi"
         }
       ]
