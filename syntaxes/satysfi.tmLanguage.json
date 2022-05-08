@@ -544,6 +544,25 @@
     "program-in-math": {
       "patterns": [
         {
+          "begin": "\\!(\\(\\|)",
+          "end": "\\|\\)",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.definition.record.begin.satysfi"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.record.end.satysfi"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#program-mode"
+            }
+          ]
+        },
+        {
           "begin": "\\!(\\()",
           "end": "\\)",
           "beginCaptures": {
@@ -635,6 +654,25 @@
       "patterns": [
         {
           "include": "#comments"
+        },
+        {
+          "begin": "\\(\\|",
+          "end": "\\|\\)",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.record.begin.satysfi"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.record.end.satysfi"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#program-mode"
+            }
+          ]
         },
         {
           "begin": "\\(",
