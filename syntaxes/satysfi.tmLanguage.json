@@ -283,7 +283,7 @@
     },
     "string": {
       "name": "string.quoted.satysfi",
-      "begin": "(?<!`)#?(`+)(?!`)",
+      "begin": "(?<!`)[#@]?(`+)(?!`)",
       "end": "\\1#?"
     },
     "paren-like-in-program": {
