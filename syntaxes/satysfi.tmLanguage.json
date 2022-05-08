@@ -192,7 +192,16 @@
         },
         {
           "name": "keyword.operator.satysfi",
-          "match": "\\+\\+\\+|\\+\\+|&&|\\|\\||\\|\\>|\\=\\=|\\<\\>|((\\<|\\>)(\\=|')?)|\\=|((\\+|\\-|\\*|/)(\\.|')?)|\\^|::"
+          "match": "[\\+\\-\\*/\\^&!\\=\\<\\>][\\+\\-\\*/\\^&\\|!:\\=\\<\\>~'\\.\\?]*"
+        },
+        {
+          "$comment": "single | (OR) cannot be used as an operator",
+          "name": "keyword.operator.satysfi",
+          "match": "\\|[\\+\\-\\*/\\^&\\|!:\\=\\<\\>~'\\.\\?]+"
+        },
+        {
+          "name": "keyword.operator.satysfi",
+          "match": "~|::"
         },
         {
           "name": "variable.parameter.optional.satysfi",
