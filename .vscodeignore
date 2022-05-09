@@ -15,3 +15,4 @@ src/**
 .github/**
 .prettierignore
 prettier.config.js
+tools/**

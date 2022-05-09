@@ -209,7 +209,7 @@
         },
         {
           "name": "keyword.operator.satysfi",
-          "match": "(?<![0-9a-zA-Z\\-])(mod|not|bxor|band|bor|bnot|command)(?![0-9a-zA-Z\\-])"
+          "match": "(?<![0-9a-zA-Z\\-])(mod|not|command)(?![0-9a-zA-Z\\-])"
         }
       ]
     },
@@ -273,7 +273,7 @@
       "patterns": [
         {
           "name": "support.function.satysfi",
-          "match": "(?<![0-9a-zA-Z\\-])(arabic|string\\-(unexplode|same|sub|length)|read\\-inline|inline\\-(skip|glue|fil|nil)|embed\\-(string|math)|discretionary|script\\-guard|get\\-natural\\-width|inline\\-(graphics|frame\\-(outer|inner|breakable))|embed\\-block\\-(top|bottom)|line\\-stack\\-(top|bottom)|read-block|line-break|block\\-(nil|frame\\-breakable)|set\\-space\\-ratio|(set|get)\\-font\\-size|set\\-font|(set|get)\\-language|set\\-math\\-font|(set|get)\\-dominant\\-(wide|narrow)\\-script|set\\-(text\\-color|leading|manual\\-rising)|set\\-paragraph\\-margin|set\\-code\\-text\\-command|get\\-text\\-width|(register|get)\\-cross\\-reference|math\\-((|big\\-)char(|\\-with\\-kern)|sup|sub|lower|upper|frac|radical|paren|variant\\-char|color|char\\-glass)|text\\-in\\-math|load\\-(|pdf\\-)image|use\\-image\\-by\\-width|start\\-path|line\\-to|bezier\\-to|close\\-with\\-(line|bezier)|(terminate|unite)\\-path|fill|stroke|draw\\-text)(?![0-9a-zA-Z\\-])"
+          "match": "(?<![0-9a-zA-Z\\-])(abort-with-message|acos|add-footnote|arabic|asin|atan|atan2|band|bezier-to|block-(frame-breakable|skip|nil)|bnot|bor|break|bxor|ceil|clear-page|clip-graphics-by-path|close-with-(bezier|line)|convert-string-for-math|cos|dashed-stroke|deepen-indent|discretionary|display-message|draw-text|embed-(block-(bottom|breakable|top)|math|string)|exp|extract-string|fill|float|floor|get-(axis-height|cross-reference|dominant-(narrow-script|wide-script)|every-word-break|font(-size)?|graphics-bbox|initial-(context|text-info)|input-position|language|left-math-class|leftmost-script|natural-(length|metrics)|path-bbox|right-math-class|rightmost-script|space-ratio-between-scripts|text-(color|width))|hook-page-break(-block)?|inline-(fil|frame-(breakable|fixed|inner|outer)|glue|graphics(-outer)?|nil|skip)|lift-(float|int|length|string)|line-(break|stack-(bottom|top)|to)|linear-transform-(graphics|path)|load-(image|pdf-image)|log|math-(big-char(-with-kern)?|char(-(class|with-kern))?|color|concat|frac|group|lower|paren(-with-middle)?|pull-in-scripts|radical|sub|sup|upper|variant-char)|omit-skip-after|page-break(-(multicolumn|two-column))?|probe-cross-reference|raise-inline|read-(block|file|inline)|regexp-of-string|register-(cross-reference|destination|document-information|link-to-(location|uri)|outline)|round|script-guard(-both)?|set-(adjacent-stretch-ratio|code-text-command|dominant-(narrow-script|wide-script)|every-word-break|font(-size)?|hyphen-(min|penalty)|language|leading|manual-rising|math-(char|command|font|variant-char)|min-(gap-of-lines|paragraph-ascender-and-descender)|paragraph-margin|space-ratio(-between-scripts)?|text-color|word-break-penalty)|shift-(graphics|path)|show-float|sin|space-between-maths|split-(into-lines|on-regexp)|start-path|string-(byte-length|explode|length|match|same|scan|sub(-bytes)?|unexplode)|stringify-(block|inline)|stroke|tabular|tan|terminate-path|text-in-math|unite-path|use-image-by-width)(?![0-9a-zA-Z\\-])"
         }
       ]
     },
