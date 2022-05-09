@@ -184,7 +184,7 @@
       "patterns": [
         {
           "name": "keyword.control.satysfi",
-          "match": "(?<![\\-\\w])(end|in|match|with|when|as|fun|of|if|then|else|while|do|before|constraint|controls|cycle)(?![\\-\\w])"
+          "match": "(?<![0-9a-zA-Z\\-])(end|in|match|with|when|as|fun|of|if|then|else|while|do|before|constraint|controls|cycle)(?![0-9a-zA-Z\\-])"
         },
         {
           "name": "keyword.control.satysfi",
@@ -209,7 +209,7 @@
         },
         {
           "name": "keyword.operator.satysfi",
-          "match": "(?<![\\-\\w])(mod|not|bxor|band|bor|bnot|command)(?![\\-\\w])"
+          "match": "(?<![0-9a-zA-Z\\-])(mod|not|bxor|band|bor|bnot|command)(?![0-9a-zA-Z\\-])"
         }
       ]
     },
@@ -229,7 +229,7 @@
       "patterns": [
         {
           "name": "storage.type.satysfi",
-          "match": "(?<![\\-\\w])(struct|module|open|let(\\-(inline|math|rec|block|mutable))?|sig|and|val|direct|type)(?![\\-\\w])"
+          "match": "(?<![0-9a-zA-Z\\-])(struct|module|open|let(\\-(inline|math|rec|block|mutable))?|sig|and|val|direct|type)(?![0-9a-zA-Z\\-])"
         }
       ]
     },
@@ -237,7 +237,7 @@
       "patterns": [
         {
           "name": "support.type.satysfi",
-          "match": "(?<![\\-\\w])(unit|int|bool|float|length|string|inline-text|inline-boxes|block-text|block-boxes|inline-cmd|block-cmd|math-cmd|paddings|deco|deco-set|context|graphics|document|script|image|point|pre-path|path|color|font|language|math|obj|math-class|math-kern-func|math-char-style|paren|math-char-class|option|type-syntax|list|itemize)(?![\\-\\w])"
+          "match": "(?<![0-9a-zA-Z\\-])(unit|int|bool|float|length|string|inline-text|inline-boxes|block-text|block-boxes|inline-cmd|block-cmd|math-cmd|paddings|deco|deco-set|context|graphics|document|script|image|point|pre-path|path|color|font|language|math|obj|math-class|math-kern-func|math-char-style|paren|math-char-class|option|type-syntax|list|itemize)(?![0-9a-zA-Z\\-])"
         }
       ]
     },
@@ -257,7 +257,7 @@
         },
         {
           "name": "constant.language.capital-identifier.satysfi",
-          "match": "(?<![\\-\\w])([A-Z][0-9a-zA-Z\\-]*)(?![\\-\\w])"
+          "match": "(?<![0-9a-zA-Z\\-])([A-Z][0-9a-zA-Z\\-]*)(?![0-9a-zA-Z\\-])"
         }
       ]
     },
@@ -265,7 +265,7 @@
       "patterns": [
         {
           "name": "constant.language.satysfi",
-          "match": "(?<![\\-\\w\\\\])(true|false)(?![\\-\\w])"
+          "match": "(?<![0-9a-zA-Z\\-])(true|false)(?![0-9a-zA-Z\\-])"
         }
       ]
     },
@@ -273,7 +273,7 @@
       "patterns": [
         {
           "name": "support.function.satysfi",
-          "match": "(?<![\\-\\w])(arabic|string\\-(unexplode|same|sub|length)|read\\-inline|inline\\-(skip|glue|fil|nil)|embed\\-(string|math)|discretionary|script\\-guard|get\\-natural\\-width|inline\\-(graphics|frame\\-(outer|inner|breakable))|embed\\-block\\-(top|bottom)|line\\-stack\\-(top|bottom)|read-block|line-break|block\\-(nil|frame\\-breakable)|set\\-space\\-ratio|(set|get)\\-font\\-size|set\\-font|(set|get)\\-language|set\\-math\\-font|(set|get)\\-dominant\\-(wide|narrow)\\-script|set\\-(text\\-color|leading|manual\\-rising)|set\\-paragraph\\-margin|set\\-code\\-text\\-command|get\\-text\\-width|(register|get)\\-cross\\-reference|math\\-((|big\\-)char(|\\-with\\-kern)|sup|sub|lower|upper|frac|radical|paren|variant\\-char|color|char\\-glass)|text\\-in\\-math|load\\-(|pdf\\-)image|use\\-image\\-by\\-width|start\\-path|line\\-to|bezier\\-to|close\\-with\\-(line|bezier)|(terminate|unite)\\-path|fill|stroke|draw\\-text)(?![\\-\\w])"
+          "match": "(?<![0-9a-zA-Z\\-])(arabic|string\\-(unexplode|same|sub|length)|read\\-inline|inline\\-(skip|glue|fil|nil)|embed\\-(string|math)|discretionary|script\\-guard|get\\-natural\\-width|inline\\-(graphics|frame\\-(outer|inner|breakable))|embed\\-block\\-(top|bottom)|line\\-stack\\-(top|bottom)|read-block|line-break|block\\-(nil|frame\\-breakable)|set\\-space\\-ratio|(set|get)\\-font\\-size|set\\-font|(set|get)\\-language|set\\-math\\-font|(set|get)\\-dominant\\-(wide|narrow)\\-script|set\\-(text\\-color|leading|manual\\-rising)|set\\-paragraph\\-margin|set\\-code\\-text\\-command|get\\-text\\-width|(register|get)\\-cross\\-reference|math\\-((|big\\-)char(|\\-with\\-kern)|sup|sub|lower|upper|frac|radical|paren|variant\\-char|color|char\\-glass)|text\\-in\\-math|load\\-(|pdf\\-)image|use\\-image\\-by\\-width|start\\-path|line\\-to|bezier\\-to|close\\-with\\-(line|bezier)|(terminate|unite)\\-path|fill|stroke|draw\\-text)(?![0-9a-zA-Z\\-])"
         }
       ]
     },
