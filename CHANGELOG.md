@@ -5,6 +5,13 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+## [1.2.0] - 2022-05-11
+- embed string support for inline-text
+- enhanced support for bracket pair colorization/matching
+- fix syntax highlight for operators/symbols/literals/commands
+- update primitve definitions
+- update dependencies
+
 ## [1.1.1] - 2022-03-10
 - update vscode engine version
 
@@ -22,7 +29,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## [1.0.0] - 2021-12-20
 - Initial release as SATySFi Workshop
 
-[Unreleased]: https://github.com/pickoba/satysfi-workshop/compare/v1.1.1...HEAD
+[Unreleased]: https://github.com/pickoba/satysfi-workshop/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/pickoba/satysfi-workshop/compare/v1.1.1...v1.2.0
 [1.1.1]: https://github.com/pickoba/satysfi-workshop/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/pickoba/satysfi-workshop/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/pickoba/satysfi-workshop/compare/v1.0.0...v1.0.1
