@@ -1,0 +1,25 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "*"
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 17.x
+      - name: Install dependencies
+        run: npm ci
+      - name: Package
+        run: npx vsce package --githubBranch main
+      - name: Publish (VS Marketplace)
+        run: npx vsce publish -i $(find . -iname *.vsix) -p ${{ secrets.VSCE_PAT }}
+      - name: Publish (Open VSX)
+        run: npx ovsx publish -i $(find . -iname *.vsix) -p ${{ secrets.OVSX_PAT }}
