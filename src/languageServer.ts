@@ -1,10 +1,5 @@
 import { Disposable, workspace } from "vscode";
-import {
-  LanguageClient,
-  LanguageClientOptions,
-  ServerOptions,
-  TransportKind,
-} from "vscode-languageclient/node";
+import { LanguageClient, LanguageClientOptions, ServerOptions } from "vscode-languageclient/node";
 import { Context } from "./extension";
 import { Logger } from "./logger";
 import { getConfig } from "./util";
@@ -32,6 +27,7 @@ export class LanguageServer implements Disposable {
             this.stopServer();
             this.startServer();
           }
+          this.path = config.languageServer.path;
         }
 
         if (config.languageServer.enabled !== this.enabled) {
@@ -48,15 +44,12 @@ export class LanguageServer implements Disposable {
     if (this.enabled) this.startServer();
   }
 
-  private startServer() {
+  private async startServer() {
     const serverPath = getConfig().languageServer.path;
 
     const serverOptions: ServerOptions = {
-      run: { command: serverPath, transport: TransportKind.pipe },
-      debug: {
-        command: serverPath,
-        transport: TransportKind.pipe,
-      },
+      run: { command: serverPath },
+      debug: { command: serverPath },
     };
 
     const clientOptions: LanguageClientOptions = {
@@ -70,7 +63,7 @@ export class LanguageServer implements Disposable {
       clientOptions,
     );
 
-    this.client.start();
+    await this.client.start();
 
     this.logger.log(`Language Server: start ${serverPath}`);
   }
