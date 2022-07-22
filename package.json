@@ -114,11 +114,13 @@
           "SATySFi",
           "satysfi"
         ],
+        "extensions": [
+          ".saty",
+          ".satyh",
+          ".satyg"
+        ],
         "filenamePatterns": [
-          "*.saty",
-          "*.satyh",
-          "*.satyh-*",
-          "*.satyg"
+          "*.satyh-*"
         ],
         "configuration": "./language-configuration.json"
       }
