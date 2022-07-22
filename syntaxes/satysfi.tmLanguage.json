@@ -502,7 +502,8 @@
     "escape": {
       "patterns": [
         {
-          "match": "\\\\[\\{\\}\\<\\>\\|%\\*;#\\$\\\\\\@\\`]"
+          "name": "constant.character.escape.satysfi",
+          "match": "\\\\[ \\{\\}\\<\\>\\|%\\*;#\\$\\\\\\@\\`]"
         }
       ]
     },
