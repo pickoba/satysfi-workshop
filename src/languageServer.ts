@@ -75,6 +75,11 @@ export class LanguageServer implements Disposable {
     this.logger.log("Language Server: stop");
   }
 
+  public async restartServer() {
+    await this.stopServer();
+    return this.startServer();
+  }
+
   public dispose(): void {
     this.stopServer();
     this.disposables.forEach((d) => d.dispose());

@@ -1,6 +1,11 @@
 import { commands, ExtensionContext } from "vscode";
 import { Builder } from "./builder";
-import { COMMAND_BUILD, COMMAND_OPEN_BUILD_LOG, COMMAND_TYPECHECK } from "./const";
+import {
+  COMMAND_BUILD,
+  COMMAND_OPEN_BUILD_LOG,
+  COMMAND_RESTART_LANGUAGE_SERVER,
+  COMMAND_TYPECHECK,
+} from "./const";
 import { LanguageServer } from "./languageServer";
 import { Logger } from "./logger";
 import { packageCompletion } from "./packageCompletion";
@@ -32,4 +37,5 @@ export function activate(extContext: ExtensionContext): void {
   commands.registerCommand(COMMAND_BUILD, () => builder.buildProject());
   commands.registerCommand(COMMAND_TYPECHECK, () => typeChecker.checkCurrentDocument());
   commands.registerCommand(COMMAND_OPEN_BUILD_LOG, () => context.logger.showBuildLog());
+  commands.registerCommand(COMMAND_RESTART_LANGUAGE_SERVER, () => languageServer.restartServer());
 }

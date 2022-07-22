@@ -157,6 +157,11 @@
         "command": "satysfi-workshop.openBuildLog",
         "title": "Open SATySFi Build Log",
         "category": "SATySFi"
+      },
+      {
+        "command": "satysfi-workshop.restartLanguageServer",
+        "title": "Restart Language Server",
+        "category": "SATySFi"
       }
     ],
     "keybindings": [
