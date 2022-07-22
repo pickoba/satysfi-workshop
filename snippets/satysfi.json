@@ -67,23 +67,23 @@
     },
     {
       "prefix": "let-mutable",
-      "body": ["let-mutable ${1} = ${2} in"]
+      "body": ["let-mutable ${1} <- ${2}"]
     },
     {
       "prefix": "let-inline",
-      "body": ["let-inline ${1} = ${2} in"]
+      "body": ["let-inline ${1} = ${2}"]
     },
     {
       "prefix": "let-block",
-      "body": ["let-clock ${1} = ${2} in"]
+      "body": ["let-block ${1} = ${2}"]
     },
     {
       "prefix": "let-math",
-      "body": ["let-math ${1} = ${2} in"]
+      "body": ["let-math ${1} = ${2}"]
     },
     {
       "prefix": "let-rec",
-      "body": ["let-rec ${1} = ${2} in"]
+      "body": ["let-rec ${1} = ${2}"]
     }
   ],
   "requirements": [
