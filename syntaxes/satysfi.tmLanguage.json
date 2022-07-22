@@ -133,7 +133,13 @@
     "math-mode": {
       "patterns": [
         {
+          "include": "#escape"
+        },
+        {
           "include": "#comments"
+        },
+        {
+          "include": "#variable"
         },
         {
           "include": "#math-command"
@@ -496,7 +502,8 @@
     "escape": {
       "patterns": [
         {
-          "match": "\\\\[\\{\\}\\<\\>\\|%\\*;#\\$\\\\\\@\\`]"
+          "name": "constant.character.escape.satysfi",
+          "match": "\\\\[ \\{\\}\\<\\>\\|%\\*;#\\$\\\\\\@\\`]"
         }
       ]
     },
