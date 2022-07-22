@@ -75,7 +75,7 @@
     },
     {
       "prefix": "let-block",
-      "body": ["let-clock ${1} = ${2} in"]
+      "body": ["let-block ${1} = ${2} in"]
     },
     {
       "prefix": "let-math",
