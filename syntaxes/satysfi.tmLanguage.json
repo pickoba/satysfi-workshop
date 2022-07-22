@@ -133,7 +133,13 @@
     "math-mode": {
       "patterns": [
         {
+          "include": "#escape"
+        },
+        {
           "include": "#comments"
+        },
+        {
+          "include": "#variable"
         },
         {
           "include": "#math-command"
