@@ -9,6 +9,7 @@ import { getConfig, getWorkPath } from "./util";
 export async function buildSATySFi(
   target: Uri | TextDocument,
   args: string[],
+  signal: AbortSignal,
   logger?: Logger,
 ): Promise<{
   success: boolean;
@@ -21,11 +22,15 @@ export async function buildSATySFi(
   const workPath = isDocument ? await copyToFile(target) : targetPath;
   const workdir = workspace.getWorkspaceFolder(targetUri)?.uri.fsPath ?? path.dirname(targetPath);
 
-  const { code, stdout, stderr } = await spawnSATySFi(workPath, workdir, args, logger).finally(
-    () => {
-      if (isDocument) fs.unlink(workPath);
-    },
-  );
+  const { code, stdout, stderr } = await spawnSATySFi(
+    workPath,
+    workdir,
+    args,
+    signal,
+    logger,
+  ).finally(() => {
+    if (isDocument) fs.unlink(workPath);
+  });
 
   const diagnostics = parseLog(stdout + stderr);
 
@@ -40,10 +45,17 @@ export async function buildSATySFi(
   return { success: code === 0, diagnostics };
 }
 
-function spawnSATySFi(target: string, workDir: string, args: string[], logger?: Logger) {
+function spawnSATySFi(
+  target: string,
+  workDir: string,
+  args: string[],
+  signal: AbortSignal,
+  logger?: Logger,
+) {
   return new Promise<{ code: number | null; stdout: string; stderr: string }>((resolve, reject) => {
     const spawned = proc.spawn(getConfig().executable, [...args, target], {
       cwd: workDir,
+      signal,
     });
 
     let stdout = "";
