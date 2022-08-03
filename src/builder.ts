@@ -9,6 +9,7 @@ export class Builder implements Disposable {
   private readonly disposables: Disposable[] = [];
   private readonly logger: Logger;
   private readonly statusBar: StatusBar;
+  private abortController: AbortController | null = null;
 
   constructor(context: Context) {
     this.logger = context.logger;
@@ -24,25 +25,37 @@ export class Builder implements Disposable {
   }
 
   private async build(target: Uri) {
+    this.abortController?.abort();
+    this.abortController = new AbortController();
+
     this.logger.clearLogBuild();
     this.statusBar.show("sync~spin", "Building...");
 
     try {
       // TODO: use diagnostics
-      const { success } = await buildSATySFi(target, getConfig().build.buildOptions, this.logger);
+      const { success } = await buildSATySFi(
+        target,
+        getConfig().build.buildOptions,
+        this.abortController.signal,
+        this.logger,
+      );
 
       if (success) this.onBuildSuccess(target);
       else this.onBuildFail(target);
     } catch (e) {
+      if (e instanceof Error && e.name === "AbortError") {
+        return;
+      }
+
       showErrorWithOpenSettings(
         `SATySFi executable not found. Please set the executable path in the settings.`,
         false,
       );
 
       this.logger.log(`Build ${e}`);
-    } finally {
-      this.statusBar.hide();
     }
+
+    this.statusBar.hide();
   }
 
   private async onBuildSuccess(target: Uri) {
@@ -99,5 +112,6 @@ export class Builder implements Disposable {
 
   public dispose(): void {
     this.disposables.forEach((d) => d.dispose());
+    this.abortController?.abort();
   }
 }

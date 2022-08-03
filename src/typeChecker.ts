@@ -16,6 +16,7 @@ export class TypeChecker implements Disposable {
   private readonly logger: Logger;
   private readonly collection: DiagnosticCollection;
   private readonly disposables: Disposable[] = [];
+  private abortController: AbortController | null = null;
 
   constructor(context: Context) {
     this.logger = context.logger;
@@ -42,10 +43,14 @@ export class TypeChecker implements Disposable {
   private async checkDocument(document: TextDocument, copy?: boolean) {
     if (document.languageId !== "satysfi") return;
 
+    this.abortController?.abort();
+    this.abortController = new AbortController();
+
     try {
       const { diagnostics } = await buildSATySFi(
         copy ? document : document.uri,
         getConfig().typecheck.buildOptions,
+        this.abortController.signal,
       );
 
       this.collection.clear();
@@ -53,6 +58,10 @@ export class TypeChecker implements Disposable {
         this.collection.set(Uri.file(key), ds);
       });
     } catch (e) {
+      if (e instanceof Error && e.name === "AbortError") {
+        return;
+      }
+
       showErrorWithOpenSettings(
         `SATySFi executable not found. Please set the executable path in the settings.`,
         false,
@@ -71,5 +80,6 @@ export class TypeChecker implements Disposable {
     this.collection.clear();
     this.collection.dispose();
     this.disposables.forEach((i) => i.dispose());
+    this.abortController?.abort();
   }
 }
