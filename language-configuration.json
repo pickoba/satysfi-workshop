@@ -41,5 +41,9 @@
     ["`", "`"]
   ],
   // exclude minus, plus, backslash
-  "wordPattern": "([^\\`\\~\\!\\@\\#\\%\\^\\&\\*\\(\\)\\=\\[\\{\\]\\}\\|\\;\\:\\'\\\"\\,\\.\\<\\>\\/\\?\\s]+)"
+  "wordPattern": "([^\\`\\~\\!\\@\\#\\%\\^\\&\\*\\(\\)\\=\\[\\{\\]\\}\\|\\;\\:\\'\\\"\\,\\.\\<\\>\\/\\?\\s]+)",
+  "indentationRules": {
+    "increaseIndentPattern": "^[^%]*((=|->)|\\s+(do|else|if|sig|struct|then|while|if\\s+[^%]*\\s+then\\s+[^%\\s].*))\\s*$",
+    "decreaseIndentPattern": "^\\s*(else|end|in|then).*$"
+  }
 }
