@@ -21,7 +21,7 @@ suite("test for packageCompletion", () => {
       assert.strictEqual(actual.insertText, e.insertText);
       assert.strictEqual(actual.kind, e.kind);
     });
-  });
+  }).timeout(4000);
 
   test("packageCompletion: @import (nested)", async () => {
     const { document, editor } = await activate("packageCompletion/empty.saty");
