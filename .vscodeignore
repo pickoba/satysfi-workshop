@@ -14,5 +14,8 @@ src/**
 .gitattributes
 .github/**
 .prettierignore
+node_modules/**
+out/**
+!out/extension.js
 prettier.config.js
 tools/**
