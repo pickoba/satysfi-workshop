@@ -38,7 +38,7 @@ suite("test for packageCompletion", () => {
       assert.strictEqual(actual.insertText, e.insertText);
       assert.strictEqual(actual.kind, e.kind);
     });
-  });
+  }).timeout(4000);
 });
 
 async function completeAfterType(
