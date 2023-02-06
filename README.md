@@ -1,7 +1,7 @@
 # SATySFi Workshop
 
 [![CI](https://github.com/pickoba/satysfi-workshop/actions/workflows/main.yml/badge.svg)](https://github.com/pickoba/satysfi-workshop/actions/workflows/main.yml)
-[![Visual Studio Marketplace](https://vsmarketplacebadge.apphb.com/version-short/pickoba.satysfi-workshop.svg)](https://marketplace.visualstudio.com/items?itemName=pickoba.satysfi-workshop)
+[![Visual Studio Marketplace](https://img.shields.io/vscode-marketplace/v/pickoba.satysfi-workshop.svg)](https://marketplace.visualstudio.com/items?itemName=pickoba.satysfi-workshop)
 
 This extension provides language support for [SATySFi](https://github.com/gfngfn/SATySFi).
 
