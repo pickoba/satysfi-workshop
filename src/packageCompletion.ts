@@ -1,86 +1,116 @@
 import * as fs from "fs/promises";
 import { homedir } from "os";
 import * as path from "path";
-import { CompletionItem, CompletionItemKind, Disposable, languages, window } from "vscode";
-import { getConfig } from "./util";
+import {
+  CompletionItem,
+  CompletionItemKind,
+  Disposable,
+  languages,
+  Position,
+  TextDocument,
+  window,
+} from "vscode";
+import { ConfigProvider } from "./configProvider";
+import { Context } from "./extension";
 
-export function packageCompletion(): Disposable[] {
-  const listCompletionsProvider = languages.registerCompletionItemProvider("satysfi", {
-    async provideCompletionItems(document, position) {
-      if (!getConfig().packageCompletion.enabled) return undefined;
+export class PackageCompletionProvider implements Disposable {
+  private readonly configProvider: ConfigProvider;
+  private readonly disposables: Disposable[] = [];
 
-      const linePrefix = document.lineAt(position).text.substr(0, position.character);
-      if (linePrefix.startsWith("@require:")) {
-        return await listPackageCompletions(linePrefix.replace(/^@require:\s*/, ""));
-      } else if (linePrefix.startsWith("@import:")) {
-        return await listLocalCompletions(linePrefix.replace(/^@import:\s*/, ""));
-      }
+  constructor(context: Context) {
+    this.configProvider = context.configProvider;
 
-      return [];
-    },
-  });
+    this.disposables.push(
+      languages.registerCompletionItemProvider("satysfi", {
+        provideCompletionItems: (d, p) => this.providePackageCompletion(d, p),
+      }),
+    );
 
-  const requireImportProvider = languages.registerCompletionItemProvider(
-    "satysfi",
-    {
-      provideCompletionItems(document, position) {
-        if (position.character !== 1) return undefined;
+    this.disposables.push(
+      languages.registerCompletionItemProvider(
+        "satysfi",
+        {
+          provideCompletionItems: (d, p) => this.provideRequireImportCompletion(d, p),
+        },
+        "@",
+      ),
+    );
+  }
 
-        return ["require", "import"].map((label) => {
-          const item = new CompletionItem(label, CompletionItemKind.Keyword);
-          item.insertText = `${label}: `;
-          if (getConfig().packageCompletion.enabled) {
-            item.command = { command: "editor.action.triggerSuggest", title: "package" };
-          }
-          return item;
-        });
-      },
-    },
-    "@",
-  );
+  private async providePackageCompletion(document: TextDocument, position: Position) {
+    if (!this.getConfig()?.enabled) return undefined;
 
-  return [listCompletionsProvider, requireImportProvider];
-}
-
-function listPackageCompletions(dir: string) {
-  const defaultSearchRoot = path.join(homedir(), ".satysfi", "dist", "packages");
-  const searchRoot = getConfig().packageCompletion.searchPath || defaultSearchRoot;
-  const searchPath = path.join(searchRoot, dir);
-
-  return listCompletions(searchPath);
-}
-
-function listLocalCompletions(dir: string) {
-  if (!window.activeTextEditor) return [];
-
-  const searchRoot = path.dirname(window.activeTextEditor.document.fileName);
-  const searchPath = path.join(searchRoot, dir);
-
-  return listCompletions(searchPath);
-}
-
-async function listCompletions(dir: string) {
-  try {
-    const dirents = await fs.readdir(dir, { withFileTypes: true });
-
-    return dirents.flatMap((d) => {
-      let item: CompletionItem;
-
-      if (d.isDirectory()) {
-        item = new CompletionItem(d.name, CompletionItemKind.Folder);
-        item.insertText = `${d.name}/`;
-        item.command = { command: "editor.action.triggerSuggest", title: "package" };
-      } else {
-        const match = d.name.match(/^(.+)\.saty[hg]$/);
-        if (!match) return [];
-        item = new CompletionItem(match[1], CompletionItemKind.File);
-      }
-
-      return [item];
-    });
-  } catch (e) {
-    console.log(e);
+    const linePrefix = document.lineAt(position).text.substr(0, position.character);
+    if (linePrefix.startsWith("@require:")) {
+      return await this.listPackageCompletions(linePrefix.replace(/^@require:\s*/, ""));
+    } else if (linePrefix.startsWith("@import:")) {
+      return await this.listLocalCompletions(linePrefix.replace(/^@import:\s*/, ""));
+    }
 
     return [];
+  }
+
+  private async provideRequireImportCompletion(_: TextDocument, position: Position) {
+    if (position.character !== 1) return undefined;
+
+    return ["require", "import"].map((label) => {
+      const item = new CompletionItem(label, CompletionItemKind.Keyword);
+      item.insertText = `${label}: `;
+      if (this.getConfig()?.enabled) {
+        item.command = { command: "editor.action.triggerSuggest", title: "package" };
+      }
+      return item;
+    });
+  }
+
+  private listPackageCompletions(dir: string) {
+    const defaultSearchRoot = path.join(homedir(), ".satysfi", "dist", "packages");
+    const searchRoot = this.getConfig()?.searchPath || defaultSearchRoot;
+    const searchPath = path.join(searchRoot, dir);
+
+    return this.listCompletions(searchPath);
+  }
+
+  private listLocalCompletions(dir: string) {
+    if (!window.activeTextEditor) return [];
+
+    const searchRoot = path.dirname(window.activeTextEditor.document.fileName);
+    const searchPath = path.join(searchRoot, dir);
+
+    return this.listCompletions(searchPath);
+  }
+
+  private async listCompletions(dir: string) {
+    try {
+      const dirents = await fs.readdir(dir, { withFileTypes: true });
+
+      return dirents.flatMap((d) => {
+        let item: CompletionItem;
+
+        if (d.isDirectory()) {
+          item = new CompletionItem(d.name, CompletionItemKind.Folder);
+          item.insertText = `${d.name}/`;
+          item.command = { command: "editor.action.triggerSuggest", title: "package" };
+        } else {
+          const match = d.name.match(/^(.+)\.saty[hg]$/);
+          if (!match) return [];
+          item = new CompletionItem(match[1], CompletionItemKind.File);
+        }
+
+        return [item];
+      });
+    } catch (e) {
+      console.log(e);
+
+      return [];
+    }
+  }
+
+  private getConfig() {
+    return this.configProvider.get()?.packageCompletion;
+  }
+
+  public dispose() {
+    this.disposables.forEach((d) => d.dispose());
   }
 }

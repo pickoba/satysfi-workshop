@@ -7,40 +7,46 @@ import {
   window,
   workspace,
 } from "vscode";
+import { ConfigProvider } from "./configProvider";
 import { Context } from "./extension";
 import { Logger } from "./logger";
 import { buildSATySFi } from "./runner";
-import { getConfig, showErrorWithOpenSettings } from "./util";
+import { showErrorWithOpenSettings } from "./util";
 
 export class TypeChecker implements Disposable {
+  private readonly configProvider: ConfigProvider;
   private readonly logger: Logger;
   private readonly collection: DiagnosticCollection;
   private readonly disposables: Disposable[] = [];
   private abortController: AbortController | null = null;
 
   constructor(context: Context) {
+    this.configProvider = context.configProvider;
     this.logger = context.logger;
     this.collection = languages.createDiagnosticCollection();
 
     this.disposables.push(
       workspace.onDidChangeTextDocument((evt) => {
-        if (getConfig().typecheck.when !== "onFileChange") return;
+        if (this.getConfig()?.when !== "onFileChange") return;
         this.checkDocument(evt.document, true);
       }, this),
     );
     this.disposables.push(
       workspace.onDidSaveTextDocument((i) => {
-        if (getConfig().typecheck.when !== "onSave") return;
+        if (this.getConfig()?.when !== "onSave") return;
         this.checkDocument(i);
       }, this),
     );
 
-    if (getConfig().typecheck.when !== "never") {
+    if (this.getConfig()?.when === "onSave" || this.getConfig()?.when === "onFileChange") {
       workspace.textDocuments.forEach((i) => this.checkDocument(i), this);
     }
   }
 
   private async checkDocument(document: TextDocument, copy?: boolean) {
+    const executable = this.configProvider.get()?.executable;
+    const buildOptions = this.getConfig()?.buildOptions;
+    if (executable == null || buildOptions == null) return;
     if (document.languageId !== "satysfi") return;
 
     this.abortController?.abort();
@@ -48,8 +54,9 @@ export class TypeChecker implements Disposable {
 
     try {
       const { diagnostics } = await buildSATySFi(
+        executable,
         copy ? document : document.uri,
-        getConfig().typecheck.buildOptions,
+        buildOptions,
         this.abortController.signal,
       );
 
@@ -74,6 +81,10 @@ export class TypeChecker implements Disposable {
   public async checkCurrentDocument(): Promise<void> {
     const document = window.activeTextEditor?.document;
     if (document) this.checkDocument(document, true);
+  }
+
+  private getConfig() {
+    return this.configProvider.get()?.typecheck;
   }
 
   public dispose(): void {

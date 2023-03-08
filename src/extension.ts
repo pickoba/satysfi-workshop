@@ -1,5 +1,6 @@
 import { commands, ExtensionContext } from "vscode";
 import { Builder } from "./builder";
+import { ConfigProvider } from "./configProvider";
 import {
   COMMAND_BUILD,
   COMMAND_OPEN_BUILD_LOG,
@@ -8,17 +9,22 @@ import {
 } from "./const";
 import { LanguageServer } from "./languageServer";
 import { Logger } from "./logger";
-import { packageCompletion } from "./packageCompletion";
+import { PackageCompletionProvider } from "./packageCompletion";
 import { StatusBar } from "./statusbar";
 import { TypeChecker } from "./typeChecker";
 
 export interface Context {
+  configProvider: ConfigProvider;
   logger: Logger;
   statusBar: StatusBar;
 }
 
 export function activate(extContext: ExtensionContext): void {
+  const configProvider = new ConfigProvider();
+  extContext.subscriptions.push(configProvider);
+
   const context = {
+    configProvider,
     logger: new Logger(),
     statusBar: new StatusBar(extContext),
   };
@@ -29,7 +35,8 @@ export function activate(extContext: ExtensionContext): void {
   const typeChecker = new TypeChecker(context);
   extContext.subscriptions.push(typeChecker);
 
-  extContext.subscriptions.push(...packageCompletion());
+  const packageCompletionProvider = new PackageCompletionProvider(context);
+  extContext.subscriptions.push(packageCompletionProvider);
 
   const languageServer = new LanguageServer(context);
   extContext.subscriptions.push(languageServer);

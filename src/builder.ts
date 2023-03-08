@@ -1,30 +1,36 @@
 import { Disposable, Uri, window, workspace } from "vscode";
+import { ConfigProvider } from "./configProvider";
 import { Context } from "./extension";
 import { Logger } from "./logger";
 import { buildSATySFi } from "./runner";
 import { StatusBar } from "./statusbar";
-import { getConfig, showErrorWithOpenSettings } from "./util";
+import { showErrorWithOpenSettings } from "./util";
 
 export class Builder implements Disposable {
   private readonly disposables: Disposable[] = [];
+  private readonly configProvider: ConfigProvider;
   private readonly logger: Logger;
   private readonly statusBar: StatusBar;
   private abortController: AbortController | null = null;
 
   constructor(context: Context) {
+    this.configProvider = context.configProvider;
     this.logger = context.logger;
     this.statusBar = context.statusBar;
 
     this.disposables.push(
       workspace.onDidSaveTextDocument((i) => {
         if (i.languageId !== "satysfi") return;
-        if (getConfig().build.when !== "onSave") return;
+        if (this.configProvider.get()?.build.when !== "onSave") return;
         this.buildProject();
       }, this),
     );
   }
 
   private async build(target: Uri) {
+    const config = this.configProvider.get();
+    if (config == null) return;
+
     this.abortController?.abort();
     this.abortController = new AbortController();
 
@@ -34,8 +40,9 @@ export class Builder implements Disposable {
     try {
       // TODO: use diagnostics
       const { success } = await buildSATySFi(
+        config.executable,
         target,
-        getConfig().build.buildOptions,
+        config.build.buildOptions,
         this.abortController.signal,
         this.logger,
       );
@@ -72,6 +79,9 @@ export class Builder implements Disposable {
   }
 
   public async buildProject(): Promise<void> {
+    const config = this.configProvider.get();
+    if (config == null) return;
+
     const document = window.activeTextEditor?.document;
 
     if (document && document.fileName.endsWith(".saty")) {
@@ -81,7 +91,7 @@ export class Builder implements Disposable {
     }
 
     // find root file in workspace
-    const rootFilePath = getConfig().build.rootFile;
+    const rootFilePath = config.build.rootFile;
     if (rootFilePath) {
       const [rootFile] = await workspace.findFiles(rootFilePath, null, 1);
       if (rootFile) {
