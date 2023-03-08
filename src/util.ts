@@ -1,12 +1,7 @@
 import { existsSync } from "fs";
 import * as path from "path";
-import { commands, window, workspace } from "vscode";
-import { CONFIG_SCOPE, EXTENSION_NAME } from "./const";
-import { ExtensionConfig } from "./types";
-
-export function getConfig(): ExtensionConfig {
-  return workspace.getConfiguration(CONFIG_SCOPE) as unknown as ExtensionConfig;
-}
+import { commands, window } from "vscode";
+import { EXTENSION_NAME } from "./const";
 
 export async function showErrorWithOpenSettings(
   message: string,

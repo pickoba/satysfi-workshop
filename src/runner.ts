@@ -4,9 +4,10 @@ import * as path from "path";
 import { Diagnostic, TextDocument, Uri, workspace } from "vscode";
 import { Logger } from "./logger";
 import { parseLog } from "./logParser";
-import { getConfig, getWorkPath } from "./util";
+import { getWorkPath } from "./util";
 
 export async function buildSATySFi(
+  executable: string,
   target: Uri | TextDocument,
   args: string[],
   signal: AbortSignal,
@@ -23,6 +24,7 @@ export async function buildSATySFi(
   const workdir = workspace.getWorkspaceFolder(targetUri)?.uri.fsPath ?? path.dirname(targetPath);
 
   const { code, stdout, stderr } = await spawnSATySFi(
+    executable,
     workPath,
     workdir,
     args,
@@ -46,6 +48,7 @@ export async function buildSATySFi(
 }
 
 function spawnSATySFi(
+  executable: string,
   target: string,
   workDir: string,
   args: string[],
@@ -53,7 +56,7 @@ function spawnSATySFi(
   logger?: Logger,
 ) {
   return new Promise<{ code: number | null; stdout: string; stderr: string }>((resolve, reject) => {
-    const spawned = proc.spawn(getConfig().executable, [...args, target], {
+    const spawned = proc.spawn(executable, [...args, target], {
       cwd: workDir,
       signal,
     });
