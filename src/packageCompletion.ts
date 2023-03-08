@@ -93,7 +93,7 @@ export class PackageCompletionProvider implements Disposable {
           item.command = { command: "editor.action.triggerSuggest", title: "package" };
         } else {
           const match = d.name.match(/^(.+)\.saty[hg]$/);
-          if (!match) return [];
+          if (!match || !match[1]) return [];
           item = new CompletionItem(match[1], CompletionItemKind.File);
         }
 
