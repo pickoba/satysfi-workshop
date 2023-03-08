@@ -17,6 +17,7 @@ suite("test for packageCompletion", () => {
     expected.forEach((e, i) => {
       const actual = completions.items[i];
 
+      assert.ok(actual);
       assert.strictEqual(actual.label, e.label);
       assert.strictEqual(actual.insertText, e.insertText);
       assert.strictEqual(actual.kind, e.kind);
@@ -34,6 +35,7 @@ suite("test for packageCompletion", () => {
     expected.forEach((e, i) => {
       const actual = completions.items[i];
 
+      assert.ok(actual);
       assert.strictEqual(actual.label, e.label);
       assert.strictEqual(actual.insertText, e.insertText);
       assert.strictEqual(actual.kind, e.kind);

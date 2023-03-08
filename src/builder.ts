@@ -109,7 +109,7 @@ export class Builder implements Disposable {
         window.showErrorMessage("No .saty file found in workspace.");
         break;
       case 1:
-        this.build(satyFiles[0]);
+        if (satyFiles[0]) this.build(satyFiles[0]);
         break;
       default:
         showErrorWithOpenSettings(

@@ -18,6 +18,7 @@ suite("test for logParser", () => {
     assert.strictEqual(diagnostics?.length, 1);
 
     const entry = diagnostics[0];
+    assert.ok(entry);
     assert.strictEqual(entry.range.start.line, 40 - 1);
     assert.strictEqual(entry.range.start.character, 11);
     assert.strictEqual(entry.range.end.line, 40 - 1);
@@ -50,6 +51,7 @@ unexpected character 'a' in a vertical area
     assert.strictEqual(diagnostics?.length, 1);
 
     const entry = diagnostics[0];
+    assert.ok(entry);
     assert.strictEqual(entry.range.start.line, 53 - 1);
     assert.strictEqual(entry.range.start.character, 23);
     assert.strictEqual(entry.range.end.line, 53 - 1);
@@ -87,6 +89,7 @@ at "theme.satyh", line 100, characters 34-45.
     assert.strictEqual(diagnostics?.length, 1);
 
     const entry = diagnostics[0];
+    assert.ok(entry);
     assert.strictEqual(entry.range.start.line, 32 - 1);
     assert.strictEqual(entry.range.start.character, 13);
     assert.strictEqual(entry.range.end.line, 38 - 1);
@@ -122,6 +125,7 @@ at "theme.satyh", line 93, characters 24-159.
     assert.strictEqual(diagnostics?.length, 2);
 
     const entry = diagnostics[0];
+    assert.ok(entry);
     assert.strictEqual(entry.range.start.line, 19 - 1);
     assert.strictEqual(entry.range.start.character, 21);
     assert.strictEqual(entry.range.end.line, 21 - 1);
