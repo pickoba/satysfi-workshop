@@ -44,7 +44,7 @@ export class Builder implements Disposable {
         target,
         config.build.buildOptions,
         this.abortController.signal,
-        this.logger,
+        { logger: this.logger },
       );
 
       if (success) this.onBuildSuccess(target);

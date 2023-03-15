@@ -55,9 +55,10 @@ export class TypeChecker implements Disposable {
     try {
       const { diagnostics } = await buildSATySFi(
         executable,
-        copy ? document : document.uri,
+        document.uri,
         buildOptions,
         this.abortController.signal,
+        { content: copy ? document.getText() : undefined },
       );
 
       this.collection.clear();

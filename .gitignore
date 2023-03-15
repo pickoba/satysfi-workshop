@@ -4,3 +4,4 @@ node_modules
 out
 node_modules
 .vscode-test/
+tree-sitter-satysfi.wasm

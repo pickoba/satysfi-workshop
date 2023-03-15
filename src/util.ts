@@ -1,6 +1,9 @@
 import { existsSync } from "fs";
+import { mkdir } from "fs/promises";
+import { tmpdir } from "os";
 import * as path from "path";
-import { commands, window } from "vscode";
+import { ColorThemeKind, commands, Position, window } from "vscode";
+import * as Parser from "web-tree-sitter";
 import { EXTENSION_NAME } from "./const";
 
 export async function showErrorWithOpenSettings(
@@ -26,4 +29,34 @@ export function getWorkPath(originalPath: string): string {
   } while (existsSync(name));
 
   return name;
+}
+
+export function getAuxPath(originalPath: string): string {
+  const ext = path.extname(originalPath);
+  return path.join(path.dirname(originalPath), `${path.basename(originalPath, ext)}.satysfi-aux`);
+}
+
+export async function getTmpDir(): Promise<string> {
+  const dir = path.join(tmpdir(), EXTENSION_NAME);
+  await mkdir(dir, { recursive: true });
+  return dir;
+}
+
+export function positionToPoint(position: Position): Parser.Point {
+  return { row: position.line, column: position.character };
+}
+
+export function pointToPosition(point: Parser.Point): Position {
+  return new Position(point.row, point.column);
+}
+
+export function isDarkTheme(): boolean {
+  switch (window.activeColorTheme.kind) {
+    case ColorThemeKind.Light:
+    case ColorThemeKind.HighContrastLight:
+      return false;
+    case ColorThemeKind.Dark:
+    case ColorThemeKind.HighContrast:
+      return true;
+  }
 }

@@ -1,42 +1,41 @@
 import * as proc from "child_process";
 import * as fs from "fs/promises";
 import * as path from "path";
-import { Diagnostic, TextDocument, Uri, workspace } from "vscode";
+import { Diagnostic, Uri, workspace } from "vscode";
 import { Logger } from "./logger";
 import { parseLog } from "./logParser";
-import { getWorkPath } from "./util";
+import { getAuxPath, getWorkPath } from "./util";
 
 export async function buildSATySFi(
   executable: string,
-  target: Uri | TextDocument,
+  targetUri: Uri,
   args: string[],
   signal: AbortSignal,
-  logger?: Logger,
+  options?: { content?: string; logger?: Logger },
 ): Promise<{
   success: boolean;
   diagnostics: Map<string, Diagnostic[]>;
 }> {
-  const isDocument = !(target instanceof Uri);
-
-  const targetUri = isDocument ? target.uri : target;
   const targetPath = targetUri.fsPath;
-  const workPath = isDocument ? await copyToFile(target) : targetPath;
+  const workPath = options?.content ? await copyToFile(targetPath, options.content) : targetPath;
   const workdir = workspace.getWorkspaceFolder(targetUri)?.uri.fsPath ?? path.dirname(targetPath);
 
-  const { code, stdout, stderr } = await spawnSATySFi(
+  const { code, stdout, stderr } = await spawn(
     executable,
-    workPath,
-    workdir,
-    args,
+    [...args, workPath],
     signal,
-    logger,
+    workdir,
+    options?.logger,
   ).finally(() => {
-    if (isDocument) fs.unlink(workPath);
+    if (options?.content) {
+      fs.unlink(workPath);
+      fs.unlink(getAuxPath(workPath));
+    }
   });
 
   const diagnostics = parseLog(stdout + stderr);
 
-  if (isDocument) {
+  if (options?.content) {
     const ds = diagnostics.get(workPath);
     if (ds) {
       diagnostics.delete(workPath);
@@ -47,16 +46,15 @@ export async function buildSATySFi(
   return { success: code === 0, diagnostics };
 }
 
-function spawnSATySFi(
+export function spawn(
   executable: string,
-  target: string,
-  workDir: string,
   args: string[],
   signal: AbortSignal,
+  workDir?: string,
   logger?: Logger,
 ) {
   return new Promise<{ code: number | null; stdout: string; stderr: string }>((resolve, reject) => {
-    const spawned = proc.spawn(executable, [...args, target], {
+    const spawned = proc.spawn(executable, args, {
       cwd: workDir,
       signal,
     });
@@ -84,9 +82,8 @@ function spawnSATySFi(
   });
 }
 
-async function copyToFile(document: TextDocument) {
-  const tmpPath = getWorkPath(document.fileName);
-  const content = document.getText();
+async function copyToFile(basepath: string, content: string) {
+  const tmpPath = getWorkPath(basepath);
 
   await fs.writeFile(tmpPath, content);
 

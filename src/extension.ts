@@ -9,8 +9,11 @@ import {
 } from "./const";
 import { LanguageServer } from "./languageServer";
 import { Logger } from "./logger";
+import { MathHoverProvider } from "./mathHoverProvider";
 import { PackageCompletionProvider } from "./packageCompletion";
+import { getParser } from "./parserProvider";
 import { StatusBar } from "./statusbar";
+import { TreeSitterProvider } from "./treeSitterProvider";
 import { TypeChecker } from "./typeChecker";
 
 export interface Context {
@@ -19,7 +22,7 @@ export interface Context {
   statusBar: StatusBar;
 }
 
-export function activate(extContext: ExtensionContext): void {
+export async function activate(extContext: ExtensionContext): Promise<void> {
   const configProvider = new ConfigProvider();
   extContext.subscriptions.push(configProvider);
 
@@ -40,6 +43,13 @@ export function activate(extContext: ExtensionContext): void {
 
   const languageServer = new LanguageServer(context);
   extContext.subscriptions.push(languageServer);
+
+  const parser = await getParser();
+  const treeSitterProvider = new TreeSitterProvider(parser);
+  extContext.subscriptions.push(treeSitterProvider);
+
+  const mathHoverProvider = new MathHoverProvider(configProvider, treeSitterProvider);
+  extContext.subscriptions.push(mathHoverProvider);
 
   commands.registerCommand(COMMAND_BUILD, () => builder.buildProject());
   commands.registerCommand(COMMAND_TYPECHECK, () => typeChecker.checkCurrentDocument());
