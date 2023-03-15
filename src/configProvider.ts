@@ -5,10 +5,15 @@ import { ExtensionConfig } from "./configSchema";
 import { CONFIG_SCOPE } from "./const";
 import { showErrorWithOpenSettings } from "./util";
 
+export interface IConfigProvider {
+  get(): ExtensionConfig | null;
+  onChange(listener: (config: ExtensionConfig | null) => unknown): void;
+}
+
 // config change event name
 const CONFIG_CHANGE = "config";
 
-export class ConfigProvider implements Disposable {
+export class ConfigProvider implements IConfigProvider, Disposable {
   private readonly eventEmitter: EventEmitter = new EventEmitter();
   private readonly disposables: Disposable[] = [];
   private config: ExtensionConfig | null;

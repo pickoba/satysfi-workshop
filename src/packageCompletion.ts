@@ -10,11 +10,11 @@ import {
   TextDocument,
   window,
 } from "vscode";
-import { ConfigProvider } from "./configProvider";
+import { IConfigProvider } from "./configProvider";
 import { Context } from "./extension";
 
 export class PackageCompletionProvider implements Disposable {
-  private readonly configProvider: ConfigProvider;
+  private readonly configProvider: IConfigProvider;
   private readonly disposables: Disposable[] = [];
 
   constructor(context: Context) {

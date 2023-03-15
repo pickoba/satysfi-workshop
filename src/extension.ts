@@ -1,6 +1,6 @@
 import { commands, ExtensionContext } from "vscode";
 import { Builder } from "./builder";
-import { ConfigProvider } from "./configProvider";
+import { ConfigProvider, IConfigProvider } from "./configProvider";
 import {
   COMMAND_BUILD,
   COMMAND_OPEN_BUILD_LOG,
@@ -17,7 +17,7 @@ import { TreeSitterProvider } from "./treeSitterProvider";
 import { TypeChecker } from "./typeChecker";
 
 export interface Context {
-  configProvider: ConfigProvider;
+  configProvider: IConfigProvider;
   logger: Logger;
   statusBar: StatusBar;
 }

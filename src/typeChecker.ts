@@ -7,14 +7,14 @@ import {
   window,
   workspace,
 } from "vscode";
-import { ConfigProvider } from "./configProvider";
+import { IConfigProvider } from "./configProvider";
 import { Context } from "./extension";
 import { Logger } from "./logger";
 import { buildSATySFi } from "./runner";
 import { showErrorWithOpenSettings } from "./util";
 
 export class TypeChecker implements Disposable {
-  private readonly configProvider: ConfigProvider;
+  private readonly configProvider: IConfigProvider;
   private readonly logger: Logger;
   private readonly collection: DiagnosticCollection;
   private readonly disposables: Disposable[] = [];

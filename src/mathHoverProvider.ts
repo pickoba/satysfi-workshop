@@ -40,7 +40,7 @@ import {
   Uri,
 } from "vscode";
 import * as Parser from "web-tree-sitter";
-import { ConfigProvider } from "./configProvider";
+import { IConfigProvider } from "./configProvider";
 import { buildSATySFi, spawn } from "./runner";
 import { TreeSitterProvider } from "./treeSitterProvider";
 import { getTmpDir, isDarkTheme, pointToPosition } from "./util";
@@ -49,13 +49,13 @@ const defaultTemplatePath = path.join(path.dirname(__dirname), "templates", "mat
 const queryStr = "(headers) @headers\n(preamble) @preamble\n(math_text) @text";
 
 export class MathHoverProvider implements HoverProvider, Disposable {
-  private readonly configProvider: ConfigProvider;
+  private readonly configProvider: IConfigProvider;
   private readonly treeSitterProvider: TreeSitterProvider;
   private readonly query: Parser.Query;
   private readonly disposables: Disposable[] = [];
   private abortController: AbortController | null = null;
 
-  constructor(configProvider: ConfigProvider, treeSitterProvider: TreeSitterProvider) {
+  constructor(configProvider: IConfigProvider, treeSitterProvider: TreeSitterProvider) {
     this.configProvider = configProvider;
     this.treeSitterProvider = treeSitterProvider;
     this.query = treeSitterProvider.createQuery(queryStr);
