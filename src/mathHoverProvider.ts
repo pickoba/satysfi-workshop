@@ -45,7 +45,7 @@ import { buildSATySFi, spawn } from "./runner";
 import { TreeSitterProvider } from "./treeSitterProvider";
 import { getTmpDir, isDarkTheme, pointToPosition } from "./util";
 
-const defaultTemplatePath = path.join(path.dirname(__dirname), "templates", "mathpreview.saty");
+const defaultTemplatePath = path.join(path.dirname(__dirname), "templates", "mathPreview.saty");
 const queryStr = `
 (headers) @headers
 (preamble) @preamble
