@@ -1,5 +1,4 @@
 import { build, context } from "esbuild";
-import { copy } from "esbuild-plugin-copy";
 import glob from "glob";
 
 const minify = process.argv.includes("--minify");
@@ -15,27 +14,12 @@ const options = {
   external: ["mocha", "vscode"],
   format: "cjs",
   platform: "node",
-  plugins: [
-    copy({
-      assets: [
-        {
-          from: ["./tree-sitter-satysfi.wasm"],
-          to: ["tree-sitter-satysfi.wasm", "test/suite/tree-sitter-satysfi.wasm"],
-        },
-        {
-          from: ["./node_modules/web-tree-sitter/tree-sitter.wasm"],
-          to: ["tree-sitter.wasm", "test/suite/tree-sitter.wasm"],
-        },
-      ],
-    }),
-  ],
 };
 
 /** @type {import('esbuild').BuildOptions} */
 const watchOptions = {
   ...options,
   plugins: [
-    ...options.plugins,
     {
       name: "watch",
       setup(build) {

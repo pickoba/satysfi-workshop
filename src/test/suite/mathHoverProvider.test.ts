@@ -1,4 +1,5 @@
 import * as assert from "assert";
+import path from "path";
 import { Position, Range } from "vscode";
 import { MathHoverProvider } from "../../mathHoverProvider";
 import { getParser } from "../../parserProvider";
@@ -50,7 +51,7 @@ suite("test for mathHoverProvider", () => {
 });
 
 async function mathHoverProvider() {
-  const parser = await getParser();
+  const parser = await getParser(path.dirname(path.dirname(path.dirname(__dirname))));
   const treeSitterProvider = new TreeSitterProvider(parser);
   return new MathHoverProvider(
     {

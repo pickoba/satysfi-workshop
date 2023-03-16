@@ -44,7 +44,7 @@ export async function activate(extContext: ExtensionContext): Promise<void> {
   const languageServer = new LanguageServer(context);
   extContext.subscriptions.push(languageServer);
 
-  const parser = await getParser();
+  const parser = await getParser(extContext.extensionPath);
   const treeSitterProvider = new TreeSitterProvider(parser);
   extContext.subscriptions.push(treeSitterProvider);
 
