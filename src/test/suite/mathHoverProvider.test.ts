@@ -12,10 +12,10 @@ suite("test for mathHoverProvider", () => {
 
     const cases = [
       { cursor: new Position(2, 0), range: undefined },
-      { cursor: new Position(2, 9), range: new Range(2, 8, 2, 19) },
-      { cursor: new Position(3, 13), range: new Range(3, 11, 5, 1) },
-      { cursor: new Position(4, 18), range: new Range(3, 11, 5, 1) },
-      { cursor: new Position(5, 1), range: new Range(3, 11, 5, 1) },
+      { cursor: new Position(2, 10), range: new Range(2, 10, 2, 18) },
+      { cursor: new Position(4, 2), range: new Range(4, 2, 4, 36) },
+      { cursor: new Position(4, 8), range: new Range(4, 2, 4, 36) },
+      { cursor: new Position(4, 36), range: new Range(4, 2, 4, 36) },
     ];
     for (const { cursor, range } of cases) {
       const hover = await provider.provideHover(document, cursor);
@@ -31,14 +31,14 @@ suite("test for mathHoverProvider", () => {
       {
         editRange: new Range(2, 8, 2, 8),
         editContent: "func ",
-        cursor: new Position(2, 13),
-        hoverRange: new Range(2, 13, 2, 24),
+        cursor: new Position(2, 15),
+        hoverRange: new Range(2, 15, 2, 23),
       },
       {
         editRange: new Range(3, 0, 3, 0),
         editContent: "\n",
-        cursor: new Position(5, 1),
-        hoverRange: new Range(4, 11, 6, 1),
+        cursor: new Position(5, 2),
+        hoverRange: new Range(5, 2, 5, 36),
       },
     ];
     for (const { editRange, editContent, cursor, hoverRange } of cases) {
