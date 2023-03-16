@@ -22,4 +22,4 @@ let document math-text =
 
 in
 
-document {{MATH_TEXT}}
+document ${ {{MATH_TEXT}} }

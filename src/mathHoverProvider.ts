@@ -46,7 +46,11 @@ import { TreeSitterProvider } from "./treeSitterProvider";
 import { getTmpDir, isDarkTheme, pointToPosition } from "./util";
 
 const defaultTemplatePath = path.join(path.dirname(__dirname), "templates", "mathpreview.saty");
-const queryStr = "(headers) @headers\n(preamble) @preamble\n(math_text) @text";
+const queryStr = `
+(headers) @headers
+(preamble) @preamble
+(math) @math
+`.trim();
 
 export class MathHoverProvider implements HoverProvider, Disposable {
   private readonly configProvider: IConfigProvider;
