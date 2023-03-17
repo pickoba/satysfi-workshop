@@ -29,7 +29,8 @@ export async function buildSATySFi(
   ).finally(() => {
     if (options?.content) {
       fs.unlink(workPath);
-      fs.unlink(getAuxPath(workPath));
+      // Failure to delete is not a problem because aux files are not always generated.
+      fs.unlink(getAuxPath(workPath)).catch(() => undefined);
     }
   });
 

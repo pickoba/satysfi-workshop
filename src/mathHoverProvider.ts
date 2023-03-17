@@ -158,7 +158,8 @@ export class MathHoverProvider implements HoverProvider, Disposable {
       })
       .then(() => fs.readFile(tmpPath))
       .finally(() => {
-        fs.unlink(tmpPath);
+        // Failure to delete is not a problem because the svg is not always generated.
+        fs.unlink(tmpPath).catch(() => undefined);
         fs.unlink(pdfPath);
       });
 
