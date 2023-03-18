@@ -26,13 +26,15 @@ suite("test for logParser", () => {
     assert.strictEqual(entry.severity, vscode.DiagnosticSeverity.Error);
 
     const expectedMessage = `Syntax Error at Lexer
-unexpected character 'a' in a vertical area
-`;
+unexpected character 'a' in a vertical area`;
     assert.strictEqual(entry.message, expectedMessage);
   });
 
   test("logParser: single-line type error", () => {
-    const log = `
+    const log = ` ---- ---- ---- ----
+  type checking '/satysfi/theme.satyh' ...
+  type check passed.
+ ---- ---- ---- ----
   type checking '/satysfi/slide.saty' ...
 ! [Type Error] at "slide.saty", line 53, characters 23-35:
     this expression has type
@@ -62,15 +64,28 @@ unexpected character 'a' in a vertical area
 this expression has type
   block-text,
 but is expected of type
-  inline-text.
-This constraint is required by the expression
-at "theme.satyh", line 100, characters 34-45.
-`;
+  inline-text.`;
     assert.strictEqual(entry.message, expectedMessage);
+
+    assert.strictEqual(entry.relatedInformation?.length, 1);
+    const relatedInformation = entry.relatedInformation[0];
+    assert.ok(relatedInformation);
+
+    const expectedRelatedMessage = `This constraint is required by the expression at "theme.satyh", line 100, characters 34-45.`;
+    assert.strictEqual(relatedInformation.message, expectedRelatedMessage);
+
+    assert.strictEqual(relatedInformation.location.uri.fsPath, "/satysfi/theme.satyh");
+    assert.strictEqual(relatedInformation.location.range.start.line, 100 - 1);
+    assert.strictEqual(relatedInformation.location.range.start.character, 34);
+    assert.strictEqual(relatedInformation.location.range.start.line, 100 - 1);
+    assert.strictEqual(relatedInformation.location.range.end.character, 45);
   });
 
   test("logParser: multi-line type error", () => {
-    const log = `
+    const log = ` ---- ---- ---- ----
+  type checking '/satysfi/theme.satyh' ...
+  type check passed.
+ ---- ---- ---- ----
   type checking '/satysfi/slide.saty' ...
 ! [Type Error] at "slide.saty", line 32, character 13 to line 38, character 4:
     this expression has type
@@ -100,11 +115,21 @@ at "theme.satyh", line 100, characters 34-45.
 this expression has type
   (|author : inline-text list; date : inline-text list; institute : inline-text list; itle : inline-text list; subtitle : inline-text list|),
 but is expected of type
-  (|author : inline-text list; date : inline-text list; institute : inline-text list; subtitle : inline-text list; title : inline-text list|).
-This constraint is required by the expression
-at "theme.satyh", line 93, characters 24-159.
-`;
+  (|author : inline-text list; date : inline-text list; institute : inline-text list; subtitle : inline-text list; title : inline-text list|).`;
     assert.strictEqual(entry.message, expectedMessage);
+
+    assert.strictEqual(entry.relatedInformation?.length, 1);
+    const relatedInformation = entry.relatedInformation[0];
+    assert.ok(relatedInformation);
+
+    const expectedRelatedMessage = `This constraint is required by the expression at "theme.satyh", line 93, characters 24-159.`;
+    assert.strictEqual(relatedInformation.message, expectedRelatedMessage);
+
+    assert.strictEqual(relatedInformation.location.uri.fsPath, "/satysfi/theme.satyh");
+    assert.strictEqual(relatedInformation.location.range.start.line, 93 - 1);
+    assert.strictEqual(relatedInformation.location.range.start.character, 24);
+    assert.strictEqual(relatedInformation.location.range.start.line, 93 - 1);
+    assert.strictEqual(relatedInformation.location.range.end.character, 159);
   });
 
   test("logParser: multiple warning", () => {
@@ -133,8 +158,9 @@ at "theme.satyh", line 93, characters 24-159.
     assert.strictEqual(entry.severity, vscode.DiagnosticSeverity.Warning);
 
     const expectedMessage = `pattern-matching
-non-exhaustive: CMYK(_, _, _, _)
-`;
+non-exhaustive: CMYK(_, _, _, _)`;
     assert.strictEqual(entry.message, expectedMessage);
+
+    assert.strictEqual(entry.relatedInformation?.length, 0);
   });
 });
