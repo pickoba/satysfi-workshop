@@ -44,6 +44,20 @@ This extension does not include the language server itself. You have to clone & 
 }
 ```
 
+### Math Preview
+
+<img src="media/math-preview.png" alt="Math Preview" height="200px">
+
+Preview the formula by hovering the mouse cursor over it.
+
+To use this feature, you need to install [pdf2svg](https://github.com/dawbarton/pdf2svg), which can be installed with apt (Ubuntu/WSL) or Homebrew (macOS). Here is an example configuration:
+
+```json
+{
+  "satysfi-workshop.mathPreview.when": "onHover"
+}
+```
+
 ## Credits
 
 I would like to express my gratitude to @wraikny, the original author of [vscode-satysfi](https://marketplace.visualstudio.com/items?itemName=wraikny.wraikny-satysfi-extension).
