@@ -23,6 +23,16 @@ When you open the workspace for the first time, VS Code will prompt you to insta
 
 These are necessary for debugging, linting and formatting, so please install them.
 
+## Building tree-sitter parsers
+
+Some of the features (math hover preview) of this extension depend on tree-sitter parsers. To build the parsers, run
+
+```sh
+npm run build:tree-sitter
+```
+
+**Note:** Building parsers on Windows is not supported at the moment. Use WSL instead.
+
 ## Debugging
 
 You can debug the extension from the Run view:
