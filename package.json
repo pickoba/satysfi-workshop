@@ -13,7 +13,7 @@
     "theme": "dark"
   },
   "engines": {
-    "vscode": "^1.75.0"
+    "vscode": "^1.77.0"
   },
   "categories": [
     "Programming Languages",
@@ -237,23 +237,23 @@
   "devDependencies": {
     "@types/glob": "^7.2.0",
     "@types/mocha": "^10.0.1",
-    "@types/node": "^16.18.11",
-    "@types/vscode": "^1.75.0",
-    "@typescript-eslint/eslint-plugin": "^5.50.0",
-    "@typescript-eslint/parser": "^5.50.0",
-    "@vscode/test-electron": "^2.2.3",
-    "esbuild": "^0.17.5",
-    "eslint": "^8.33.0",
-    "eslint-config-prettier": "^8.6.0",
+    "@types/node": "^16.18.23",
+    "@types/vscode": "^1.77.0",
+    "@typescript-eslint/eslint-plugin": "^5.57.1",
+    "@typescript-eslint/parser": "^5.57.1",
+    "@vscode/test-electron": "^2.3.0",
+    "esbuild": "^0.17.15",
+    "eslint": "^8.38.0",
+    "eslint-config-prettier": "^8.8.0",
     "mocha": "^10.2.0",
-    "prettier": "^2.8.3",
+    "prettier": "^2.8.7",
     "tree-sitter-cli": "^0.20.7",
     "tree-sitter-satysfi": "github:monaqa/tree-sitter-satysfi",
     "typescript": "^4.9.5"
   },
   "dependencies": {
-    "vscode-languageclient": "^8.0.2",
+    "vscode-languageclient": "^8.1.0",
     "web-tree-sitter": "^0.20.7",
-    "zod": "^3.20.6"
+    "zod": "^3.21.4"
   }
 }
