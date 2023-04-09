@@ -15,7 +15,10 @@ const regexAll =
 const regexConstraint =
   /This constraint is required by the expression\nat "(?<filename>.+)", (line (?<lineSingle>\d+), characters (?<startColSingle>\d+)-(?<endColSingle>\d+)|line (?<startLineMulti>\d+), character (?<startColMulti>\d+) to line (?<endLineMulti>\d+), character (?<endColMulti>\d+))\./m;
 
-export function parseLog(output: string): Map<string, Diagnostic[]> {
+export function parseLog(
+  output: string,
+  fileRenameMap: Map<string, string>,
+): Map<string, Diagnostic[]> {
   let target: string | undefined;
   // filename -> fullpath
   const filenameMap: Map<string, string> = new Map();
@@ -46,11 +49,16 @@ export function parseLog(output: string): Map<string, Diagnostic[]> {
 
       // construct a diagnostic
       const range = parseRange(groups);
-      const { message, relatedInformation } = parseBody(groups["body"] ?? "", filenameMap);
+      const { message, relatedInformation } = parseBody(
+        groups["body"] ?? "",
+        filenameMap,
+        fileRenameMap,
+      );
       const d = new Diagnostic(range, `${title}\n${message}`, severity);
       d.relatedInformation = relatedInformation;
 
-      if (diagnostics.get(target)?.push(d) === undefined) diagnostics.set(target, [d]);
+      const storeTarget = fileRenameMap.get(target) ?? target;
+      if (diagnostics.get(storeTarget)?.push(d) === undefined) diagnostics.set(storeTarget, [d]);
     }
   }
 
@@ -65,7 +73,11 @@ function parseRange(groups: { [key: string]: string }) {
   return new Range(startLine - 1, startCol, endLine - 1, endCol);
 }
 
-function parseBody(message: string, filenameMap: Map<string, string>) {
+function parseBody(
+  message: string,
+  filenameMap: Map<string, string>,
+  fileRenameMap: Map<string, string>,
+) {
   message = message.replace(/^\s{4}/gm, "").trim();
 
   const match = message.match(regexConstraint);
@@ -78,11 +90,15 @@ function parseBody(message: string, filenameMap: Map<string, string>) {
     return { message, relatedInformation: [] };
   }
 
+  const storePath = fileRenameMap.get(filePath) ?? filePath;
   const range = parseRange(match.groups);
-  const location = new Location(Uri.file(filePath), range);
+  const location = new Location(Uri.file(storePath), range);
+  const relatedText = match[0]
+    .replace(/\n/g, " ")
+    .replace(path.basename(filePath), path.basename(storePath));
 
   return {
     message: message.replace(regexConstraint, "").trim(),
-    relatedInformation: [new DiagnosticRelatedInformation(location, match[0].replace(/\n/g, " "))],
+    relatedInformation: [new DiagnosticRelatedInformation(location, relatedText)],
   };
 }
