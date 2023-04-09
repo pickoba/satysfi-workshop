@@ -8,7 +8,26 @@ on:
   workflow_dispatch:
 
 jobs:
+  build-tree-sitter:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 17.x
+      - name: Run npm ci
+        run: npm ci
+      - name: Build tree-sitter parsers
+        run: npm run build:tree-sitter
+      - name: Upload parsers
+        uses: actions/upload-artifact@v3
+        with:
+          name: parsers
+          path: parsers
   build:
+    needs: build-tree-sitter
     strategy:
       matrix:
         os: [macos-latest, ubuntu-latest, windows-latest]
@@ -22,12 +41,12 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 17.x
-      - name: Run npm ci (Linux/macOS)
-        run: npm ci
-        if: runner.os != 'Windows'
-      - name: Run npm ci without node-gyp rebuild (Windows)
+      - name: Run npm ci without node-gyp rebuild
         run: npm ci --ignore-scripts
-        if: runner.os == 'Windows'
+      - name: Download parsers
+        uses: actions/download-artifact@v3
+        with:
+          name: parsers
       - run: npm run build
       - run: npm run lint
       - run: xvfb-run -a npm test

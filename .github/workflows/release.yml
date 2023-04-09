@@ -17,6 +17,8 @@ jobs:
           node-version: 17.x
       - name: Install dependencies
         run: npm ci
+      - name: Build tree-sitter parsers
+        run: npm run build:tree-sitter
       - name: Package
         run: npx vsce package --githubBranch main
       - name: Publish (VS Marketplace)
