@@ -1,10 +1,11 @@
 import * as assert from "assert";
 import * as vscode from "vscode";
-import { activate } from "../helper";
+import { activateExtension, activateFile } from "../helper";
 
 suite("test for packageCompletion", () => {
   test("packageCompletion: @import (simple)", async () => {
-    const { document, editor } = await activate("packageCompletion/empty.saty");
+    await activateExtension();
+    const { document, editor } = await activateFile("packageCompletion/empty.saty");
     const completions = await completeAfterType(document, editor, "@import: ");
 
     const expected = [
@@ -25,7 +26,8 @@ suite("test for packageCompletion", () => {
   }).timeout(4000);
 
   test("packageCompletion: @import (nested)", async () => {
-    const { document, editor } = await activate("packageCompletion/empty.saty");
+    await activateExtension();
+    const { document, editor } = await activateFile("packageCompletion/empty.saty");
     const completions = await completeAfterType(document, editor, "@import: folder01/");
 
     const expected = [

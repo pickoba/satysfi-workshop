@@ -1,0 +1,25 @@
+{{HEADERS}}
+
+{{PREAMBLES}}
+
+let-inline ctx \MATH-INTERNAL m = embed-math ctx m
+
+let document math-text =
+  let ctx = get-initial-context 400pt (command \MATH-INTERNAL) in
+  let ctx = ctx |> set-font-size 15pt in
+  let ib = embed-math ctx math-text in
+  let (w, h, d) = get-natural-metrics ib in
+  let margin = 3pt in
+  let page = UserDefinedPaper (w +' margin *' 2., h +' d +' margin *' 2.) in
+  let countf _ = (| text-height = h +' d; text-origin = (margin, margin) |) in
+  let partsf _ = (|
+    header-content = block-nil;
+    header-origin = (0pt, 0pt);
+    footer-content = block-nil;
+    footer-origin = (0pt, 0pt)
+  |) in
+  page-break page countf partsf (line-break true true ctx ib)
+
+in
+
+document ${ {{MATH_TEXT}} }

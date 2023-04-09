@@ -1,5 +1,5 @@
 import { Disposable, Uri, window, workspace } from "vscode";
-import { ConfigProvider } from "./configProvider";
+import { IConfigProvider } from "./configProvider";
 import { Context } from "./extension";
 import { Logger } from "./logger";
 import { buildSATySFi } from "./runner";
@@ -8,7 +8,7 @@ import { showErrorWithOpenSettings } from "./util";
 
 export class Builder implements Disposable {
   private readonly disposables: Disposable[] = [];
-  private readonly configProvider: ConfigProvider;
+  private readonly configProvider: IConfigProvider;
   private readonly logger: Logger;
   private readonly statusBar: StatusBar;
   private abortController: AbortController | null = null;
@@ -44,7 +44,7 @@ export class Builder implements Disposable {
         target,
         config.build.buildOptions,
         this.abortController.signal,
-        this.logger,
+        { logger: this.logger },
       );
 
       if (success) this.onBuildSuccess(target);

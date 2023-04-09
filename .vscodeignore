@@ -14,8 +14,11 @@ src/**
 .gitattributes
 .github/**
 .prettierignore
+esbuild.mjs
 node_modules/**
 out/**
 !out/extension.js
+!out/tree-sitter.wasm
+!out/tree-sitter-satysfi.wasm
 prettier.config.js
 tools/**

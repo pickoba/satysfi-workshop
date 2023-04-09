@@ -17,10 +17,21 @@ It is recommended to use `npm ci` instead of `npm install` to avoid unintentiona
 
 When you open the workspace for the first time, VS Code will prompt you to install the following extensions:
 
+* [connor4312.esbuild-problem-matchers](https://marketplace.visualstudio.com/items?itemName=connor4312.esbuild-problem-matchers)
 * [dbaeumer.vscode-eslint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 * [esbenp.prettier-vscode](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 
-These are necessary for linting and formatting, so please install them.
+These are necessary for debugging, linting and formatting, so please install them.
+
+## Building tree-sitter parsers
+
+Some of the features (math hover preview) of this extension depend on tree-sitter parsers. To build the parsers, run
+
+```sh
+npm run build:tree-sitter
+```
+
+**Note:** Building parsers on Windows is not supported at the moment. Use WSL instead.
 
 ## Debugging
 
