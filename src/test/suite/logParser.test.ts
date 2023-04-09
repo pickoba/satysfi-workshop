@@ -74,7 +74,7 @@ but is expected of type
     const expectedRelatedMessage = `This constraint is required by the expression at "theme.satyh", line 100, characters 34-45.`;
     assert.strictEqual(relatedInformation.message, expectedRelatedMessage);
 
-    assert.strictEqual(relatedInformation.location.uri.fsPath, "/satysfi/theme.satyh");
+    assert.strictEqual(relatedInformation.location.uri.path, "/satysfi/theme.satyh");
     assert.strictEqual(relatedInformation.location.range.start.line, 100 - 1);
     assert.strictEqual(relatedInformation.location.range.start.character, 34);
     assert.strictEqual(relatedInformation.location.range.start.line, 100 - 1);
@@ -125,7 +125,7 @@ but is expected of type
     const expectedRelatedMessage = `This constraint is required by the expression at "theme.satyh", line 93, characters 24-159.`;
     assert.strictEqual(relatedInformation.message, expectedRelatedMessage);
 
-    assert.strictEqual(relatedInformation.location.uri.fsPath, "/satysfi/theme.satyh");
+    assert.strictEqual(relatedInformation.location.uri.path, "/satysfi/theme.satyh");
     assert.strictEqual(relatedInformation.location.range.start.line, 93 - 1);
     assert.strictEqual(relatedInformation.location.range.start.character, 24);
     assert.strictEqual(relatedInformation.location.range.start.line, 93 - 1);
