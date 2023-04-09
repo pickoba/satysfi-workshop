@@ -2,8 +2,8 @@ import * as proc from "child_process";
 import * as fs from "fs/promises";
 import * as path from "path";
 import { Diagnostic, Uri, workspace } from "vscode";
-import { Logger } from "./logger";
 import { parseLog } from "./logParser";
+import { Logger } from "./logger";
 import { getAuxPath, getWorkPath } from "./util";
 
 export async function buildSATySFi(
@@ -34,15 +34,7 @@ export async function buildSATySFi(
     }
   });
 
-  const diagnostics = parseLog(stdout + stderr);
-
-  if (options?.content) {
-    const ds = diagnostics.get(workPath);
-    if (ds) {
-      diagnostics.delete(workPath);
-      diagnostics.set(targetPath, ds);
-    }
-  }
+  const diagnostics = parseLog(stdout + stderr, new Map([[workPath, targetPath]]));
 
   return { success: code === 0, diagnostics };
 }

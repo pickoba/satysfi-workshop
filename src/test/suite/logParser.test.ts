@@ -9,7 +9,7 @@ suite("test for logParser", () => {
 ! [Syntax Error at Lexer] at "slide.saty", line 40, characters 11-12:
     unexpected character 'a' in a vertical area
 `;
-    const parsed = parseLog(log);
+    const parsed = parseLog(log, new Map());
 
     assert.strictEqual(parsed.size, 1);
 
@@ -44,7 +44,7 @@ unexpected character 'a' in a vertical area`;
     This constraint is required by the expression
     at "theme.satyh", line 100, characters 34-45.
 `;
-    const parsed = parseLog(log);
+    const parsed = parseLog(log, new Map());
 
     assert.strictEqual(parsed.size, 1);
 
@@ -95,7 +95,7 @@ but is expected of type
     This constraint is required by the expression
     at "theme.satyh", line 93, characters 24-159.
 `;
-    const parsed = parseLog(log);
+    const parsed = parseLog(log, new Map());
 
     assert.strictEqual(parsed.size, 1);
 
@@ -141,7 +141,7 @@ but is expected of type
 ! [Warning about pattern-matching] at "header.satyh", line 23, character 21 to line 25, character 31
     non-exhaustive: CMYK(_, _, _, _)
 `;
-    const parsed = parseLog(log);
+    const parsed = parseLog(log, new Map());
 
     assert.strictEqual(parsed.size, 1);
 
@@ -162,5 +162,59 @@ non-exhaustive: CMYK(_, _, _, _)`;
     assert.strictEqual(entry.message, expectedMessage);
 
     assert.strictEqual(entry.relatedInformation?.length, 0);
+  });
+
+  test("logParser: file renaming", () => {
+    const log = ` ---- ---- ---- ----
+  type checking '/satysfi/theme.satyh' ...
+  type check passed.
+ ---- ---- ---- ----
+  type checking '/satysfi/slide.check-00000000.saty' ...
+! [Type Error] at "slide.check-00000000.saty", line 53, characters 23-35:
+    this expression has type
+      block-text,
+    but is expected of type
+      inline-text.
+    This constraint is required by the expression
+    at "slide.check-00000000.saty", line 100, characters 34-45.
+`;
+    const parsed = parseLog(
+      log,
+      new Map([["/satysfi/slide.check-00000000.saty", "/satysfi/slide.saty"]]),
+    );
+
+    assert.strictEqual(parsed.size, 1);
+
+    const diagnostics = parsed.get("/satysfi/slide.saty");
+    assert.notStrictEqual(diagnostics, undefined);
+    assert.strictEqual(diagnostics?.length, 1);
+
+    const entry = diagnostics[0];
+    assert.ok(entry);
+    assert.strictEqual(entry.range.start.line, 53 - 1);
+    assert.strictEqual(entry.range.start.character, 23);
+    assert.strictEqual(entry.range.end.line, 53 - 1);
+    assert.strictEqual(entry.range.end.character, 35);
+    assert.strictEqual(entry.severity, vscode.DiagnosticSeverity.Error);
+
+    const expectedMessage = `Type Error
+this expression has type
+  block-text,
+but is expected of type
+  inline-text.`;
+    assert.strictEqual(entry.message, expectedMessage);
+
+    assert.strictEqual(entry.relatedInformation?.length, 1);
+    const relatedInformation = entry.relatedInformation[0];
+    assert.ok(relatedInformation);
+
+    const expectedRelatedMessage = `This constraint is required by the expression at "slide.saty", line 100, characters 34-45.`;
+    assert.strictEqual(relatedInformation.message, expectedRelatedMessage);
+
+    assert.strictEqual(relatedInformation.location.uri.path, "/satysfi/slide.saty");
+    assert.strictEqual(relatedInformation.location.range.start.line, 100 - 1);
+    assert.strictEqual(relatedInformation.location.range.start.character, 34);
+    assert.strictEqual(relatedInformation.location.range.start.line, 100 - 1);
+    assert.strictEqual(relatedInformation.location.range.end.character, 45);
   });
 });
