@@ -47,6 +47,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: parsers
+          path: parsers
       - run: npm run build
       - run: npm run lint
       - run: xvfb-run -a npm test
