@@ -5,6 +5,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+## [1.4.1] - 2024-02-23
+- load tree-sitter parser only when math preview is enabled
+- update dependencies
+
 ## [1.4.0] - 2023-04-09
 - support math hover preview
 - enhance diagnostics (parsing constraints' section)
@@ -49,7 +53,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## [1.0.0] - 2021-12-20
 - Initial release as SATySFi Workshop
 
-[Unreleased]: https://github.com/pickoba/satysfi-workshop/compare/v1.4.0...HEAD
+[Unreleased]: https://github.com/pickoba/satysfi-workshop/compare/v1.4.1...HEAD
+[1.4.1]: https://github.com/pickoba/satysfi-workshop/compare/v1.4.0...v1.4.1
 [1.4.0]: https://github.com/pickoba/satysfi-workshop/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/pickoba/satysfi-workshop/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/pickoba/satysfi-workshop/compare/v1.1.1...v1.2.0
