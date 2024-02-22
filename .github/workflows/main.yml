@@ -16,7 +16,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 17.x
+          node-version: 18.x
       - name: Run npm ci
         run: npm ci
       - name: Build tree-sitter parsers
@@ -40,7 +40,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 17.x
+          node-version: 18.x
       - name: Run npm ci without node-gyp rebuild
         run: npm ci --ignore-scripts
       - name: Download parsers
