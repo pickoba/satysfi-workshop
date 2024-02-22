@@ -44,12 +44,14 @@ export async function activate(extContext: ExtensionContext): Promise<void> {
   const languageServer = new LanguageServer(context);
   extContext.subscriptions.push(languageServer);
 
-  const parser = await getParser(extContext.extensionPath);
-  const treeSitterProvider = new TreeSitterProvider(parser);
-  extContext.subscriptions.push(treeSitterProvider);
+  if (configProvider.get()?.mathPreview.when === "onHover") {
+    const parser = await getParser(extContext.extensionPath);
+    const treeSitterProvider = new TreeSitterProvider(parser);
+    extContext.subscriptions.push(treeSitterProvider);
 
-  const mathHoverProvider = new MathHoverProvider(configProvider, treeSitterProvider);
-  extContext.subscriptions.push(mathHoverProvider);
+    const mathHoverProvider = new MathHoverProvider(configProvider, treeSitterProvider);
+    extContext.subscriptions.push(mathHoverProvider);
+  }
 
   commands.registerCommand(COMMAND_BUILD, () => builder.buildProject());
   commands.registerCommand(COMMAND_TYPECHECK, () => typeChecker.checkCurrentDocument());
