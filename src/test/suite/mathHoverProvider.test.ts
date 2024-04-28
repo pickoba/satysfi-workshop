@@ -1,6 +1,8 @@
 import * as assert from "assert";
 import path from "path";
+import sinon from "sinon";
 import { Position, Range } from "vscode";
+import { ConfigProvider } from "../../configProvider";
 import { MathHoverProvider } from "../../mathHoverProvider";
 import { getParser } from "../../parserProvider";
 import { TreeSitterProvider } from "../../treeSitterProvider";
@@ -52,18 +54,15 @@ suite("test for mathHoverProvider", () => {
 
 async function mathHoverProvider() {
   const context = await activateExtension();
+
+  const configProvider = sinon.createStubInstance(ConfigProvider);
+  configProvider.get.returns({
+    ...defaultConfig,
+    mathPreview: { ...defaultConfig.mathPreview, when: "onHover" },
+  });
+
   const parser = await getParser(path.dirname(path.dirname(path.dirname(__dirname))));
   const treeSitterProvider = new TreeSitterProvider(context, parser);
-  return new MathHoverProvider(
-    context,
-    {
-      get() {
-        return { ...defaultConfig, mathPreview: { ...defaultConfig.mathPreview, when: "onHover" } };
-      },
-      onChange: () => {
-        return;
-      },
-    },
-    treeSitterProvider,
-  );
+
+  return new MathHoverProvider(context, configProvider, treeSitterProvider);
 }
