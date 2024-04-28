@@ -11,14 +11,14 @@ import {
   TextDocument,
   window,
 } from "vscode";
-import { IConfigProvider } from "./configProvider";
+import { ConfigProvider } from "./configProvider";
 
 export class PackageCompletionProvider implements Disposable {
   private readonly disposables: Disposable[] = [];
 
   constructor(
     context: ExtensionContext,
-    private readonly configProvider: IConfigProvider,
+    private readonly configProvider: ConfigProvider,
   ) {
     this.disposables.push(
       languages.registerCompletionItemProvider("satysfi", {

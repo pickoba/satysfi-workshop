@@ -8,7 +8,7 @@ import {
   window,
   workspace,
 } from "vscode";
-import { IConfigProvider } from "./configProvider";
+import { ConfigProvider } from "./configProvider";
 import { Logger } from "./logger";
 import { buildSATySFi } from "./runner";
 import { showErrorWithOpenSettings } from "./util";
@@ -20,7 +20,7 @@ export class TypeChecker implements Disposable {
 
   constructor(
     context: ExtensionContext,
-    private readonly configProvider: IConfigProvider,
+    private readonly configProvider: ConfigProvider,
     private readonly logger: Logger,
   ) {
     this.collection = languages.createDiagnosticCollection();

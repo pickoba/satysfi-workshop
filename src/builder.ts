@@ -1,5 +1,5 @@
 import { Disposable, ExtensionContext, Uri, window, workspace } from "vscode";
-import { IConfigProvider } from "./configProvider";
+import { ConfigProvider } from "./configProvider";
 import { Logger } from "./logger";
 import { buildSATySFi } from "./runner";
 import { StatusBar } from "./statusbar";
@@ -11,7 +11,7 @@ export class Builder implements Disposable {
 
   constructor(
     context: ExtensionContext,
-    private readonly configProvider: IConfigProvider,
+    private readonly configProvider: ConfigProvider,
     private readonly logger: Logger,
     private readonly statusBar: StatusBar,
   ) {

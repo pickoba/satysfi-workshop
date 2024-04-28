@@ -1,6 +1,6 @@
 import { Disposable, ExtensionContext } from "vscode";
 import { LanguageClient, LanguageClientOptions, ServerOptions } from "vscode-languageclient/node";
-import { IConfigProvider } from "./configProvider";
+import { ConfigProvider } from "./configProvider";
 import { ExtensionConfig } from "./configSchema";
 import { Logger } from "./logger";
 
@@ -12,7 +12,7 @@ export class LanguageServer implements Disposable {
 
   constructor(
     context: ExtensionContext,
-    private readonly configProvider: IConfigProvider,
+    private readonly configProvider: ConfigProvider,
     private readonly logger: Logger,
   ) {
     const config = this.configProvider.get();

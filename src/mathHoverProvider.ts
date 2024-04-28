@@ -41,7 +41,7 @@ import {
   Uri,
 } from "vscode";
 import * as Parser from "web-tree-sitter";
-import { IConfigProvider } from "./configProvider";
+import { ConfigProvider } from "./configProvider";
 import { buildSATySFi, spawn } from "./runner";
 import { TreeSitterProvider } from "./treeSitterProvider";
 import { getTmpDir, isDarkTheme, pointToPosition } from "./util";
@@ -60,7 +60,7 @@ export class MathHoverProvider implements HoverProvider, Disposable {
 
   constructor(
     context: ExtensionContext,
-    private readonly configProvider: IConfigProvider,
+    private readonly configProvider: ConfigProvider,
     private readonly treeSitterProvider: TreeSitterProvider,
   ) {
     this.query = treeSitterProvider.createQuery(queryStr);
