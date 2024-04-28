@@ -30,6 +30,7 @@ import { unescape } from "querystring";
 import {
   DiagnosticSeverity,
   Disposable,
+  ExtensionContext,
   Hover,
   HoverProvider,
   languages,
@@ -53,18 +54,20 @@ const queryStr = `
 `.trim();
 
 export class MathHoverProvider implements HoverProvider, Disposable {
-  private readonly configProvider: IConfigProvider;
-  private readonly treeSitterProvider: TreeSitterProvider;
   private readonly query: Parser.Query;
   private readonly disposables: Disposable[] = [];
   private abortController: AbortController | null = null;
 
-  constructor(configProvider: IConfigProvider, treeSitterProvider: TreeSitterProvider) {
-    this.configProvider = configProvider;
-    this.treeSitterProvider = treeSitterProvider;
+  constructor(
+    context: ExtensionContext,
+    private readonly configProvider: IConfigProvider,
+    private readonly treeSitterProvider: TreeSitterProvider,
+  ) {
     this.query = treeSitterProvider.createQuery(queryStr);
 
     this.disposables.push(languages.registerHoverProvider("satysfi", this));
+
+    context.subscriptions.push(this);
   }
 
   public async provideHover(document: TextDocument, cursor: Position): Promise<Hover | null> {

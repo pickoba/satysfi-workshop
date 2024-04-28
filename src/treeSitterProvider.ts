@@ -1,15 +1,23 @@
-import { Disposable, TextDocument, TextDocumentChangeEvent, Uri, workspace } from "vscode";
+import {
+  Disposable,
+  ExtensionContext,
+  TextDocument,
+  TextDocumentChangeEvent,
+  Uri,
+  workspace,
+} from "vscode";
 import * as Parser from "web-tree-sitter";
 import { positionToPoint } from "./util";
 
 export class TreeSitterProvider implements Disposable {
-  private readonly parser: Parser;
   private readonly language: Parser.Language;
   private readonly treeCache: Map<Uri, Parser.Tree> = new Map();
   private readonly disposables: Disposable[];
 
-  constructor(parser: Parser) {
-    this.parser = parser;
+  constructor(
+    context: ExtensionContext,
+    private readonly parser: Parser,
+  ) {
     this.language = this.parser.getLanguage();
 
     this.disposables = [
@@ -19,6 +27,8 @@ export class TreeSitterProvider implements Disposable {
     ];
 
     workspace.textDocuments.forEach(this.onOpen, this);
+
+    context.subscriptions.push(this);
   }
 
   private onOpen(document: TextDocument) {

@@ -1,6 +1,5 @@
-import { Disposable, Uri, window, workspace } from "vscode";
+import { Disposable, ExtensionContext, Uri, window, workspace } from "vscode";
 import { IConfigProvider } from "./configProvider";
-import { Context } from "./extension";
 import { Logger } from "./logger";
 import { buildSATySFi } from "./runner";
 import { StatusBar } from "./statusbar";
@@ -8,16 +7,14 @@ import { showErrorWithOpenSettings } from "./util";
 
 export class Builder implements Disposable {
   private readonly disposables: Disposable[] = [];
-  private readonly configProvider: IConfigProvider;
-  private readonly logger: Logger;
-  private readonly statusBar: StatusBar;
   private abortController: AbortController | null = null;
 
-  constructor(context: Context) {
-    this.configProvider = context.configProvider;
-    this.logger = context.logger;
-    this.statusBar = context.statusBar;
-
+  constructor(
+    context: ExtensionContext,
+    private readonly configProvider: IConfigProvider,
+    private readonly logger: Logger,
+    private readonly statusBar: StatusBar,
+  ) {
     this.disposables.push(
       workspace.onDidSaveTextDocument((i) => {
         if (i.languageId !== "satysfi") return;
@@ -25,6 +22,8 @@ export class Builder implements Disposable {
         this.buildProject();
       }, this),
     );
+
+    context.subscriptions.push(this);
   }
 
   private async build(target: Uri) {

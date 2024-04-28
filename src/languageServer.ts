@@ -1,8 +1,7 @@
-import { Disposable } from "vscode";
+import { Disposable, ExtensionContext } from "vscode";
 import { LanguageClient, LanguageClientOptions, ServerOptions } from "vscode-languageclient/node";
 import { IConfigProvider } from "./configProvider";
 import { ExtensionConfig } from "./configSchema";
-import { Context } from "./extension";
 import { Logger } from "./logger";
 
 export class LanguageServer implements Disposable {
@@ -10,13 +9,12 @@ export class LanguageServer implements Disposable {
   private path: string;
   private client: LanguageClient | null = null;
   private readonly disposables: Disposable[] = [];
-  private readonly configProvider: IConfigProvider;
-  private readonly logger: Logger;
 
-  constructor(context: Context) {
-    this.configProvider = context.configProvider;
-    this.logger = context.logger;
-
+  constructor(
+    context: ExtensionContext,
+    private readonly configProvider: IConfigProvider,
+    private readonly logger: Logger,
+  ) {
     const config = this.configProvider.get();
     this.enabled = config?.languageServer.enabled ?? false;
     this.path = config?.languageServer.path ?? "";
@@ -24,6 +22,8 @@ export class LanguageServer implements Disposable {
     this.configProvider.onChange((c) => this.onConfigChange(c));
 
     if (this.enabled) this.startServer();
+
+    context.subscriptions.push(this);
   }
 
   private onConfigChange(config: ExtensionConfig | null) {

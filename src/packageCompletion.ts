@@ -5,21 +5,21 @@ import {
   CompletionItem,
   CompletionItemKind,
   Disposable,
+  ExtensionContext,
   languages,
   Position,
   TextDocument,
   window,
 } from "vscode";
 import { IConfigProvider } from "./configProvider";
-import { Context } from "./extension";
 
 export class PackageCompletionProvider implements Disposable {
-  private readonly configProvider: IConfigProvider;
   private readonly disposables: Disposable[] = [];
 
-  constructor(context: Context) {
-    this.configProvider = context.configProvider;
-
+  constructor(
+    context: ExtensionContext,
+    private readonly configProvider: IConfigProvider,
+  ) {
     this.disposables.push(
       languages.registerCompletionItemProvider("satysfi", {
         provideCompletionItems: (d, p) => this.providePackageCompletion(d, p),
@@ -35,6 +35,8 @@ export class PackageCompletionProvider implements Disposable {
         "@",
       ),
     );
+
+    context.subscriptions.push(this);
   }
 
   private async providePackageCompletion(document: TextDocument, position: Position) {

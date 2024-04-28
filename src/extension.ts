@@ -1,6 +1,6 @@
 import { commands, ExtensionContext } from "vscode";
 import { Builder } from "./builder";
-import { ConfigProvider, IConfigProvider } from "./configProvider";
+import { ConfigProvider } from "./configProvider";
 import {
   COMMAND_BUILD,
   COMMAND_OPEN_BUILD_LOG,
@@ -16,45 +16,27 @@ import { StatusBar } from "./statusbar";
 import { TreeSitterProvider } from "./treeSitterProvider";
 import { TypeChecker } from "./typeChecker";
 
-export interface Context {
-  configProvider: IConfigProvider;
-  logger: Logger;
-  statusBar: StatusBar;
-}
+export async function activate(context: ExtensionContext): Promise<ExtensionContext> {
+  const configProvider = new ConfigProvider(context);
+  const logger = new Logger();
+  const statusBar = new StatusBar(context);
 
-export async function activate(extContext: ExtensionContext): Promise<void> {
-  const configProvider = new ConfigProvider();
-  extContext.subscriptions.push(configProvider);
-
-  const context = {
-    configProvider,
-    logger: new Logger(),
-    statusBar: new StatusBar(extContext),
-  };
-
-  const builder = new Builder(context);
-  extContext.subscriptions.push(builder);
-
-  const typeChecker = new TypeChecker(context);
-  extContext.subscriptions.push(typeChecker);
-
-  const packageCompletionProvider = new PackageCompletionProvider(context);
-  extContext.subscriptions.push(packageCompletionProvider);
-
-  const languageServer = new LanguageServer(context);
-  extContext.subscriptions.push(languageServer);
+  const builder = new Builder(context, configProvider, logger, statusBar);
+  const typeChecker = new TypeChecker(context, configProvider, logger);
+  const languageServer = new LanguageServer(context, configProvider, logger);
+  new PackageCompletionProvider(context, configProvider);
 
   if (configProvider.get()?.mathPreview.when === "onHover") {
-    const parser = await getParser(extContext.extensionPath);
-    const treeSitterProvider = new TreeSitterProvider(parser);
-    extContext.subscriptions.push(treeSitterProvider);
-
-    const mathHoverProvider = new MathHoverProvider(configProvider, treeSitterProvider);
-    extContext.subscriptions.push(mathHoverProvider);
+    const parser = await getParser(context.extensionPath);
+    const treeSitterProvider = new TreeSitterProvider(context, parser);
+    new MathHoverProvider(context, configProvider, treeSitterProvider);
   }
 
   commands.registerCommand(COMMAND_BUILD, () => builder.buildProject());
   commands.registerCommand(COMMAND_TYPECHECK, () => typeChecker.checkCurrentDocument());
-  commands.registerCommand(COMMAND_OPEN_BUILD_LOG, () => context.logger.showBuildLog());
+  commands.registerCommand(COMMAND_OPEN_BUILD_LOG, () => logger.showBuildLog());
   commands.registerCommand(COMMAND_RESTART_LANGUAGE_SERVER, () => languageServer.restartServer());
+
+  // returns the extension context for testing
+  return context;
 }
