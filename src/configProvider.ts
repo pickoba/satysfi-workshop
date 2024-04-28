@@ -1,5 +1,5 @@
 import { EventEmitter } from "events";
-import { Disposable, workspace } from "vscode";
+import { Disposable, ExtensionContext, workspace } from "vscode";
 import { ZodError } from "zod";
 import { ExtensionConfig } from "./configSchema";
 import { CONFIG_SCOPE } from "./const";
@@ -18,7 +18,7 @@ export class ConfigProvider implements IConfigProvider, Disposable {
   private readonly disposables: Disposable[] = [];
   private config: ExtensionConfig | null;
 
-  constructor() {
+  constructor(context: ExtensionContext) {
     this.disposables.push(
       workspace.onDidChangeConfiguration((e) => {
         if (!e.affectsConfiguration(CONFIG_SCOPE)) return;
@@ -30,6 +30,8 @@ export class ConfigProvider implements IConfigProvider, Disposable {
     );
 
     this.config = this.parse();
+
+    context.subscriptions.push(this);
   }
 
   private parse() {

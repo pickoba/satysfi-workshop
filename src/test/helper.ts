@@ -3,10 +3,10 @@ import * as vscode from "vscode";
 import { ExtensionConfig } from "../configSchema";
 import { EXTENSION_NAME } from "../const";
 
-export async function activateExtension(): Promise<void> {
-  const ext = vscode.extensions.getExtension(EXTENSION_NAME);
+export async function activateExtension(): Promise<vscode.ExtensionContext> {
+  const ext = vscode.extensions.getExtension<vscode.ExtensionContext>(EXTENSION_NAME);
   assert.ok(ext);
-  await ext.activate();
+  return await ext.activate();
 }
 
 export async function activateFile(

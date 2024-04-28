@@ -1,6 +1,7 @@
 import {
   DiagnosticCollection,
   Disposable,
+  ExtensionContext,
   languages,
   TextDocument,
   Uri,
@@ -8,21 +9,20 @@ import {
   workspace,
 } from "vscode";
 import { IConfigProvider } from "./configProvider";
-import { Context } from "./extension";
 import { Logger } from "./logger";
 import { buildSATySFi } from "./runner";
 import { showErrorWithOpenSettings } from "./util";
 
 export class TypeChecker implements Disposable {
-  private readonly configProvider: IConfigProvider;
-  private readonly logger: Logger;
   private readonly collection: DiagnosticCollection;
   private readonly disposables: Disposable[] = [];
   private abortController: AbortController | null = null;
 
-  constructor(context: Context) {
-    this.configProvider = context.configProvider;
-    this.logger = context.logger;
+  constructor(
+    context: ExtensionContext,
+    private readonly configProvider: IConfigProvider,
+    private readonly logger: Logger,
+  ) {
     this.collection = languages.createDiagnosticCollection();
 
     this.disposables.push(
@@ -41,6 +41,8 @@ export class TypeChecker implements Disposable {
     if (this.getConfig()?.when === "onSave" || this.getConfig()?.when === "onFileChange") {
       workspace.textDocuments.forEach((i) => this.checkDocument(i), this);
     }
+
+    context.subscriptions.push(this);
   }
 
   private async checkDocument(document: TextDocument, copy?: boolean) {

@@ -4,7 +4,7 @@ import { Position, Range } from "vscode";
 import { MathHoverProvider } from "../../mathHoverProvider";
 import { getParser } from "../../parserProvider";
 import { TreeSitterProvider } from "../../treeSitterProvider";
-import { activateFile, defaultConfig } from "../helper";
+import { activateExtension, activateFile, defaultConfig } from "../helper";
 
 suite("test for mathHoverProvider", () => {
   test("mathHoverProvider: simple", async () => {
@@ -51,9 +51,11 @@ suite("test for mathHoverProvider", () => {
 });
 
 async function mathHoverProvider() {
+  const context = await activateExtension();
   const parser = await getParser(path.dirname(path.dirname(path.dirname(__dirname))));
-  const treeSitterProvider = new TreeSitterProvider(parser);
+  const treeSitterProvider = new TreeSitterProvider(context, parser);
   return new MathHoverProvider(
+    context,
     {
       get() {
         return { ...defaultConfig, mathPreview: { ...defaultConfig.mathPreview, when: "onHover" } };
