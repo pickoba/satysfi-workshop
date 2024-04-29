@@ -7,6 +7,7 @@ import {
   COMMAND_RESTART_LANGUAGE_SERVER,
   COMMAND_TYPECHECK,
 } from "./const";
+import { withErrorHandler } from "./error";
 import { LanguageServer } from "./languageServer";
 import { Logger } from "./logger";
 import { MathHoverProvider } from "./mathHoverProvider";
@@ -26,14 +27,20 @@ export async function activate(context: ExtensionContext): Promise<ExtensionCont
   const languageServer = new LanguageServer(context, configProvider, logger);
   new PackageCompletionProvider(context, configProvider);
 
-  if (configProvider.get()?.mathPreview.when === "onHover") {
+  if (configProvider.safeGet()?.mathPreview.when === "onHover") {
     const parser = await getParser(context.extensionPath);
     const treeSitterProvider = new TreeSitterProvider(context, parser);
     new MathHoverProvider(context, configProvider, treeSitterProvider);
   }
 
-  commands.registerCommand(COMMAND_BUILD, () => builder.buildProject());
-  commands.registerCommand(COMMAND_TYPECHECK, () => typeChecker.checkCurrentDocument());
+  commands.registerCommand(
+    COMMAND_BUILD,
+    withErrorHandler(() => builder.buildProject(), logger),
+  );
+  commands.registerCommand(
+    COMMAND_TYPECHECK,
+    withErrorHandler(() => typeChecker.checkCurrentDocument(), logger),
+  );
   commands.registerCommand(COMMAND_OPEN_BUILD_LOG, () => logger.showBuildLog());
   commands.registerCommand(COMMAND_RESTART_LANGUAGE_SERVER, () => languageServer.restartServer());
 

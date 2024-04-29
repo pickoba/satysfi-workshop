@@ -109,7 +109,7 @@ export class PackageCompletionProvider implements Disposable {
   }
 
   private getConfig() {
-    return this.configProvider.get()?.packageCompletion;
+    return this.configProvider.safeGet()?.packageCompletion;
   }
 
   public dispose() {

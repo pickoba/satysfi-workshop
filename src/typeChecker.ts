@@ -9,9 +9,9 @@ import {
   workspace,
 } from "vscode";
 import { ConfigProvider } from "./configProvider";
+import { withErrorHandler } from "./error";
 import { Logger } from "./logger";
 import { buildSATySFi } from "./runner";
-import { showErrorWithOpenSettings } from "./util";
 
 export class TypeChecker implements Disposable {
   private readonly collection: DiagnosticCollection;
@@ -26,16 +26,20 @@ export class TypeChecker implements Disposable {
     this.collection = languages.createDiagnosticCollection();
 
     this.disposables.push(
-      workspace.onDidChangeTextDocument((evt) => {
-        if (this.getConfig()?.when !== "onFileChange") return;
-        this.checkDocument(evt.document, true);
-      }, this),
+      workspace.onDidChangeTextDocument(
+        withErrorHandler(async (evt) => {
+          if (this.getConfig()?.when !== "onFileChange") return;
+          await this.checkDocument(evt.document, true);
+        }, this.logger),
+      ),
     );
     this.disposables.push(
-      workspace.onDidSaveTextDocument((i) => {
-        if (this.getConfig()?.when !== "onSave") return;
-        this.checkDocument(i);
-      }, this),
+      workspace.onDidSaveTextDocument(
+        withErrorHandler(async (i) => {
+          if (this.getConfig()?.when !== "onSave") return;
+          await this.checkDocument(i);
+        }, this.logger),
+      ),
     );
 
     if (this.getConfig()?.when === "onSave" || this.getConfig()?.when === "onFileChange") {
@@ -46,48 +50,33 @@ export class TypeChecker implements Disposable {
   }
 
   private async checkDocument(document: TextDocument, copy?: boolean) {
-    const executable = this.configProvider.get()?.executable;
-    const buildOptions = this.getConfig()?.buildOptions;
-    if (executable == null || buildOptions == null) return;
     if (document.languageId !== "satysfi") return;
+    const config = this.configProvider.get();
 
     this.abortController?.abort();
     this.abortController = new AbortController();
 
-    try {
-      const { diagnostics } = await buildSATySFi(
-        executable,
-        document.uri,
-        buildOptions,
-        this.abortController.signal,
-        { content: copy ? document.getText() : undefined },
-      );
+    const { diagnostics } = await buildSATySFi(
+      config.executable,
+      document.uri,
+      config.typecheck.buildOptions,
+      this.abortController.signal,
+      { content: copy ? document.getText() : undefined },
+    );
 
-      this.collection.clear();
-      diagnostics.forEach((ds, key) => {
-        this.collection.set(Uri.file(key), ds);
-      });
-    } catch (e) {
-      if (e instanceof Error && e.name === "AbortError") {
-        return;
-      }
-
-      showErrorWithOpenSettings(
-        `SATySFi executable not found. Please set the executable path in the settings.`,
-        false,
-      );
-
-      this.logger.log(`TypeCheck ${e}`);
-    }
+    this.collection.clear();
+    diagnostics.forEach((ds, key) => {
+      this.collection.set(Uri.file(key), ds);
+    });
   }
 
   public async checkCurrentDocument(): Promise<void> {
     const document = window.activeTextEditor?.document;
-    if (document) this.checkDocument(document, true);
+    if (document) await this.checkDocument(document, true);
   }
 
   private getConfig() {
-    return this.configProvider.get()?.typecheck;
+    return this.configProvider.safeGet()?.typecheck;
   }
 
   public dispose(): void {
