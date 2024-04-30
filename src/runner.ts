@@ -2,9 +2,16 @@ import * as proc from "child_process";
 import * as fs from "fs/promises";
 import * as path from "path";
 import { Diagnostic, Uri, workspace } from "vscode";
+import { CommandNotFoundError, isErrnoException } from "./error";
 import { parseLog } from "./logParser";
 import { Logger } from "./logger";
 import { getAuxPath, getWorkPath } from "./util";
+
+export interface RunnerResult {
+  code: number | null;
+  stdout: string;
+  stderr: string;
+}
 
 export async function buildSATySFi(
   executable: string,
@@ -20,13 +27,11 @@ export async function buildSATySFi(
   const workPath = options?.content ? await copyToFile(targetPath, options.content) : targetPath;
   const workdir = workspace.getWorkspaceFolder(targetUri)?.uri.fsPath ?? path.dirname(targetPath);
 
-  const { code, stdout, stderr } = await spawn(
-    executable,
-    [...args, workPath],
+  const { code, stdout, stderr } = await spawn(executable, [...args, workPath], {
     signal,
-    workdir,
-    options?.logger,
-  ).finally(() => {
+    cwd: workdir,
+    logger: options?.logger,
+  }).finally(() => {
     if (options?.content) {
       fs.unlink(workPath);
       // Failure to delete is not a problem because aux files are not always generated.
@@ -40,33 +45,32 @@ export async function buildSATySFi(
 }
 
 export function spawn(
-  executable: string,
-  args: string[],
-  signal: AbortSignal,
-  workDir?: string,
-  logger?: Logger,
+  command: string,
+  args?: readonly string[],
+  options?: proc.SpawnOptionsWithoutStdio & { logger?: Logger },
 ) {
-  return new Promise<{ code: number | null; stdout: string; stderr: string }>((resolve, reject) => {
-    const spawned = proc.spawn(executable, args, {
-      cwd: workDir,
-      signal,
-    });
+  return new Promise<RunnerResult>((resolve, reject) => {
+    const spawned = proc.spawn(command, args, options);
 
     let stdout = "";
     let stderr = "";
 
     spawned.stdout.on("data", (data) => {
       stdout += data.toString();
-      if (logger) logger.logBuild(data.toString());
+      if (options?.logger) options.logger.logBuild(data.toString());
     });
 
     spawned.stderr.on("data", (data) => {
       stderr += data.toString();
-      if (logger) logger.logBuild(data.toString());
+      if (options?.logger) options.logger.logBuild(data.toString());
     });
 
     spawned.on("error", (err) => {
-      reject(err);
+      if (isErrnoException(err) && err.code === "ENOENT") {
+        reject(new CommandNotFoundError(command, { cause: err }));
+      } else {
+        reject(err);
+      }
     });
 
     spawned.on("close", (code) => {

@@ -15,7 +15,7 @@ export class LanguageServer implements Disposable {
     private readonly configProvider: ConfigProvider,
     private readonly logger: Logger,
   ) {
-    const config = this.configProvider.get();
+    const config = this.configProvider.safeGet();
     this.enabled = config?.languageServer.enabled ?? false;
     this.path = config?.languageServer.path ?? "";
 

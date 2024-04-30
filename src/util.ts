@@ -2,21 +2,9 @@ import { existsSync } from "fs";
 import { mkdir } from "fs/promises";
 import { tmpdir } from "os";
 import * as path from "path";
-import { ColorThemeKind, commands, Position, window } from "vscode";
+import { ColorThemeKind, Position, window } from "vscode";
 import * as Parser from "web-tree-sitter";
 import { EXTENSION_NAME } from "./const";
-
-export async function showErrorWithOpenSettings(
-  message: string,
-  workspace: boolean,
-): Promise<void> {
-  const item = await window.showErrorMessage(message, "Open Settings");
-
-  if (item === "Open Settings") {
-    commands.executeCommand("workbench.action.openSettings", `@ext:${EXTENSION_NAME}`);
-    if (workspace) commands.executeCommand("workbench.action.openWorkspaceSettings");
-  }
-}
 
 export function getWorkPath(originalPath: string): string {
   const ext = path.extname(originalPath);

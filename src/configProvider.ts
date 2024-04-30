@@ -1,9 +1,8 @@
 import { EventEmitter } from "events";
 import { Disposable, ExtensionContext, workspace } from "vscode";
-import { ZodError } from "zod";
 import { ExtensionConfig } from "./configSchema";
 import { CONFIG_SCOPE } from "./const";
-import { showErrorWithOpenSettings } from "./util";
+import { ConfigError } from "./error";
 
 // config change event name
 const CONFIG_CHANGE = "config";
@@ -11,44 +10,56 @@ const CONFIG_CHANGE = "config";
 export class ConfigProvider implements Disposable {
   private readonly eventEmitter: EventEmitter = new EventEmitter();
   private readonly disposables: Disposable[] = [];
-  private config: ExtensionConfig | null;
+  private parseResult: ExtensionConfig | ConfigError;
 
   constructor(context: ExtensionContext) {
     this.disposables.push(
       workspace.onDidChangeConfiguration((e) => {
         if (!e.affectsConfiguration(CONFIG_SCOPE)) return;
 
-        this.config = this.parse();
+        this.parseResult = this.parse();
 
-        this.eventEmitter.emit(CONFIG_CHANGE, this.config);
+        this.eventEmitter.emit(CONFIG_CHANGE, this.safeGet());
       }),
     );
 
-    this.config = this.parse();
+    this.parseResult = this.parse();
 
     context.subscriptions.push(this);
   }
 
-  private parse() {
+  private parse(): ExtensionConfig | ConfigError {
     const result = ExtensionConfig.safeParse(workspace.getConfiguration(CONFIG_SCOPE));
 
     if (result.success) {
       return result.data;
     } else {
-      showErrorWithOpenSettings(
-        `Setting has an invalid type: ${this.formatError(result.error)}`,
-        false,
-      );
-      return null;
+      return new ConfigError(result.error);
     }
   }
 
-  private formatError(error: ZodError<ExtensionConfig>) {
-    return error.issues.map((issue) => `${issue.path.join(".")}`).join(", ");
+  /**
+   * Get the current extension configuration.
+   * @throws {ConfigError} If a type error exists.
+   */
+  public get(): ExtensionConfig {
+    if (this.parseResult instanceof ConfigError) {
+      throw this.parseResult;
+    } else {
+      return this.parseResult;
+    }
   }
 
-  public get(): ExtensionConfig | null {
-    return this.config;
+  /**
+   * Get the current extension configuration.
+   * @returns `ExtensionConfig` or null if a type error exists.
+   */
+  public safeGet(): ExtensionConfig | null {
+    if (this.parseResult instanceof ConfigError) {
+      return null;
+    } else {
+      return this.parseResult;
+    }
   }
 
   public onChange(listener: (config: ExtensionConfig | null) => unknown): void {

@@ -71,7 +71,7 @@ export class MathHoverProvider implements HoverProvider, Disposable {
   }
 
   public async provideHover(document: TextDocument, cursor: Position): Promise<Hover | null> {
-    if (this.configProvider.get()?.mathPreview.when !== "onHover") return null;
+    if (this.configProvider.safeGet()?.mathPreview.when !== "onHover") return null;
 
     const captures = this.treeSitterProvider.executeQuery(document, this.query);
     let headers = "";
@@ -118,7 +118,6 @@ export class MathHoverProvider implements HoverProvider, Disposable {
     signal: AbortSignal,
   ) {
     const config = this.configProvider.get();
-    if (config == null) throw new Error("Invalid configuration");
 
     const content = await this.readTemplate(headers, preambles, mathText, signal);
 
@@ -150,15 +149,11 @@ export class MathHoverProvider implements HoverProvider, Disposable {
 
   private async pdf2svg(pdfPath: string, signal: AbortSignal) {
     const config = this.configProvider.get();
-    if (config == null) throw new Error("Invalid configuration");
 
     const dir = await getTmpDir();
     const tmpPath = path.join(dir, "out.svg");
 
-    const buffer = await spawn(config.mathPreview.pdf2svg, [pdfPath, tmpPath], signal)
-      .catch(() => {
-        throw new Error("Math preview is not available: Please confirm that pdf2svg exists.");
-      })
+    const buffer = await spawn(config.mathPreview.pdf2svg, [pdfPath, tmpPath], { signal })
       .then(() => fs.readFile(tmpPath))
       .finally(() => {
         // Failure to delete is not a problem because the svg is not always generated.
@@ -186,7 +181,7 @@ export class MathHoverProvider implements HoverProvider, Disposable {
     mathText: string,
     signal: AbortSignal,
   ) {
-    const templatePath = this.configProvider.get()?.mathPreview.template || defaultTemplatePath;
+    const templatePath = this.configProvider.get().mathPreview.template || defaultTemplatePath;
 
     const template = await fs
       .readFile(templatePath, { signal })
