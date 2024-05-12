@@ -7,7 +7,8 @@ export default tseslint.config(
   { languageOptions: { globals: globals.node } },
   { ignores: [".vscode-test/", "dist/", "out/", "tools/", "**/*.d.ts"] },
   eslint.configs.recommended,
-  ...tseslint.configs.recommended,
+  ...tseslint.configs.strict,
+  ...tseslint.configs.stylistic,
   {
     rules: {
       "@typescript-eslint/no-unused-vars": [

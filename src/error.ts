@@ -3,13 +3,13 @@ import { ExtensionConfig } from "./configSchema";
 import { MessageAction, showErrorMessage } from "./dialog";
 import { Logger } from "./logger";
 
-export type ExtensionErrorPayload = {
+export interface ExtensionErrorPayload {
   dialog?: {
     message: string;
     action?: MessageAction;
   };
   log?: string;
-};
+}
 
 export function isErrnoException(e: unknown): e is NodeJS.ErrnoException {
   return typeof e === "object" && e != null && "code" in e;
@@ -52,7 +52,7 @@ export class CommandNotFoundError extends ExtensionError {
   }
 }
 
-export function withErrorHandler<T extends Array<unknown>, R>(
+export function withErrorHandler<T extends unknown[], R>(
   fn: (...args: T) => Promise<R>,
   logger: Logger,
   thisArgs?: unknown,

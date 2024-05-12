@@ -11,7 +11,7 @@ import { positionToPoint } from "./util";
 
 export class TreeSitterProvider implements Disposable {
   private readonly language: Parser.Language;
-  private readonly treeCache: Map<Uri, Parser.Tree> = new Map();
+  private readonly treeCache = new Map<Uri, Parser.Tree>();
   private readonly disposables: Disposable[];
 
   constructor(
