@@ -235,23 +235,24 @@
     "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
+    "@eslint/js": "^9.2.0",
     "@types/glob": "^7.2.0",
     "@types/mocha": "^10.0.6",
     "@types/node": "^18.17.1",
     "@types/sinon": "^17.0.3",
     "@types/vscode": "^1.86.0",
-    "@typescript-eslint/eslint-plugin": "^6.21.0",
-    "@typescript-eslint/parser": "^6.21.0",
     "@vscode/test-electron": "^2.3.9",
     "esbuild": "^0.20.1",
-    "eslint": "^8.56.0",
+    "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
+    "globals": "^15.2.0",
     "mocha": "^10.3.0",
     "prettier": "^3.2.5",
     "sinon": "^17.0.1",
     "tree-sitter-cli": "^0.21.0",
     "tree-sitter-satysfi": "github:monaqa/tree-sitter-satysfi",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "typescript-eslint": "^7.8.0"
   },
   "dependencies": {
     "vscode-languageclient": "^9.0.1",
