@@ -9,7 +9,7 @@ import {
   workspace,
 } from "vscode";
 import { ConfigProvider } from "./configProvider";
-import { withErrorHandler } from "./error";
+import { handleError, withErrorHandler } from "./error";
 import { Logger } from "./logger";
 import { buildSATySFi } from "./runner";
 
@@ -43,7 +43,9 @@ export class TypeChecker implements Disposable {
     );
 
     if (this.getConfig()?.when === "onSave" || this.getConfig()?.when === "onFileChange") {
-      workspace.textDocuments.forEach((i) => this.checkDocument(i), this);
+      Promise.all(workspace.textDocuments.map((i) => this.checkDocument(i))).catch((e: unknown) =>
+        handleError(e, this.logger),
+      );
     }
 
     context.subscriptions.push(this);
@@ -82,7 +84,9 @@ export class TypeChecker implements Disposable {
   public dispose(): void {
     this.collection.clear();
     this.collection.dispose();
-    this.disposables.forEach((i) => i.dispose());
+    this.disposables.forEach((i) => {
+      i.dispose();
+    });
     this.abortController?.abort();
   }
 }

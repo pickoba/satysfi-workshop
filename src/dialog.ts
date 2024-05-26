@@ -33,10 +33,13 @@ function getActionItems(
       return [
         {
           title: "Open Settings",
-          onClicked: () => {
-            commands.executeCommand("workbench.action.openSettings", `@ext:${EXTENSION_NAME}`);
+          onClicked: async () => {
+            await commands.executeCommand(
+              "workbench.action.openSettings",
+              `@ext:${EXTENSION_NAME}`,
+            );
             if (action.scope === "workspace") {
-              commands.executeCommand("workbench.action.openWorkspaceSettings");
+              await commands.executeCommand("workbench.action.openWorkspaceSettings");
             }
           },
         },

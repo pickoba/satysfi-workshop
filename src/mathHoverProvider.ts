@@ -102,7 +102,10 @@ export class MathHoverProvider implements HoverProvider, Disposable {
       const markdown = await this.generatePdf(headers, preambles, node.text, document.uri, signal)
         .then((pdf) => this.pdf2svg(pdf, signal))
         .then((svg) => this.generateMarkdown(svg))
-        .catch((e) => new MarkdownString(e.message));
+        .catch(
+          (e: unknown) =>
+            new MarkdownString(e instanceof Error ? e.message : "Unknown error occurred."),
+        );
 
       return new Hover(markdown, range);
     }
@@ -157,14 +160,13 @@ export class MathHoverProvider implements HoverProvider, Disposable {
       .then(() => fs.readFile(tmpPath))
       .finally(() => {
         // Failure to delete is not a problem because the svg is not always generated.
-        fs.unlink(tmpPath).catch(() => undefined);
-        fs.unlink(pdfPath);
+        void Promise.allSettled([fs.unlink(tmpPath), fs.unlink(pdfPath)]);
       });
 
     return buffer.toString();
   }
 
-  private async generateMarkdown(svg: string) {
+  private generateMarkdown(svg: string) {
     if (isDarkTheme()) {
       const css = `svg { filter: invert(1) hue-rotate(180deg) }`;
       svg = svg.replace(/<defs>/, `<defs><style>${css}</style>`);
@@ -201,6 +203,8 @@ export class MathHoverProvider implements HoverProvider, Disposable {
   }
 
   public dispose(): void {
-    this.disposables.forEach((i) => i.dispose());
+    this.disposables.forEach((i) => {
+      i.dispose();
+    });
   }
 }

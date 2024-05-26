@@ -90,5 +90,5 @@ function createMessage(e: Error): ExtensionErrorPayload {
 }
 
 function formatZodError(error: ZodError<ExtensionConfig>) {
-  return error.issues.map((issue) => `${issue.path.join(".")}`).join(", ");
+  return error.issues.map((issue) => issue.path.join(".")).join(", ");
 }

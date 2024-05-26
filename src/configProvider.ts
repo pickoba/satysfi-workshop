@@ -67,6 +67,8 @@ export class ConfigProvider implements Disposable {
   }
 
   public dispose() {
-    this.disposables.forEach((d) => d.dispose());
+    this.disposables.forEach((d) => {
+      d.dispose();
+    });
   }
 }

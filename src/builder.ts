@@ -51,9 +51,11 @@ export class Builder implements Disposable {
       config.build.buildOptions,
       this.abortController.signal,
       { logger: this.logger },
-    ).finally(() => this.statusBar.hide());
+    ).finally(() => {
+      this.statusBar.hide();
+    });
 
-    this.logger.log(success ? `Build Success: ${target}` : `Build Fail: ${target}`);
+    this.logger.log(success ? `Build Success: ${target.fsPath}` : `Build Fail: ${target.fsPath}`);
 
     if (!success) {
       await showErrorMessage(
@@ -69,7 +71,7 @@ export class Builder implements Disposable {
 
     const document = window.activeTextEditor?.document;
 
-    if (document && document.fileName.endsWith(".saty")) {
+    if (document?.fileName.endsWith(".saty")) {
       // build current document
       await this.build(document.uri);
       return;
@@ -107,7 +109,9 @@ export class Builder implements Disposable {
   }
 
   public dispose(): void {
-    this.disposables.forEach((d) => d.dispose());
+    this.disposables.forEach((d) => {
+      d.dispose();
+    });
     this.abortController?.abort();
   }
 }

@@ -2,6 +2,7 @@ import { Disposable, ExtensionContext } from "vscode";
 import { LanguageClient, LanguageClientOptions, ServerOptions } from "vscode-languageclient/node";
 import { ConfigProvider } from "./configProvider";
 import { ExtensionConfig } from "./configSchema";
+import { handleError } from "./error";
 import { Logger } from "./logger";
 
 export class LanguageServer implements Disposable {
@@ -21,27 +22,29 @@ export class LanguageServer implements Disposable {
 
     this.configProvider.onChange((c) => this.onConfigChange(c));
 
-    if (this.enabled) this.startServer();
+    if (this.enabled) {
+      this.startServer().catch((e: unknown) => handleError(e, this.logger));
+    }
 
     context.subscriptions.push(this);
   }
 
-  private onConfigChange(config: ExtensionConfig | null) {
+  private async onConfigChange(config: ExtensionConfig | null) {
     if (config == null) return;
 
     if (config.languageServer.path !== this.path) {
       this.path = config.languageServer.path;
       if (this.enabled) {
-        this.restartServer();
+        await this.restartServer();
       }
     }
 
     if (config.languageServer.enabled !== this.enabled) {
       this.enabled = config.languageServer.enabled;
       if (this.enabled) {
-        this.startServer();
+        await this.startServer();
       } else {
-        this.stopServer();
+        await this.stopServer();
       }
     }
   }
@@ -80,8 +83,10 @@ export class LanguageServer implements Disposable {
     return this.startServer();
   }
 
-  public dispose(): void {
-    this.stopServer();
-    this.disposables.forEach((d) => d.dispose());
+  public async dispose(): Promise<void> {
+    await this.stopServer();
+    this.disposables.forEach((d) => {
+      d.dispose();
+    });
   }
 }
