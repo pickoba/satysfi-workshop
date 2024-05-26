@@ -11,7 +11,7 @@ import { positionToPoint } from "./util";
 
 export class TreeSitterProvider implements Disposable {
   private readonly language: Parser.Language;
-  private readonly treeCache: Map<Uri, Parser.Tree> = new Map();
+  private readonly treeCache = new Map<Uri, Parser.Tree>();
   private readonly disposables: Disposable[];
 
   constructor(
@@ -21,12 +21,20 @@ export class TreeSitterProvider implements Disposable {
     this.language = this.parser.getLanguage();
 
     this.disposables = [
-      workspace.onDidOpenTextDocument(this.onOpen, this),
-      workspace.onDidCloseTextDocument(this.onClose, this),
-      workspace.onDidChangeTextDocument(this.onChange, this),
+      workspace.onDidOpenTextDocument((e) => {
+        this.onOpen(e);
+      }),
+      workspace.onDidCloseTextDocument((e) => {
+        this.onClose(e);
+      }),
+      workspace.onDidChangeTextDocument((e) => {
+        this.onChange(e);
+      }),
     ];
 
-    workspace.textDocuments.forEach(this.onOpen, this);
+    workspace.textDocuments.forEach((e) => {
+      this.onOpen(e);
+    });
 
     context.subscriptions.push(this);
   }
@@ -89,6 +97,8 @@ export class TreeSitterProvider implements Disposable {
   }
 
   public dispose(): void {
-    this.disposables.forEach((i) => i.dispose());
+    this.disposables.forEach((i) => {
+      i.dispose();
+    });
   }
 }

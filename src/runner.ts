@@ -33,9 +33,8 @@ export async function buildSATySFi(
     logger: options?.logger,
   }).finally(() => {
     if (options?.content) {
-      fs.unlink(workPath);
       // Failure to delete is not a problem because aux files are not always generated.
-      fs.unlink(getAuxPath(workPath)).catch(() => undefined);
+      void Promise.allSettled([fs.unlink(workPath), fs.unlink(getAuxPath(workPath))]);
     }
   });
 
@@ -55,12 +54,12 @@ export function spawn(
     let stdout = "";
     let stderr = "";
 
-    spawned.stdout.on("data", (data) => {
+    spawned.stdout.on("data", (data: Buffer) => {
       stdout += data.toString();
       if (options?.logger) options.logger.logBuild(data.toString());
     });
 
-    spawned.stderr.on("data", (data) => {
+    spawned.stderr.on("data", (data: Buffer) => {
       stderr += data.toString();
       if (options?.logger) options.logger.logBuild(data.toString());
     });

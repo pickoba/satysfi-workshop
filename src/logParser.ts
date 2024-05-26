@@ -21,8 +21,8 @@ export function parseLog(
 ): Map<string, Diagnostic[]> {
   let target: string | undefined;
   // filename -> fullpath
-  const filenameMap: Map<string, string> = new Map();
-  const diagnostics: Map<string, Diagnostic[]> = new Map();
+  const filenameMap = new Map<string, string>();
+  const diagnostics = new Map<string, Diagnostic[]>();
 
   for (const { groups } of output.matchAll(regexAll)) {
     if (groups == null) throw new Error(`Internal Error: match failed`);
@@ -65,7 +65,7 @@ export function parseLog(
   return diagnostics;
 }
 
-function parseRange(groups: { [key: string]: string }) {
+function parseRange(groups: Record<string, string>) {
   const startLine = Number(groups["startLineMulti"] ?? groups["lineSingle"]);
   const endLine = Number(groups["endLineMulti"] ?? groups["lineSingle"]);
   const startCol = Number(groups["startColMulti"] ?? groups["startColSingle"]);
@@ -81,7 +81,7 @@ function parseBody(
   message = message.replace(/^\s{4}/gm, "").trim();
 
   const match = message.match(regexConstraint);
-  if (!match || !match.groups || !match.groups["filename"]) {
+  if (!match?.groups?.["filename"]) {
     return { message, relatedInformation: [] };
   }
 

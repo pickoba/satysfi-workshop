@@ -52,7 +52,7 @@ export class PackageCompletionProvider implements Disposable {
     return [];
   }
 
-  private async provideRequireImportCompletion(_: TextDocument, position: Position) {
+  private provideRequireImportCompletion(_: TextDocument, position: Position) {
     if (position.character !== 1) return undefined;
 
     return ["require", "import"].map((label) => {
@@ -67,7 +67,7 @@ export class PackageCompletionProvider implements Disposable {
 
   private listPackageCompletions(dir: string) {
     const defaultSearchRoot = path.join(homedir(), ".satysfi", "dist", "packages");
-    const searchRoot = this.getConfig()?.searchPath || defaultSearchRoot;
+    const searchRoot = (this.getConfig()?.searchPath ?? "") || defaultSearchRoot;
     const searchPath = path.join(searchRoot, dir);
 
     return this.listCompletions(searchPath);
@@ -95,7 +95,7 @@ export class PackageCompletionProvider implements Disposable {
           item.command = { command: "editor.action.triggerSuggest", title: "package" };
         } else {
           const match = d.name.match(/^(.+)\.saty[hg]$/);
-          if (!match || !match[1]) return [];
+          if (!match?.[1]) return [];
           item = new CompletionItem(match[1], CompletionItemKind.File);
         }
 
@@ -113,6 +113,8 @@ export class PackageCompletionProvider implements Disposable {
   }
 
   public dispose() {
-    this.disposables.forEach((d) => d.dispose());
+    this.disposables.forEach((d) => {
+      d.dispose();
+    });
   }
 }

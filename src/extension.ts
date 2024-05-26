@@ -41,7 +41,9 @@ export async function activate(context: ExtensionContext): Promise<ExtensionCont
     COMMAND_TYPECHECK,
     withErrorHandler(() => typeChecker.checkCurrentDocument(), logger),
   );
-  commands.registerCommand(COMMAND_OPEN_BUILD_LOG, () => logger.showBuildLog());
+  commands.registerCommand(COMMAND_OPEN_BUILD_LOG, () => {
+    logger.showBuildLog();
+  });
   commands.registerCommand(COMMAND_RESTART_LANGUAGE_SERVER, () => languageServer.restartServer());
 
   // returns the extension context for testing
