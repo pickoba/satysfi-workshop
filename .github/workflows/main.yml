@@ -22,7 +22,7 @@ jobs:
       - name: Build tree-sitter parsers
         run: npm run build:tree-sitter
       - name: Upload parsers
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: parsers
           path: parsers
@@ -44,7 +44,7 @@ jobs:
       - name: Run npm ci without node-gyp rebuild
         run: npm ci --ignore-scripts
       - name: Download parsers
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: parsers
           path: parsers
