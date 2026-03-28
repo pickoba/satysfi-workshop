@@ -17,7 +17,7 @@ async function main() {
       extensionTestsPath,
       launchArgs: ["--disable-extensions", path.resolve(__dirname, "../../src/test/fixtures")],
     });
-  } catch (err) {
+  } catch (_err) {
     console.error("Failed to run tests");
     process.exit(1);
   }
