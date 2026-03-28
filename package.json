@@ -249,7 +249,7 @@
     "mocha": "^11.7.5",
     "prettier": "^3.8.1",
     "tree-sitter-cli": "^0.21.0",
-    "tree-sitter-satysfi": "github:monaqa/tree-sitter-satysfi",
+    "tree-sitter-satysfi": "github:pickoba/tree-sitter-satysfi#satysfi-workshop",
     "typescript": "^5.9.3"
   },
   "dependencies": {
