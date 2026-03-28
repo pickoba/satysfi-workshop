@@ -1,12 +1,12 @@
 import { build, context } from "esbuild";
-import glob from "glob";
+import { globSync } from "glob";
 
 const minify = process.argv.includes("--minify");
 const watch = process.argv.includes("--watch");
 
 /** @type {import('esbuild').BuildOptions} */
 const options = {
-  entryPoints: ["src/extension.ts", "src/test/runTest.ts", ...glob.sync("src/test/suite/*.ts")],
+  entryPoints: ["src/extension.ts", "src/test/runTest.ts", ...globSync("src/test/suite/*.ts")],
   bundle: true,
   minify: minify,
   sourcemap: true,
