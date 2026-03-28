@@ -13,6 +13,7 @@
     "theme": "dark"
   },
   "engines": {
+    "node": ">=22 <23",
     "vscode": "^1.86.0"
   },
   "categories": [
@@ -236,7 +237,7 @@
   },
   "devDependencies": {
     "@types/mocha": "^10.0.10",
-    "@types/node": "^18.19.130",
+    "@types/node": "^22.16.0",
     "@types/vscode": "1.86",
     "@typescript-eslint/eslint-plugin": "^8.57.1",
     "@typescript-eslint/parser": "^8.57.1",
@@ -248,7 +249,7 @@
     "mocha": "^11.7.5",
     "prettier": "^3.8.1",
     "tree-sitter-cli": "^0.21.0",
-    "tree-sitter-satysfi": "github:monaqa/tree-sitter-satysfi",
+    "tree-sitter-satysfi": "github:pickoba/tree-sitter-satysfi#satysfi-workshop",
     "typescript": "^5.9.3"
   },
   "dependencies": {

@@ -12,11 +12,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
       - name: Install Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v6
         with:
-          node-version: 18.x
+          node-version: 22.x
       - name: Run npm ci
         run: npm ci
       - name: Build tree-sitter parsers
@@ -34,13 +34,13 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
       - name: Force git to use https instead of ssh
         run: git config --global url."https://github.com/".insteadOf ssh://git@github.com/
       - name: Install Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v6
         with:
-          node-version: 18.x
+          node-version: 22.x
       - name: Run npm ci without node-gyp rebuild
         run: npm ci --ignore-scripts
       - name: Download parsers
