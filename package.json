@@ -255,6 +255,6 @@
   "dependencies": {
     "vscode-languageclient": "^9.0.1",
     "web-tree-sitter": "^0.21.0",
-    "zod": "^4.4.3"
+    "zod": "^4.6.6"
   }
 }
