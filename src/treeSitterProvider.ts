@@ -1,5 +1,11 @@
-import { Disposable, TextDocument, TextDocumentChangeEvent, Uri, workspace } from "vscode";
-import * as Parser from "web-tree-sitter";
+import {
+  type Disposable,
+  type TextDocument,
+  type TextDocumentChangeEvent,
+  type Uri,
+  workspace,
+} from "vscode";
+import type * as Parser from "web-tree-sitter";
 import { positionToPoint } from "./util";
 
 export class TreeSitterProvider implements Disposable {
@@ -79,6 +85,8 @@ export class TreeSitterProvider implements Disposable {
   }
 
   public dispose(): void {
-    this.disposables.forEach((i) => i.dispose());
+    this.disposables.forEach((i) => {
+      i.dispose();
+    });
   }
 }

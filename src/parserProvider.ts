@@ -1,4 +1,4 @@
-import path from "path";
+import path from "node:path";
 import Parser from "web-tree-sitter";
 
 let parser: Parser | null = null;

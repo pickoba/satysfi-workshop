@@ -1,6 +1,6 @@
-import * as assert from "assert";
+import * as assert from "node:assert";
 import * as vscode from "vscode";
-import { ExtensionConfig } from "../configSchema";
+import type { ExtensionConfig } from "../configSchema";
 import { EXTENSION_NAME } from "../const";
 
 export async function activateExtension(): Promise<void> {

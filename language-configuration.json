@@ -4,13 +4,7 @@
     "lineComment": "%"
   },
   // symbols used as brackets
-  "brackets": [
-    ["{", "}"],
-    ["[", "]"],
-    ["(", ")"],
-    ["(|", "|)"],
-    ["<", ">"]
-  ],
+  "brackets": [["{", "}"], ["[", "]"], ["(", ")"], ["(|", "|)"], ["<", ">"]],
   // which bracket pairs are colorized
   "colorizedBracketPairs": [
     ["{", "}"],
@@ -32,14 +26,7 @@
     ["'<", ">"]
   ],
   // symbols that that can be used to surround a selection
-  "surroundingPairs": [
-    ["{", "}"],
-    ["[", "]"],
-    ["(", ")"],
-    ["\"", "\""],
-    ["'", "'"],
-    ["`", "`"]
-  ],
+  "surroundingPairs": [["{", "}"], ["[", "]"], ["(", ")"], ["\"", "\""], ["'", "'"], ["`", "`"]],
   // exclude minus, plus, backslash
   "wordPattern": "([^\\`\\~\\!\\@\\#\\%\\^\\&\\*\\(\\)\\=\\[\\{\\]\\}\\|\\;\\:\\'\\\"\\,\\.\\<\\>\\/\\?\\s]+)",
   "indentationRules": {

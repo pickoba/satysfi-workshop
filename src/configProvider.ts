@@ -1,6 +1,6 @@
-import { EventEmitter } from "events";
-import { Disposable, workspace } from "vscode";
-import { ZodError } from "zod";
+import { EventEmitter } from "node:events";
+import { type Disposable, workspace } from "vscode";
+import type { ZodError } from "zod";
 import { ExtensionConfig } from "./configSchema";
 import { CONFIG_SCOPE } from "./const";
 import { showErrorWithOpenSettings } from "./util";
@@ -59,6 +59,8 @@ export class ConfigProvider implements IConfigProvider, Disposable {
   }
 
   public dispose() {
-    this.disposables.forEach((d) => d.dispose());
+    this.disposables.forEach((d) => {
+      d.dispose();
+    });
   }
 }

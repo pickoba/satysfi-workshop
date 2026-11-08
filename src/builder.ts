@@ -1,9 +1,9 @@
-import { Disposable, Uri, window, workspace } from "vscode";
-import { IConfigProvider } from "./configProvider";
-import { Context } from "./extension";
-import { Logger } from "./logger";
+import { type Disposable, type Uri, window, workspace } from "vscode";
+import type { IConfigProvider } from "./configProvider";
+import type { Context } from "./extension";
+import type { Logger } from "./logger";
 import { buildSATySFi } from "./runner";
-import { StatusBar } from "./statusbar";
+import type { StatusBar } from "./statusbar";
 import { showErrorWithOpenSettings } from "./util";
 
 export class Builder implements Disposable {
@@ -84,7 +84,7 @@ export class Builder implements Disposable {
 
     const document = window.activeTextEditor?.document;
 
-    if (document && document.fileName.endsWith(".saty")) {
+    if (document?.fileName.endsWith(".saty")) {
       // build current document
       this.build(document.uri);
       return;
@@ -121,7 +121,9 @@ export class Builder implements Disposable {
   }
 
   public dispose(): void {
-    this.disposables.forEach((d) => d.dispose());
+    this.disposables.forEach((d) => {
+      d.dispose();
+    });
     this.abortController?.abort();
   }
 }

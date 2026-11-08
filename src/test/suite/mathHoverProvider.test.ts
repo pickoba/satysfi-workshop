@@ -1,5 +1,5 @@
-import * as assert from "assert";
-import path from "path";
+import * as assert from "node:assert";
+import path from "node:path";
 import { Position, Range } from "vscode";
 import { MathHoverProvider } from "../../mathHoverProvider";
 import { getParser } from "../../parserProvider";

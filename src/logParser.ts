@@ -1,4 +1,4 @@
-import * as path from "path";
+import * as path from "node:path";
 import {
   Diagnostic,
   DiagnosticRelatedInformation,
@@ -81,7 +81,7 @@ function parseBody(
   message = message.replace(/^\s{4}/gm, "").trim();
 
   const match = message.match(regexConstraint);
-  if (!match || !match.groups || !match.groups["filename"]) {
+  if (!match?.groups?.["filename"]) {
     return { message, relatedInformation: [] };
   }
 

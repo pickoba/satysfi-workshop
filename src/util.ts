@@ -1,9 +1,9 @@
-import { existsSync } from "fs";
-import { mkdir } from "fs/promises";
-import { tmpdir } from "os";
-import * as path from "path";
+import { existsSync } from "node:fs";
+import { mkdir } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import * as path from "node:path";
 import { ColorThemeKind, commands, Position, window } from "vscode";
-import * as Parser from "web-tree-sitter";
+import type * as Parser from "web-tree-sitter";
 import { EXTENSION_NAME } from "./const";
 
 export async function showErrorWithOpenSettings(

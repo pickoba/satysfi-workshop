@@ -1,0 +1,58 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "files": {
+    "includes": [
+      "**/*.{js,cjs,mjs,ts,json,jsonc,yaml,yml}",
+      "!package-lock.json",
+      "!!.agents",
+      "!!out",
+      "!!dist",
+      "!!.vscode-test",
+      "!!parsers"
+    ]
+  },
+  "formatter": {
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 100,
+    "lineEnding": "lf"
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "double",
+      "semicolons": "always",
+      "trailingCommas": "all"
+    }
+  },
+  "linter": {
+    "includes": ["src/**/*.ts", "!src/**/*.d.ts"],
+    "rules": {
+      "preset": "recommended"
+    }
+  },
+  "assist": {
+    "includes": ["src/**/*.ts", "!src/**/*.d.ts"],
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
+  },
+  "overrides": [
+    {
+      "includes": ["src/logParser.ts"],
+      "linter": {
+        "rules": {
+          "complexity": {
+            "useLiteralKeys": "off"
+          }
+        }
+      }
+    }
+  ]
+}

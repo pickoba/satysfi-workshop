@@ -1,6 +1,6 @@
-import { commands, ExtensionContext } from "vscode";
+import { commands, type ExtensionContext } from "vscode";
 import { Builder } from "./builder";
-import { ConfigProvider, IConfigProvider } from "./configProvider";
+import { ConfigProvider, type IConfigProvider } from "./configProvider";
 import {
   COMMAND_BUILD,
   COMMAND_OPEN_BUILD_LOG,
