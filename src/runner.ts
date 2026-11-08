@@ -1,9 +1,9 @@
-import * as proc from "child_process";
-import * as fs from "fs/promises";
-import * as path from "path";
-import { Diagnostic, Uri, workspace } from "vscode";
+import * as proc from "node:child_process";
+import * as fs from "node:fs/promises";
+import * as path from "node:path";
+import { type Diagnostic, type Uri, workspace } from "vscode";
+import type { Logger } from "./logger";
 import { parseLog } from "./logParser";
-import { Logger } from "./logger";
 import { getAuxPath, getWorkPath } from "./util";
 
 export async function buildSATySFi(

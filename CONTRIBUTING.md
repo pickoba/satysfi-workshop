@@ -18,8 +18,7 @@ It is recommended to use `npm ci` instead of `npm install` to avoid unintentiona
 When you open the workspace for the first time, VS Code will prompt you to install the following extensions:
 
 * [connor4312.esbuild-problem-matchers](https://marketplace.visualstudio.com/items?itemName=connor4312.esbuild-problem-matchers)
-* [dbaeumer.vscode-eslint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
-* [esbenp.prettier-vscode](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+* [biomejs.biome](https://marketplace.visualstudio.com/items?itemName=biomejs.biome)
 
 These are necessary for debugging, linting and formatting, so please install them.
 
@@ -55,16 +54,14 @@ The results of the tests can be checked from the DEBUG CONSOLE panel.
 
 ## Linting / Formatting
 
-This project uses [ESLint](https://eslint.org) for linting and [Prettier](https://prettier.io) for formatting. Run
+This project uses [Biome](https://biomejs.dev/) to lint TypeScript, organize imports, and format code and configuration files. Run the same checks as CI with:
 
 ```sh
 npm run lint
 ```
 
-to check and
+To format files, organize imports, and apply safe lint fixes, run:
 
 ```sh
 npm run fix
 ```
-
-to fix the problems.

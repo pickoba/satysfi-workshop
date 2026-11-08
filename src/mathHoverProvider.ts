@@ -24,25 +24,25 @@
  * SOFTWARE.
  */
 
-import * as fs from "fs/promises";
-import path from "path";
-import { unescape } from "querystring";
+import * as fs from "node:fs/promises";
+import path from "node:path";
+import { unescape as unescapeQueryString } from "node:querystring";
 import {
   DiagnosticSeverity,
-  Disposable,
+  type Disposable,
   Hover,
-  HoverProvider,
+  type HoverProvider,
   languages,
   MarkdownString,
-  Position,
+  type Position,
   Range,
-  TextDocument,
-  Uri,
+  type TextDocument,
+  type Uri,
 } from "vscode";
-import * as Parser from "web-tree-sitter";
-import { IConfigProvider } from "./configProvider";
+import type * as Parser from "web-tree-sitter";
+import type { IConfigProvider } from "./configProvider";
 import { buildSATySFi, spawn } from "./runner";
-import { TreeSitterProvider } from "./treeSitterProvider";
+import type { TreeSitterProvider } from "./treeSitterProvider";
 import { getTmpDir, isDarkTheme, pointToPosition } from "./util";
 
 const defaultTemplatePath = path.join(path.dirname(__dirname), "templates", "mathPreview.saty");
@@ -135,7 +135,7 @@ export class MathHoverProvider implements HoverProvider, Disposable {
     if (!success) {
       const message = [...diagnostics]
         .flatMap(([_, ds]) =>
-          ds.filter((d) => d.severity == DiagnosticSeverity.Error).map((d) => d.message),
+          ds.filter((d) => d.severity === DiagnosticSeverity.Error).map((d) => d.message),
         )
         .join("\n---\n");
 
@@ -197,12 +197,16 @@ export class MathHoverProvider implements HoverProvider, Disposable {
 
   // https://github.com/James-Yu/LaTeX-Workshop/blob/master/src/utils/svg.ts
   private svgToDataUrl(svg: string) {
-    const svg64 = Buffer.from(unescape(encodeURIComponent(svg)), "binary").toString("base64");
+    const svg64 = Buffer.from(unescapeQueryString(encodeURIComponent(svg)), "binary").toString(
+      "base64",
+    );
     const b64Start = "data:image/svg+xml;base64,";
     return b64Start + svg64;
   }
 
   public dispose(): void {
-    this.disposables.forEach((i) => i.dispose());
+    this.disposables.forEach((i) => {
+      i.dispose();
+    });
   }
 }

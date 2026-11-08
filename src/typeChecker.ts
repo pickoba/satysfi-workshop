@@ -1,15 +1,15 @@
 import {
-  DiagnosticCollection,
-  Disposable,
+  type DiagnosticCollection,
+  type Disposable,
   languages,
-  TextDocument,
+  type TextDocument,
   Uri,
   window,
   workspace,
 } from "vscode";
-import { IConfigProvider } from "./configProvider";
-import { Context } from "./extension";
-import { Logger } from "./logger";
+import type { IConfigProvider } from "./configProvider";
+import type { Context } from "./extension";
+import type { Logger } from "./logger";
 import { buildSATySFi } from "./runner";
 import { showErrorWithOpenSettings } from "./util";
 
@@ -39,7 +39,9 @@ export class TypeChecker implements Disposable {
     );
 
     if (this.getConfig()?.when === "onSave" || this.getConfig()?.when === "onFileChange") {
-      workspace.textDocuments.forEach((i) => this.checkDocument(i), this);
+      for (const document of workspace.textDocuments) {
+        this.checkDocument(document);
+      }
     }
   }
 
@@ -91,7 +93,9 @@ export class TypeChecker implements Disposable {
   public dispose(): void {
     this.collection.clear();
     this.collection.dispose();
-    this.disposables.forEach((i) => i.dispose());
+    this.disposables.forEach((i) => {
+      i.dispose();
+    });
     this.abortController?.abort();
   }
 }

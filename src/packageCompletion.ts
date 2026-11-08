@@ -1,17 +1,17 @@
-import * as fs from "fs/promises";
-import { homedir } from "os";
-import * as path from "path";
+import * as fs from "node:fs/promises";
+import { homedir } from "node:os";
+import * as path from "node:path";
 import {
   CompletionItem,
   CompletionItemKind,
-  Disposable,
+  type Disposable,
   languages,
-  Position,
-  TextDocument,
+  type Position,
+  type TextDocument,
   window,
 } from "vscode";
-import { IConfigProvider } from "./configProvider";
-import { Context } from "./extension";
+import type { IConfigProvider } from "./configProvider";
+import type { Context } from "./extension";
 
 export class PackageCompletionProvider implements Disposable {
   private readonly configProvider: IConfigProvider;
@@ -93,7 +93,7 @@ export class PackageCompletionProvider implements Disposable {
           item.command = { command: "editor.action.triggerSuggest", title: "package" };
         } else {
           const match = d.name.match(/^(.+)\.saty[hg]$/);
-          if (!match || !match[1]) return [];
+          if (!match?.[1]) return [];
           item = new CompletionItem(match[1], CompletionItemKind.File);
         }
 
@@ -111,6 +111,8 @@ export class PackageCompletionProvider implements Disposable {
   }
 
   public dispose() {
-    this.disposables.forEach((d) => d.dispose());
+    this.disposables.forEach((d) => {
+      d.dispose();
+    });
   }
 }

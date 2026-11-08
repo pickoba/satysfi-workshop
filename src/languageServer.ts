@@ -1,9 +1,13 @@
-import { Disposable } from "vscode";
-import { LanguageClient, LanguageClientOptions, ServerOptions } from "vscode-languageclient/node";
-import { IConfigProvider } from "./configProvider";
-import { ExtensionConfig } from "./configSchema";
-import { Context } from "./extension";
-import { Logger } from "./logger";
+import type { Disposable } from "vscode";
+import {
+  LanguageClient,
+  type LanguageClientOptions,
+  type ServerOptions,
+} from "vscode-languageclient/node";
+import type { IConfigProvider } from "./configProvider";
+import type { ExtensionConfig } from "./configSchema";
+import type { Context } from "./extension";
+import type { Logger } from "./logger";
 
 export class LanguageServer implements Disposable {
   private enabled: boolean;
@@ -82,6 +86,8 @@ export class LanguageServer implements Disposable {
 
   public dispose(): void {
     this.stopServer();
-    this.disposables.forEach((d) => d.dispose());
+    this.disposables.forEach((d) => {
+      d.dispose();
+    });
   }
 }
